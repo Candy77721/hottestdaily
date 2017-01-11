@@ -1,0 +1,7 @@
+// news.js
+export const ADDNEWS = 'ADDNEWS'
+export const CHANGENEXTCOLUNM = 'CHANGENEXTCOLUNM'
+// user.js
+export const CHANGEMODALSTATE = 'CHANGEUSERSTATE'
+export const TOGGLEMODLA = 'TOGGLEMODLA'
+export const TOGGLELOGIN = 'TOGGLELOGIN'
