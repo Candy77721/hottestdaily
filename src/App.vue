@@ -37,14 +37,14 @@ export default {
     }
   },
   mounted () {
-    const name = 'csrftoken'
-    const arr = document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)'))
-    if (arr != null) {
-      const cookies = unescape(arr[2])
-      axios.defaults.headers.post['X-CSRFToken'] = cookies
-    } else {
-      throw new Error('cookies校验失败')
-    }
+    // const name = 'csrftoken'
+    // const arr = document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)'))
+    // if (arr != null) {
+    //   const cookies = unescape(arr[2])
+    //   axios.defaults.headers.post['X-CSRFToken'] = cookies
+    // } else {
+    //   throw new Error('cookies校验失败')
+    // }
   },
   computed: {
     ...mapGetters([

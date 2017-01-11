@@ -46,7 +46,7 @@ export default {
       'changeModalState'
     ]),
     login: function () {
-      // if (!(this.regEmail(this.userLogin.email) && this.regPassword(this.userLogin.userPassword))) {
+      // if (!(this.regEmail(this.userLogin.username) && this.regPassword(this.userLogin.password))) {
       //   alert("请输入正确格式的邮箱与密码")
       //   return false
       // }

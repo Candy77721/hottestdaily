@@ -53,7 +53,9 @@ export default {
     */
     getNews: function (page) {
       this.isGet = true
-      axios.get(api.uriGetNews)
+      axios.get(api.uriGetNews, {
+        'page': page
+      })
         .then((res) => {
           const data = res.data
           if (data.errorCode !== 0) {
@@ -75,10 +77,9 @@ export default {
         })
     },
     /*
-    error
-    获取node节点中最短的节点下标
+    将三列按照从短到长排序，并返回三列从短到长的下标组成的数组
     参数：node节点数组
-    返回值：最高节点下标(number)
+    返回值：三列从短到长的下标组成的数组(array)
     */
     getMinHeightIndex: function (node) {
       const columnsHeight = []
@@ -91,16 +92,13 @@ export default {
       })
       // 从小到大排序
       sortedColumnsHeight.sort((a, b) => a - b)
+      // 获取新的下标组成的数组
       sortedColumnsHeight.forEach(ele => {
         columnsHeight.findIndex((e, index) => {
           if (e === ele) sortColumnsIndex.push(index)
         })
       })
       return sortColumnsIndex
-      // const maxHeightIndex = columnsHeight.findIndex(function (element) {
-      //   return element === maxHeight
-      // })
-      // return maxHeightIndex
     },
     // 监听滚动事件
     handleScroll () {

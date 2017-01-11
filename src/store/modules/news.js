@@ -1,7 +1,7 @@
 import * as types from '../mutations-types'
 
 const state = {
-  nextColunm: null,
+  nextColunms: null,
   latestPage: 1,
   news: {
     column0: [],
@@ -19,14 +19,18 @@ const actions = {
   addNews ({ commit }, pageData) {
     commit(types.ADDNEWS, { pageData })
   },
-  changeNextColunm ({ commit }, newNextColunm) {
-    commit(types.CHANGENEXTCOLUNM, { newNextColunm })
+  changenextColunms ({ commit }, newnextColunms) {
+    commit(types.CHANGENEXTCOLUNMS, { newnextColunms })
   }
 }
 
 const mutations = {
+  /*
+  根据 nextColunms 向三列数据分别加入10，10，10或11，10，9个数据
+  */
   [types.ADDNEWS] (state, { pageData }) {
-    const columns = state.nextColunm
+    const columns = state.nextColunms
+    // 如果不是加载的第一次的数据，则分别加入11，10，9个数据
     if (columns) {
       const supply = pageData.splice(0, 3)
       state.news[`column${columns[0]}`].push(supply[0], supply[1])
@@ -37,13 +41,13 @@ const mutations = {
     for (const news of pageData) {
       const column = `column${i % 3}`
       console.log(column)
-      console.log(state.nextColunm)
+      console.log(state.nextColunms)
       state.news[column].push(news)
       i++
     }
   },
-  [types.CHANGENEXTCOLUNM] (state, { newNextColunm }) {
-    state.nextColunm = newNextColunm
+  [types.CHANGENEXTCOLUNMS] (state, { newnextColunms }) {
+    state.nextColunms = newnextColunms
   }
 }
 
