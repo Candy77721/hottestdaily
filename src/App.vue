@@ -63,6 +63,10 @@ export default {
 </script>
 
 <style lang="stylus">
+// 去掉input边框
+*
+input:focus
+  outline none
 .user-modal-overlay
   position: fixed
   top 0

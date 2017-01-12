@@ -39,7 +39,7 @@ GET:
                 "hot":int,
                 "fromTopic":"string",
                 "history":[int ,int ...],
-
+    
             }
         "string"(word_id):
         {
@@ -57,7 +57,7 @@ GET:
                 "content":"string",
                 "hot":int,
                 "fromTopic":"string",
-
+    
             }
         "string"(news_id):
         {
@@ -75,7 +75,7 @@ GET:
                 "content":"string",
                 "hot":int,
                 "fromNews":"string",
-
+    
             }
         "string"(news_id):
         {
@@ -121,10 +121,22 @@ data:{
 
 ```
 data:{
-  username:"string",
+  email:"string",
   captcha:int,
+  password:"string:,
 }
 ```
+
+### captcha
+
+```
+data:{
+  email:"string", 
+  or / username:"string" 
+}
+```
+
+
 
 ### active_user
 
@@ -137,7 +149,8 @@ data:{
 ```
 GET
 data:{
-  page:int
+  page:int，
+  type:'string' // [u'所有',u'财经',u'教育',u'科技',u'社会',u'时尚',u'时政',u'体育']
 }
 ```
 

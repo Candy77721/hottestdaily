@@ -34,3 +34,15 @@ Mock.mock('api/getNewsPage', 'get', {
     'errorCode': 0,
     'errorMsg': 'success'
   })
+  .mock('accounts/register', 'post', {
+    'errorCode': 0,
+    'errorMsg': 'success'
+  })
+  .mock('accounts/captcha', 'post', {
+    'errorCode': 0,
+    'errorMsg': 'success'
+  })
+  .mock('accounts/fgPasswd', 'post', {
+    'errorCode': 0,
+    'errorMsg': 'success'
+  })

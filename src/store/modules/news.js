@@ -40,8 +40,6 @@ const mutations = {
     var i = 0
     for (const news of pageData) {
       const column = `column${i % 3}`
-      console.log(column)
-      console.log(state.nextColunms)
       state.news[column].push(news)
       i++
     }

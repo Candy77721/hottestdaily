@@ -11,10 +11,15 @@
         <router-link to="/topic" exact>话题</router-link>
       </li>
     </ul>
-    <ul class="actions">
-      <li>
-        搜索
+    <ul class="search">
+      <li class="action action-input">
+        <div class="tag-input-block">
+          <i class="ion-ios-search"></i>
+          <input type="input" placeholder="输入关键字搜索" class="tag-input">
+        </div>
       </li>
+    </ul>
+    <ul class="user">
       <li>
         <span v-if="getIsLogin">已登陆</span>
         <button v-else class="login-button" @click="toLogin()">登录</button>
@@ -59,7 +64,15 @@ export default {
     display flex
     li
       margin 0 10px
-  .actions
+  .search
+    input
+      padding 5px
+      border none
+      background #FDFDFD
+      box-shadow inset 0 0 2px 0 rgba(0,0,0,0.50)
+      border-radius 10px
+
+  .user
     display flex
     li
       margin 0 10px

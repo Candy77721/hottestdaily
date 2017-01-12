@@ -6,7 +6,7 @@
   </div>
   <div class="user-login-body">
     <p class="form-group">
-      <input type="email" id="email" v-model="userLogin.username" placeholder="请输入邮箱" required="required">
+      <input type="email" id="email" v-model="userLogin.username" placeholder="请输入邮箱或用户名" required="required">
     </p>
     <p class="form-group">
       <input type="password" id="password"  v-model="userLogin.password"  placeholder="请输入密码" required="required">

@@ -43,7 +43,7 @@ export default {
   methods: {
     ...mapActions([
       'addNews',
-      'changeNextColunm'
+      'changenextColunms'
     ]),
     /*
     从服务端获取瀑布流中所需新闻，并更新到vuex中
@@ -68,7 +68,7 @@ export default {
             const columns = this.$el.querySelectorAll('.news-column')
             const nextColumnsIndex = this.getMinHeightIndex(columns)
             // 设置下一次排序起始
-            this.changeNextColunm(nextColumnsIndex)
+            this.changenextColunms(nextColumnsIndex)
             this.isGet = false
           })
         })
