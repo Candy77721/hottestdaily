@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="user-login">
   <div class="user-login-header">
-    <img class="close" src="../../assets/close-white.png" alt="" @click="toggleModal">
+    <img class="close" src="../../assets/icon/close-white.png" alt="" @click="toggleModal()">
     <p>加入我们</p>
   </div>
   <div class="user-login-body">
@@ -23,7 +23,7 @@
   <div class="user-login-foot">
     <div class="other-login">
       <span>使用QQ快捷登陆</span>
-      <img src="../../assets/icon-qq.png" alt="">
+      <img src="../../assets/icon/qq.png" alt="">
     </div>
   </div>
 </div>
@@ -59,10 +59,10 @@ export default {
           const data = res.data
           if (data.errorCode !== 0) {
             alert(data.errorMsg)
-            return
+          } else {
+            this.toggleLogin()
+            this.toggleModal()
           }
-          this.toggleLogin()
-          this.toggleModal()
         })
         .catch(error => {
           console.log(error)
@@ -81,10 +81,8 @@ export default {
 </script>
 
 <style lang="stylus">
-*
-  font-size 14px
 .user-login
-  font-size 15px
+  font-size 14px
   background-color white
   box-shadow 0 2px 8px 6px rgba(61,61,61,0.50)
   .user-login-header
@@ -101,6 +99,7 @@ export default {
     // 关闭按钮
     .close
       position absolute
+      top 15px
       left 15px
       cursor pointer
     p
@@ -108,7 +107,6 @@ export default {
       color white
       display flex
   .user-login-body
-    background-image: linear-gradient(-180deg, #FEFEFE 0%, #F7F7F7 74%);
     padding 0 39px
     .form-group
       width 230px

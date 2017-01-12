@@ -3,10 +3,15 @@ import * as types from '../mutations-types'
 const state = {
   // 模态框状态:UserLogin,UserRegister,UserRegisterOk,UserForget,
   modalState: 'UserLogin',
+  // 是否打开模态框
   isModal: false,
+  // 是否登陆
   isLogin: false,
+  // 是否显示菜单
+  isUserMenu: false,
+  // 用户名
+  username: '', // string
   userInfo: {
-    // "username":"string",
     // "email":"string",
     // "url":[
     //     'string',
@@ -25,9 +30,11 @@ const state = {
 }
 
 const getters = {
-  getIsLogin: state => state.isLogin,
   getModalState: state => state.modalState,
-  getIsModal: state => state.isModal
+  getIsModal: state => state.isModal,
+  getIsLogin: state => state.isLogin,
+  getIsUserMenu: state => state.isUserMenu,
+  getUsername: state => state.username
 }
 
 const actions = {
@@ -45,10 +52,19 @@ const actions = {
     commit(types.TOGGLEMODLA)
   },
   /*
-  更改用户状态
+  更改用户登陆状态
   */
   toggleLogin ({ commit }) {
     commit(types.TOGGLELOGIN)
+  },
+  toggleIsUserMenu ({ commit }) {
+    commit(types.TOGGLEISUSERMENU)
+  },
+  /*
+  更新用户名
+  */
+  changeUsername ({ commit }, newUsername) {
+    commit(types.CHANGEUSERNAME)
   }
 }
 
@@ -61,6 +77,12 @@ const mutations = {
   },
   [types.TOGGLELOGIN] (state) {
     state.isLogin = !state.isLogin
+  },
+  [types.TOGGLEISUSERMENU] (state) {
+    state.isUserMenu = !state.isUserMenu
+  },
+  [types.CHANGEUSERNAME] (state, { newUsername }) {
+    state.username = newUsername
   }
 }
 

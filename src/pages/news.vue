@@ -1,41 +1,61 @@
 <template lang="html">
   <div class="news-list">
     <div class="news-column" v-for="columns in getNewsData">
-      <div class="news-item" v-for="news in columns">
-        <!-- {{news.type}} -->
-        <a :href="news.url">{{news.title}}</a>
-        <p>{{news.abstract}}</p>
+      <news-card :news="news" v-for="news in columns">
 
-        <p>{{news.label}}</p>
-        <p>{{news.fromTopic}}</p>
-        <p>{{news.keywords}}</p>
-        <p>{{news.hot}}</p>
-      </div>
+      </news-card>
     </div>
   </div>
 </template>
 
 <script>
+import NewsCard from '../components/news/newsCard.vue'
+
 import * as api from '../api/api'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data: function () {
     return {
+      // 是否是第一次载入
       isGet: false
     }
   },
   mounted () {
     // 第一次挂载则请求
-    if (this.getLatestPage === 1) this.getNews(this.getLatestPage)
+    if (this.getLatestPage === 0) {
+      this.resetLatestPage()
+      if (this.$route.params.type && this.$route.params.type !== '全部') {
+        this.changeNowType(this.$route.params.type)
+      }
+      this.getNews(this.getLatestPage, this.getNowType)
+    }
     // 监听滚动事件
     window.addEventListener('scroll', this.handleScroll)
   },
   beforeDestroy () {
     window.removeEventListener('scroll', this.handleScroll)
   },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route' (to, from) {
+      const newType = to.params.type
+      console.log(newType)
+      if (newType) {
+        if (newType === undefined && this.getNowType === '全部' || newType === this.getNowType) {
+          return
+        } else {
+          this.changeNowType(newType)
+          this.clearNews()
+          // TODO：此处应该异步，等上一行执行完后再执行
+          this.getNews(this.getLatestPage, newType)
+        }
+      }
+    }
+  },
   computed: {
     ...mapGetters([
+      'getNowType',
       'getLatestPage',
       'getNewsData'
     ])
@@ -43,34 +63,39 @@ export default {
   methods: {
     ...mapActions([
       'addNews',
-      'changenextColunms'
+      'changenextColunms',
+      'changeNowType',
+      'resetLatestPage',
+      'clearNews'
     ]),
     /*
     从服务端获取瀑布流中所需新闻，并更新到vuex中
     同时确定下一次获取新闻时应该放入哪一列中
-    参数：所需页数page(number)
+    参数：所需页数page(number)，所需类别type(string)
     返回值：object
     */
-    getNews: function (page) {
+    getNews: function (page, type) {
       this.isGet = true
-      axios.get(api.uriGetNews, {
-        'page': page
+      console.log(page, type)
+      axios.post(api.uriGetNews, {
+        'page': page,
+        'type': type
       })
         .then((res) => {
           const data = res.data
           if (data.errorCode !== 0) {
             console.log(data.errorMsg)
-            return
+          } else {
+            this.addNews(data.data)
+            // 刷新DOM后，获取高度
+            this.$nextTick(function () {
+              const columns = this.$el.querySelectorAll('.news-column')
+              const nextColumnsIndex = this.getMinHeightIndex(columns)
+              // 设置下一次排序起始
+              this.changenextColunms(nextColumnsIndex)
+              this.isGet = false
+            })
           }
-          this.addNews(data.data)
-          // 刷新DOM后，获取高度
-          this.$nextTick(function () {
-            const columns = this.$el.querySelectorAll('.news-column')
-            const nextColumnsIndex = this.getMinHeightIndex(columns)
-            // 设置下一次排序起始
-            this.changenextColunms(nextColumnsIndex)
-            this.isGet = false
-          })
         })
         .catch(function (err) {
           console.log(err)
@@ -105,20 +130,25 @@ export default {
       var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       if (document.documentElement.scrollHeight - 150 <= document.documentElement.clientHeight + scrollTop) {
         if (!this.isGet) {
-          this.getNews(this.getLatestPage)
+          this.getNews(this.getLatestPage, this.getNowType)
         }
       }
     }
+  },
+  components: {
+    NewsCard: NewsCard
   }
 }
 </script>
 
 <style lang="stylus">
 .news-list
-  width 800px
+  width 1110px
+  padding 50px 50px 0 50px
   margin auto
   display flex
-  // flex-direction column
+  box-shadow:0 0 20px 15px rgba(255,255,255,1)
+  background-color white
   .news-column
     width 30%
     margin 10px 1%

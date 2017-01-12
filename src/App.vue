@@ -28,7 +28,8 @@ import Topic from './pages/topic.vue'
 // 用户模态框
 import UserModal from './pages/userModal.vue'
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import * as api from './api/api.js'
 
 export default {
   name: 'app',
@@ -37,6 +38,7 @@ export default {
     }
   },
   mounted () {
+    // CRSF 处理
     // const name = 'csrftoken'
     // const arr = document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)'))
     // if (arr != null) {
@@ -45,10 +47,33 @@ export default {
     // } else {
     //   throw new Error('cookies校验失败')
     // }
+    // 检测用户状态
+    if (!this.getIsLogin) {
+      axios.get(api.userIsLogin)
+        .then(res => {
+          const data = res.data
+          if (data.errorCode !== 0) {
+            console.log(data.errorMsg)
+          } else {
+            this.toggleLogin()
+            this.changeUsername(data.username)
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
   computed: {
     ...mapGetters([
-      'getIsModal'
+      'getIsModal',
+      'getIsLogin'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'toggleLogin',
+      'changeUsername'
     ])
   },
   components: {
@@ -67,6 +92,15 @@ export default {
 *
 input:focus
   outline none
+html
+body
+  height 100%
+#app
+  min-height 100%
+  min-width 100%
+  background url('./assets/back-img.png')
+  background-size cover
+  background-attachment fixed
 .user-modal-overlay
   position: fixed
   top 0

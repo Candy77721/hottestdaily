@@ -13,12 +13,19 @@ Vue.use(Router)
 
 const routes = [{
   path: '/explore',
+  name: 'explore',
   component: Graph
 }, {
   path: '/news',
+  name: 'news',
+  component: News
+}, {
+  path: '/news/:type',
+  name: 'newsType',
   component: News
 }, {
   path: '/topic',
+  name: 'topic',
   component: Topic
 }]
 

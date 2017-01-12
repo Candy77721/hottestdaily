@@ -10,3 +10,5 @@ export const userRegister = 'accounts/register'
 export const userGetCaptcha = 'accounts/captcha'
 // 忘记密码的重置密码
 export const userfgPasswd = 'accounts/fgPasswd'
+// 检查登录状态
+export const userIsLogin = 'accounts/getLoginStatus'

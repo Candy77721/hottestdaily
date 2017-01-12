@@ -39,7 +39,7 @@ GET:
                 "hot":int,
                 "fromTopic":"string",
                 "history":[int ,int ...],
-    
+
             }
         "string"(word_id):
         {
@@ -57,7 +57,7 @@ GET:
                 "content":"string",
                 "hot":int,
                 "fromTopic":"string",
-    
+
             }
         "string"(news_id):
         {
@@ -75,7 +75,7 @@ GET:
                 "content":"string",
                 "hot":int,
                 "fromNews":"string",
-    
+
             }
         "string"(news_id):
         {
@@ -89,6 +89,17 @@ GET:
 
 
 # accounts/
+
+###	getLoginStatus
+
+```
+GET
+data:{
+  errorCode:int
+  username:string
+  may errorMsg:string
+}
+```
 
 ### register
 
@@ -131,8 +142,8 @@ data:{
 
 ```
 data:{
-  email:"string", 
-  or / username:"string" 
+  email:"string",
+  or / username:"string"
 }
 ```
 
@@ -144,10 +155,14 @@ data:{
 
 # api/
 
+
+
+
+
 ### getNewsPage
 
 ```
-GET
+POST
 data:{
   page:int，
   type:'string' // [u'所有',u'财经',u'教育',u'科技',u'社会',u'时尚',u'时政',u'体育']

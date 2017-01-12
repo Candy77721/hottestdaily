@@ -16,7 +16,7 @@ Mock.setup({
     timeout: '400-1000'
 })
 
-Mock.mock('api/getNewsPage', 'get', {
+Mock.mock('api/getNewsPage', 'post', {
   'errorCode': 0,
   'errorMsg': 'success',
   'data|30': [{
@@ -25,7 +25,7 @@ Mock.mock('api/getNewsPage', 'get', {
       'url': '@url()',
       'hot|1-500.1-500': 1,
       'label': '@cword(2,4)',
-      'keywords|1-3': ['@cword(2,6)'],
+      'keywords|3': ['@cword(2,4)'],
       'abstract': '@cparagraph()',
   	  'fromTopic': '@cword(2,6)',
     }]
