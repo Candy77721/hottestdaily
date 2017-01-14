@@ -6,14 +6,18 @@
           <img src="../assets/icon/menu-topbar.png" alt="">
         </li>
         <li class="options">
-          <ul class="router" v-show="isMenu">
-            <router-link to="/explore" tag="li" exact>今日热词</router-link>
-            <router-link to="/news" tag="li" exact>精选热文</router-link>
-            <router-link to="/topic" tag="li" exact>专题追踪</router-link>
-          </ul>
-          <ul class="news-type">
-            <router-link v-for="type in getAllTypes" :to="{name: 'newsType', params: { type: type }}" tag="li" exact>{{type}}</router-link>
-          </ul>
+          <transition name=""> <!-- top-bar-slide-top -->
+            <ul class="router" v-show="isMenu">
+              <router-link to="/explore" tag="li" exact>今日热词</router-link>
+              <router-link to="/news" tag="li">精选热文</router-link>
+              <router-link to="/topic" tag="li" exact>专题追踪</router-link>
+            </ul>
+          </transition>
+          <transition name=""> <!-- top-bar-slide-top -->
+            <ul v-show="getShowTypes" class="news-type">
+              <router-link v-for="type in getAllTypes" :to="{name: 'newsType', params: { type: type }}" tag="li" exact>{{type}}</router-link>
+            </ul>
+          </transition>
         </li>
       </ul>
       <ul class="search">
@@ -62,6 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getShowTypes',
       'getAllTypes',
       'getIsLogin',
       'getIsUserMenu'
@@ -201,4 +206,12 @@ export default {
             width 40px
             height 40px
             margin 0 5px
+// 动画
+.top-bar-slide-top-enter
+.top-bar-slide-top-leave-active
+  transform translateY(-50px)
+  opacity 0
+.top-bar-slide-top-enter-active
+.top-bar-slide-top-leave-active
+  transition all .3s
 </style>

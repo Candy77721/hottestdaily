@@ -1,10 +1,11 @@
 import * as types from '../mutations-types'
 
 const state = {
+  showTypes: false, // 是否展示分类导航栏
   allTypes: ['全部', '财经', '教育', '科技', '社会', '时尚', '政治', '体育'],
-  nowType: '全部',
+  nowType: '',
   nextColunms: null,
-  latestPage: 0,  // 初始化为0，以后为自然数
+  latestPage: 1,
   news: {
     column0: [],
     column1: [],
@@ -13,6 +14,7 @@ const state = {
 }
 
 const getters = {
+  getShowTypes: state => state.showTypes,
   getAllTypes: state => state.allTypes,
   getNowType: state => state.nowType,
   getLatestPage: state => state.latestPage,
@@ -20,6 +22,10 @@ const getters = {
 }
 
 const actions = {
+  // 切换分类导航栏是否展示
+  toggleShowTypes ({ commit }) {
+    commit(types.TOGGLESHOWTYPES)
+  },
   addNews ({ commit }, pageData) {
     commit(types.ADDNEWS, { pageData })
   },
@@ -34,7 +40,7 @@ const actions = {
   resetLatestPage ({ commit }) {
     commit(types.RESETLATESTPAGE)
   },
-  // 清除 news 及 nextColunms 中的内容
+  // 清除 news 及 nextColunms 中的数据
   clearNews ({ commit }) {
     commit(types.CLEARNEWS)
     commit(types.CLEARNEXTCOLUNMS)
@@ -42,6 +48,9 @@ const actions = {
 }
 
 const mutations = {
+  [types.TOGGLESHOWTYPES] (state) {
+    state.showTypes = !state.showTypes
+  },
   /*
   根据 nextColunms 向三列数据分别加入10，10，10或11，10，9个数据
   */

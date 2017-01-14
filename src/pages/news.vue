@@ -17,40 +17,31 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data: function () {
     return {
-      // 是否是第一次载入
+      // 是否正在获取数据
       isGet: false
     }
   },
   mounted () {
-    // 第一次挂载则请求
-    if (this.getLatestPage === 0) {
-      this.resetLatestPage()
-      if (this.$route.params.type && this.$route.params.type !== '全部') {
-        this.changeNowType(this.$route.params.type)
-      }
-      this.getNews(this.getLatestPage, this.getNowType)
-    }
+    // 检查 type
+    const newType = this.$route.params.type ? this.$route.params.type : '全部'
+    this.checkType(newType)
+    // 展示导航栏
+    this.toggleShowTypes()
     // 监听滚动事件
     window.addEventListener('scroll', this.handleScroll)
   },
   beforeDestroy () {
+    // 取消展示导航栏
+    this.toggleShowTypes()
+    // 停止监听滚动事件
     window.removeEventListener('scroll', this.handleScroll)
   },
   watch: {
     // 如果路由有变化，会再次执行该方法
     '$route' (to, from) {
-      const newType = to.params.type
-      console.log(newType)
-      if (newType) {
-        if (newType === undefined && this.getNowType === '全部' || newType === this.getNowType) {
-          return
-        } else {
-          this.changeNowType(newType)
-          this.clearNews()
-          // TODO：此处应该异步，等上一行执行完后再执行
-          this.getNews(this.getLatestPage, newType)
-        }
-      }
+      // 检查 type
+      const newType = to.params.type ? to.params.type : '全部'
+      this.checkType(newType)
     }
   },
   computed: {
@@ -62,12 +53,27 @@ export default {
   },
   methods: {
     ...mapActions([
+      'toggleShowTypes',
       'addNews',
       'changenextColunms',
       'changeNowType',
       'resetLatestPage',
       'clearNews'
     ]),
+    /*
+    检查是否和之前的是相同 type
+    如果是则不进行操作
+    如果不是则更新 type ，重置当前页数，重置新闻，发送新的请求
+    */
+    checkType: function (newType) {
+      if (newType && newType === this.getNowType) {
+        return
+      }
+      this.changeNowType(newType)
+      this.resetLatestPage()
+      this.clearNews()
+      this.getNews(this.getLatestPage, this.getNowType)
+    },
     /*
     从服务端获取瀑布流中所需新闻，并更新到vuex中
     同时确定下一次获取新闻时应该放入哪一列中

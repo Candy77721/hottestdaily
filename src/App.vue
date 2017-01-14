@@ -7,13 +7,13 @@
       <router-view></router-view>
     </transition>
 
-    <transition name="slide-right">
-      <div class="" v-show="getIsModal">
-        <user-modal></user-modal>
-        <div class="user-modal-overlay">
-        </div>
+
+      <div class="">
+        <transition name="user-modal-slide-top">
+          <user-modal v-show="getIsModal"></user-modal>
+        </transition>
+          <div class="user-modal-overlay" v-show="getIsModal"></div>
       </div>
-    </transition>
   </div>
 </template>
 
@@ -109,13 +109,13 @@ body
   left 0
   background-color rgba(0,0,0,0.62)
   z-index 10
-.slide-righte-enter
-.slide-righte-leave-active
-  transform translateX(20%)
+// 动画
+.user-modal-slide-top-enter
+.user-modal-slide-top-leave-active
+  transform translateY(-20px)
   opacity 0
-  transition all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9)
-.slide-right-leave
-.slide-right-enter-active
-  transform translateX(0)
-  opacity 1
+.user-modal-slide-top-enter-active
+.user-modal-slide-top-leave-active
+  transition all .3s
+
 </style>
