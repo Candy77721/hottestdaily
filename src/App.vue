@@ -95,12 +95,17 @@ input:focus
 html
 body
   height 100%
-#app
-  min-height 100%
-  min-width 100%
-  background url('./assets/back-img.png')
-  background-size cover
-  background-attachment fixed
+#app:before
+    content: ''
+    position: fixed // 代替background-attachment
+    width 100%
+    height 100%
+    top 0
+    left 0
+    background-color white
+    background url('./assets/back-img.png') no-repeat center center
+    background-size cover
+    z-index: -1
 .user-modal-overlay
   position: fixed
   top 0

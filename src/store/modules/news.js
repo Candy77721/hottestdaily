@@ -2,7 +2,7 @@ import * as types from '../mutations-types'
 
 const state = {
   showTypes: false, // 是否展示分类导航栏
-  allTypes: ['全部', '财经', '教育', '科技', '社会', '时尚', '政治', '体育'],
+  allTypes: ['全部', '政治', '社会', '财经', '教育', '科技', '时尚', '体育'],
   nowType: '',
   nextColunms: null,
   latestPage: 1,

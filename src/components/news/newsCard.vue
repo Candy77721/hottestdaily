@@ -19,7 +19,6 @@
         <p class="hot">{{tofixed1(news.hot)}}</p>
       </div>
     </div>
-    <img class="news-bottom-border" src="../../assets/icon/news-bottom-border.png" alt="">
   </div>
 </template>
 
@@ -54,6 +53,13 @@ export default {
   transition: all .4s
   &:hover
     box-shadow 0 30px 30px 9px rgba(154,154,154,0.50)
+  &:after
+    content ''
+    width 320px
+    height 7px
+    position absolute
+    top calc(100% - 3px)
+    background-image url('../../assets/icon/news-bottom-border.png')
   p
     margin 0
   a
@@ -99,9 +105,4 @@ export default {
         font-size 30px
         font-weight 700
         margin 0
-  .news-bottom-border
-    width 320px
-    position absolute
-    top calc(100% - 3px)
-    left 0
 </style>

@@ -5,20 +5,28 @@
         <li @click="toggleIsMenu()">
           <img src="../assets/icon/menu-topbar.png" alt="">
         </li>
-        <li class="options">
-          <transition name=""> <!-- top-bar-slide-top -->
+          <!-- <transition name="top-bar-slide-top" mode="in-out">
             <ul class="router" v-show="isMenu">
               <router-link to="/explore" tag="li" exact>今日热词</router-link>
               <router-link to="/news" tag="li">精选热文</router-link>
               <router-link to="/topic" tag="li" exact>专题追踪</router-link>
             </ul>
           </transition>
-          <transition name=""> <!-- top-bar-slide-top -->
+          <transition name="top-bar-slide-top" mode="out-in">
             <ul v-show="getShowTypes" class="news-type">
               <router-link v-for="type in getAllTypes" :to="{name: 'newsType', params: { type: type }}" tag="li" exact>{{type}}</router-link>
             </ul>
-          </transition>
-        </li>
+          </transition> -->
+          <transition-group class="options" name="top-bar-slide-top" tag="li">
+            <ul class="router" v-if="isMenu" key="menu-router">
+              <router-link to="/explore" tag="li" exact>今日热词</router-link>
+              <router-link to="/news" tag="li">精选热文</router-link>
+              <router-link to="/topic" tag="li" exact>专题追踪</router-link>
+            </ul>
+            <ul class="news-type" v-if="getShowTypes" key="menu-news-type">
+              <router-link v-for="type in getAllTypes" :to="{name: 'newsType', params: { type: type }}" tag="li" exact>{{type}}</router-link>
+            </ul>
+          </transition-group>
       </ul>
       <ul class="search">
         <input type="input" :placeholder="placeholder" @focus="toggleInputHolder()" @blur="toggleInputHolder()">
@@ -98,18 +106,30 @@ export default {
 
 <style lang="stylus">
 .header-out
-  position relative
   height 50px
-  width 1400px
+  width 1306px
   margin 0 auto
-  z-index 1
-  background-color white
-  box-shadow 0 0 11px 0 rgba(116,116,116,0.50)
+  position relative
+  z-index 2
   .header
     width 1230px
+    // padding 0 38px
+    position relative
     display flex
     justify-content space-between
-    margin auto
+    background-color white
+    box-shadow 0 4px 5px 0 rgba(40,40,40,0.50)
+    &:before
+      content ''
+      width 61px
+      height 50px
+      position absolute
+      // top -6px
+      // left -113px
+      left -61px
+      // z-index -2
+      background linear-gradient(-90deg, white, rgba(255,255,255,0))
+      // background-image url('../assets/top-bar-left.png')
     ul
       margin 0
       padding 0
@@ -122,12 +142,17 @@ export default {
         width 40px
         height 40px
       .options
-        position absolute
-        left 40px
         width 1150px
+        left 40px
+        position absolute
+        z-index -1
+        display flex
+        flex-direction column
+        align-items center
         font-size 18px
         letter-spacing 2.06px
         .router
+          width 1150px
           height 50px
           display flex
           background-image radial-gradient(30% 132%, #8BA4FB 0%, #73B6F8 51%, #62B7E6 100%)
@@ -144,11 +169,18 @@ export default {
               box-shadow 0 0 11px 0 rgba(116,116,116,0.50)
               font-weight 600
         .news-type
+          width 1100px
           height 50px
           display flex
           justify-content space-between
           background-color white
+          color #A3A3A3
+          z-index -1
           box-shadow 0 3px 5px 0 rgba(40,40,40,0.50)
+          .router-active
+            color #717171
+            box-shadow 0 0 11px 0 rgba(116,116,116,0.50)
+            font-weight 600
           li
             width 12.5%
             display flex
@@ -156,8 +188,7 @@ export default {
             justify-content center
             height 100%
             &:hover
-              box-shadow 0 0 11px 0 rgba(116,116,116,0.50)
-              font-weight 600
+              color #79B3F9
     .search
       margin-top 7px
       display flex
@@ -176,9 +207,10 @@ export default {
         margin-top 3px
         cursor pointer
     .user
-      box-sizing: border-box;
-      position relative
       height 40px
+      position relative
+      z-index 1
+      box-sizing border-box
       cursor pointer
       .user-menu-icon
         width 40px
@@ -210,8 +242,9 @@ export default {
 .top-bar-slide-top-enter
 .top-bar-slide-top-leave-active
   transform translateY(-50px)
-  opacity 0
-.top-bar-slide-top-enter-active
 .top-bar-slide-top-leave-active
-  transition all .3s
+  position absolute
+.router
+.news-type
+  transition all 1.5s
 </style>
