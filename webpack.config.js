@@ -57,8 +57,8 @@ module.exports = {
   devtool: '#eval-source-map',
   plugins: [
     new webpack.ProvidePlugin({
-      axios: 'axios'
-      // e: 'echarts'
+      axios: 'axios',
+      echarts: 'echarts'
     })
   ]
 }

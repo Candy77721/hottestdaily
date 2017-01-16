@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import Graph from '../pages/graph.vue'
 import News from '../pages/news.vue'
-import Topic from '../pages/topic.vue'
+import Rank from '../pages/rank.vue'
 
 Vue.use(Router)
 
@@ -18,15 +18,16 @@ const routes = [{
 }, {
   path: '/news',
   name: 'news',
+  redirect: '/news/全部',
   component: News
 }, {
   path: '/news/:type',
   name: 'newsType',
   component: News
 }, {
-  path: '/topic',
-  name: 'topic',
-  component: Topic
+  path: '/rank',
+  name: 'rank',
+  component: Rank
 }]
 
 const router = new Router({

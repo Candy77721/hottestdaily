@@ -4,6 +4,7 @@
   "extends": "vue",
   "globals": {
     "axios": true,
+    "echarts": true,
     "alert": true,
     "mock":true
   },

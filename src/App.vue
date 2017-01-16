@@ -24,7 +24,7 @@ import TopBar from './components/topBar.vue'
 // 三个页面
 import Graph from './pages/graph.vue'
 import News from './pages/news.vue'
-import Topic from './pages/topic.vue'
+import Rank from './pages/rank.vue'
 // 用户模态框
 import UserModal from './pages/userModal.vue'
 
@@ -81,7 +81,7 @@ export default {
     TopBar: TopBar,
     Graph: Graph,
     News: News,
-    Topic: Topic,
+    Rank: Rank,
     UserModal: UserModal
   }
 }

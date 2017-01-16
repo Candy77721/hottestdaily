@@ -67,7 +67,7 @@ export default {
   .title
     font-size 18px
     color #535353
-    letter-spacing 2.06px
+    letter-spacing 2.07px
     text-align center
   .news-card-body
     width 214px
@@ -80,7 +80,7 @@ export default {
       min-height 110px
       font-size 12px
       color #A3A3A3
-      letter-spacing 1.37px
+      letter-spacing 1.38px
     .keywords
       width 100%
       display flex
