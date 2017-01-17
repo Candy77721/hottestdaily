@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Graph from '../pages/graph.vue'
-import News from '../pages/news.vue'
-import Rank from '../pages/rank.vue'
+// import Graph from '../pages/graph.vue'
+// import News from '../pages/news.vue'
+// import Rank from '../pages/rank.vue'
 
 Vue.use(Router)
 
@@ -14,20 +14,32 @@ Vue.use(Router)
 const routes = [{
   path: '/explore',
   name: 'explore',
-  component: Graph
+  // component: Graph
+  component: function (resolve) {
+    require(['../pages/graph.vue'], resolve)
+  }
 }, {
   path: '/news',
   name: 'news',
   redirect: '/news/全部',
-  component: News
+  // component: News
+  component: function (resolve) {
+    require(['../pages/news.vue'], resolve)
+  }
 }, {
   path: '/news/:type',
   name: 'newsType',
-  component: News
+  // component: News
+  component: function (resolve) {
+    require(['../pages/news.vue'], resolve)
+  }
 }, {
   path: '/rank',
   name: 'rank',
-  component: Rank
+  // component: Rank
+  component: function (resolve) {
+    require(['../pages/news.vue'], resolve)
+  }
 }]
 
 const router = new Router({

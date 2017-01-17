@@ -21,10 +21,6 @@
 // 公共组件
 import TopLogo from './components/topLogo.vue'
 import TopBar from './components/topBar.vue'
-// 三个页面
-import Graph from './pages/graph.vue'
-import News from './pages/news.vue'
-import Rank from './pages/rank.vue'
 // 用户模态框
 import UserModal from './pages/userModal.vue'
 
@@ -79,9 +75,6 @@ export default {
   components: {
     TopLogo: TopLogo,
     TopBar: TopBar,
-    Graph: Graph,
-    News: News,
-    Rank: Rank,
     UserModal: UserModal
   }
 }

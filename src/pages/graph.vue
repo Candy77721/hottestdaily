@@ -27,6 +27,10 @@ export default {
             {
               type: 'graph',
               layout: 'none',
+              hoverAnimation: true,
+              roam: true,
+              focusNodeAdjacency: true,
+              // 超过该数值则启用渐进渲染
               // progressiveThreshold: 700,
               data: data.nodes.map(function (node) {
                 return {
@@ -49,13 +53,15 @@ export default {
                 }
               }),
               label: {
+                normal: {
+                  position: 'inside',
+                  show: true
+                },
                 emphasis: {
                   position: 'right',
                   show: true
                 }
               },
-              roam: true,
-              focusNodeAdjacency: true,
               lineStyle: {
                 normal: {
                   width: 0.5,
