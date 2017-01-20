@@ -21,8 +21,8 @@
         </li>
       </ul>
       <ul class="search">
-        <input type="input" :placeholder="placeholder" @focus="toggleInputHolder()" @blur="toggleInputHolder()">
-        <img src="../assets/icon/search-topbar.png" alt="">
+        <input type="input" :placeholder="placeholder" v-model="searchValue" @focus="toggleInputHolder()" @blur="toggleInputHolder()">
+        <img src="../assets/icon/search-topbar.png" alt="" @click="search()">
       </ul>
       <ul class="user dropdown" @mouseover="toggleIsUserMenu()" @mouseout="toggleIsUserMenu()">
         <li>
@@ -66,7 +66,9 @@ export default {
       // 是否展示菜单
       isMenu: false,
       // 搜索框提示
-      placeholder: ''
+      placeholder: '',
+      // 搜索框内容
+      searchValue: ''
     }
   },
   computed: {
@@ -96,6 +98,9 @@ export default {
       } else {
         this.placeholder = ''
       }
+    },
+    search () {
+      this.$router.push({ name: 'search', params: { id: this.searchValue }})
     }
   }
 }

@@ -209,3 +209,46 @@ GET
 ```
 
 ```
+
+### getSearchGraph
+
+```
+POST
+data:{
+  search: 'string'
+}
+```
+
+响应
+
+```
+
+```
+
+### getSearchNews
+
+```
+POST
+data:{
+  search: 'string'
+  page: 'number'
+}
+```
+
+响应
+
+```
+data: {
+  [
+    title:string,
+    url:string,
+    hot:float,
+    <!-- 标签 -->
+    label:string,
+    keywords:[string,string...],
+    <!-- 摘要 -->
+    abstract:string,
+	  fromTopic:string,
+  ]
+}
+```

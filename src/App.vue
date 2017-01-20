@@ -3,10 +3,11 @@
     <top-logo></top-logo>
     <top-bar></top-bar>
 
-    <transition name=''>
-      <router-view></router-view>
-    </transition>
-
+    <div class="main">
+      <transition name=''>
+        <router-view></router-view>
+      </transition>
+    </div>
 
       <div class="">
         <transition name="user-modal-slide-top">
@@ -88,6 +89,12 @@ input:focus
 html
 body
   height 100%
+  .main
+    width 1110px
+    padding 50px
+    margin auto
+    box-shadow:0 0 20px 15px rgba(255,255,255,1)
+    background-color white
 #app:before
     content: ''
     position: fixed // 代替background-attachment

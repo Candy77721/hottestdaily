@@ -79,13 +79,12 @@ export default {
 
 <style lang="stylus">
 .graph-out
-  width 1110px
   margin auto
-  padding-top 120px
   display flex
   background-color white
   .main-graph
-    width 1070px
-    height 610px
+    margin auto
+    width 920px
+    height 330px
     background-color black
 </style>

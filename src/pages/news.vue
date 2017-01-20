@@ -150,10 +150,8 @@ export default {
 <style lang="stylus">
 .news-list
   width 1110px
-  padding 50px 50px 0 50px
   margin auto
   display flex
-  box-shadow:0 0 20px 15px rgba(255,255,255,1)
   background-color white
   .news-column
     width 30%

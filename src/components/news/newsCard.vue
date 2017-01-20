@@ -16,7 +16,9 @@
         </span>
       </div>
       <div class="hot-rect">
-        <p class="hot">{{tofixed1(news.hot)}}</p>
+        <p class="hot">
+          {{tofixed1(news.hot)}}
+        </p>
       </div>
     </div>
   </div>
@@ -48,7 +50,7 @@ export default {
   flex-direction column
   align-items center
   background white
-  box-shadow 0 10px 18px 0 rgba(132,132,132,0.50)
+  box-shadow 0 8px 18px 0 rgba(132,132,132,0.50)
   cursor default
   transition: all .4s
   &:hover
@@ -65,6 +67,8 @@ export default {
   a
     text-decoration none
   .title
+    width 275px
+    height 45px
     font-size 18px
     color #535353
     letter-spacing 2.07px
@@ -77,7 +81,7 @@ export default {
     a
       margin 23px 0
     .abstract
-      min-height 110px
+      height 115px
       font-size 12px
       color #A3A3A3
       letter-spacing 1.38px

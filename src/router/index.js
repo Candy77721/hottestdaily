@@ -14,7 +14,6 @@ Vue.use(Router)
 const routes = [{
   path: '/explore',
   name: 'explore',
-  // component: Graph
   component: function (resolve) {
     require(['../pages/graph.vue'], resolve)
   }
@@ -22,23 +21,26 @@ const routes = [{
   path: '/news',
   name: 'news',
   redirect: '/news/全部',
-  // component: News
   component: function (resolve) {
     require(['../pages/news.vue'], resolve)
   }
 }, {
   path: '/news/:type',
   name: 'newsType',
-  // component: News
   component: function (resolve) {
     require(['../pages/news.vue'], resolve)
   }
 }, {
   path: '/rank',
   name: 'rank',
-  // component: Rank
   component: function (resolve) {
-    require(['../pages/news.vue'], resolve)
+    require(['../pages/rank.vue'], resolve)
+  }
+}, {
+  path: '/search/:id',
+  name: 'search',
+  component: function (resolve) {
+    require(['../pages/search.vue'], resolve)
   }
 }]
 
