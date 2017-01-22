@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="user-login">
   <div class="user-login-header">
-    <img class="close" src="../../assets/icon/close-white.png" alt="" @click="toggleModal()">
+    <img class="close" src="../../assets/icon/close-white.png" alt="" @click="userToggleModal()">
     <p>登陆账号</p>
   </div>
   <div class="user-login-body">
@@ -12,9 +12,9 @@
       <input type="password" id="password"  v-model="userLogin.password"  placeholder="请输入密码" required="required">
     </p>
     <div class="user-login-actions">
-      <span class="user-login-other" @click="changeModalState('UserForget')">忘记密码</span>
+      <span class="user-login-other" @click="userChangeModalState('UserForget')">忘记密码</span>
       <button type="button" name="button" class="button-login" @click="login()">登陆</button>
-      <span class="user-login-other" @click="changeModalState('UserRegister')">加入我们</span>
+      <span class="user-login-other" @click="userChangeModalState('UserRegister')">加入我们</span>
     </div>
   </div>
   <div class="user-login-foot">
@@ -41,9 +41,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'toggleLogin',
-      'toggleModal',
-      'changeModalState'
+      'userToggleLogin',
+      'userToggleModal',
+      'userChangeModalState'
     ]),
     login: function () {
       // if (!(this.regEmail(this.userLogin.username) && this.regPassword(this.userLogin.password))) {
@@ -56,8 +56,8 @@ export default {
           if (data.errorCode !== 0) {
             alert(data.errorMsg)
           } else {
-            this.toggleLogin()
-            this.toggleModal()
+            this.userToggleLogin()
+            this.userToggleModal()
           }
         })
         .catch(error => {

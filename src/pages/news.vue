@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="news-list">
-    <div class="news-column" v-for="columns in getNewsData">
+    <div class="news-column" v-for="columns in newsGetNewsData">
       <news-card :news="news" v-for="news in columns">
 
       </news-card>
@@ -26,13 +26,13 @@ export default {
     const newType = this.$route.params.type ? this.$route.params.type : '全部'
     this.checkType(newType)
     // 展示导航栏
-    this.toggleShowTypes()
+    this.newsToggleShowTypes()
     // 监听滚动事件
     window.addEventListener('scroll', this.handleScroll)
   },
   beforeDestroy () {
     // 取消展示导航栏
-    this.toggleShowTypes()
+    this.newsToggleShowTypes()
     // 停止监听滚动事件
     window.removeEventListener('scroll', this.handleScroll)
   },
@@ -46,19 +46,19 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getNowType',
-      'getLatestPage',
-      'getNewsData'
+      'newsGetNowType',
+      'newsGetLatestPage',
+      'newsGetNewsData'
     ])
   },
   methods: {
     ...mapActions([
-      'toggleShowTypes',
-      'addNews',
-      'changenextColunms',
-      'changeNowType',
-      'resetLatestPage',
-      'clearNews'
+      'newsToggleShowTypes',
+      'newsAddNews',
+      'newsChangenextColunms',
+      'newsChangeNowType',
+      'newsResetLatestPage',
+      'newsClearNews'
     ]),
     /*
     检查是否和之前的是相同 type
@@ -66,13 +66,13 @@ export default {
     如果不是则更新 type ，重置当前页数，重置新闻，发送新的请求
     */
     checkType: function (newType) {
-      if (newType && newType === this.getNowType) {
+      if (newType && newType === this.newsGetNowType) {
         return
       }
-      this.changeNowType(newType)
-      this.resetLatestPage()
-      this.clearNews()
-      this.getNews(this.getLatestPage, this.getNowType)
+      this.newsChangeNowType(newType)
+      this.newsResetLatestPage()
+      this.newsClearNews()
+      this.getNews(this.newsGetLatestPage, this.newsGetNowType)
     },
     /*
     从服务端获取瀑布流中所需新闻，并更新到vuex中
@@ -92,13 +92,13 @@ export default {
           if (data.errorCode !== 0) {
             console.log(data.errorMsg)
           } else {
-            this.addNews(data.data)
+            this.newsAddNews(data.data)
             // 刷新DOM后，获取高度
             this.$nextTick(function () {
               const columns = this.$el.querySelectorAll('.news-column')
               const nextColumnsIndex = this.getMinHeightIndex(columns)
               // 设置下一次排序起始
-              this.changenextColunms(nextColumnsIndex)
+              this.newsChangenextColunms(nextColumnsIndex)
               this.isGet = false
             })
           }
@@ -136,7 +136,7 @@ export default {
       var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       if (document.documentElement.scrollHeight - 150 <= document.documentElement.clientHeight + scrollTop) {
         if (!this.isGet) {
-          this.getNews(this.getLatestPage, this.getNowType)
+          this.getNews(this.newsGetLatestPage, this.newsGetNowType)
         }
       }
     }

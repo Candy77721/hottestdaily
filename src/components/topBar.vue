@@ -24,14 +24,14 @@
         <input type="input" :placeholder="placeholder" v-model="searchValue" @focus="toggleInputHolder()" @blur="toggleInputHolder()">
         <img src="../assets/icon/search-topbar.png" alt="" @click="search()">
       </ul>
-      <ul class="user dropdown" @mouseover="toggleIsUserMenu()" @mouseout="toggleIsUserMenu()">
+      <ul class="user dropdown" @mouseover="userToggleIsUserMenu()" @mouseout="userToggleIsUserMenu()">
         <li>
           <img class="user-menu-icon dropdown-icon" src="../assets/icon/user-tpobar.png" alt="">
         </li>
-        <ul v-show="!getIsLogin & getIsUserMenu" @click="toLogin()" class="user-dropdown-list dropdown-list">
+        <ul v-show="!userGetIsLogin & userGetIsUserMenu" @click="toLogin()" class="user-dropdown-list dropdown-list">
           <li>登陆</li>
         </ul>
-        <ul v-show="getIsLogin & getIsUserMenu" class="user-dropdown-list dropdown-list">
+        <ul v-show="userGetIsLogin & userGetIsUserMenu" class="user-dropdown-list dropdown-list">
           <li>
             <img src="../assets/icon/user.png" alt="">
             <span>个人中心</span>
@@ -47,9 +47,9 @@
         </ul>
       </ul>
       <transition name="top-bar-slide-top">
-        <ul class="news-type" v-if="getShowTypes">
+        <ul class="news-type" v-if="newsGetShowTypes">
           <ul class="news-type-background">
-            <router-link v-for="type in getAllTypes" :to="{name: 'newsType', params: { type: type }}" tag="li" exact>{{type}}</router-link>
+            <router-link v-for="type in newsGetAllTypes" :to="{name: 'newsType', params: { type: type }}" tag="li" exact>{{type}}</router-link>
           </ul>
         </ul>
       </transition>
@@ -73,21 +73,21 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getShowTypes',
-      'getAllTypes',
-      'getIsLogin',
-      'getIsUserMenu'
+      'newsGetShowTypes',
+      'newsGetAllTypes',
+      'userGetIsLogin',
+      'userGetIsUserMenu'
     ])
   },
   methods: {
     ...mapActions([
-      'changeModalState',
-      'toggleModal',
-      'toggleIsUserMenu'
+      'userChangeModalState',
+      'userToggleModal',
+      'userToggleIsUserMenu'
     ]),
     toLogin: function () {
-      this.changeModalState('UserLogin')
-      this.toggleModal()
+      this.userChangeModalState('UserLogin')
+      this.userToggleModal()
     },
     toggleIsMenu () {
       this.isMenu = !this.isMenu
@@ -100,7 +100,7 @@ export default {
       }
     },
     search () {
-      this.$router.push({ name: 'search', params: { id: this.searchValue }})
+      this.$router.push({ name: 'search', params: { search: this.searchValue }})
     }
   }
 }

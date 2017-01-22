@@ -15,7 +15,7 @@ const routes = [{
   path: '/explore',
   name: 'explore',
   component: function (resolve) {
-    require(['../pages/graph.vue'], resolve)
+    require(['../pages/index.vue'], resolve)
   }
 }, {
   path: '/news',
@@ -37,7 +37,7 @@ const routes = [{
     require(['../pages/rank.vue'], resolve)
   }
 }, {
-  path: '/search/:id',
+  path: '/search/:search',
   name: 'search',
   component: function (resolve) {
     require(['../pages/search.vue'], resolve)
@@ -45,7 +45,7 @@ const routes = [{
 }]
 
 const router = new Router({
-  mode: 'history', // 这样url就没有/#/XXX,而是常见的url形式
+  // mode: 'history', // 这样url就没有/#/XXX,而是常见的url形式
   routes: routes, // short for routes: routes
   linkActiveClass: 'router-active', // router-link的选中状态的class，也有一个默认的值
   history: true,

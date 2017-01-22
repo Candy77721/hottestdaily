@@ -92,7 +92,7 @@ export default {
       font-size 12px
       letter-spacing 1.37px
       .keyword
-        padding 6px 8px
+        padding 6px
         border-radius 10px
         color white
     .hot-rect

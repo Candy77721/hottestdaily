@@ -14,47 +14,47 @@ const state = {
 }
 
 const getters = {
-  getShowTypes: state => state.showTypes,
-  getAllTypes: state => state.allTypes,
-  getNowType: state => state.nowType,
-  getLatestPage: state => state.latestPage,
-  getNewsData: state => state.news
+  newsGetShowTypes: state => state.showTypes,
+  newsGetAllTypes: state => state.allTypes,
+  newsGetNowType: state => state.nowType,
+  newsGetLatestPage: state => state.latestPage,
+  newsGetNewsData: state => state.news
 }
 
 const actions = {
   // 切换分类导航栏是否展示
-  toggleShowTypes ({ commit }) {
-    commit(types.TOGGLESHOWTYPES)
+  newsToggleShowTypes ({ commit }) {
+    commit(types.NEWSTOGGLESHOWTYPES)
   },
-  addNews ({ commit }, pageData) {
-    commit(types.ADDNEWS, { pageData })
+  newsAddNews ({ commit }, pageData) {
+    commit(types.NEWSADDNEWS, { pageData })
   },
-  changenextColunms ({ commit }, newnextColunms) {
-    commit(types.CHANGENEXTCOLUNMS, { newnextColunms })
+  newsChangenextColunms ({ commit }, newnextColunms) {
+    commit(types.NEWSCHANGENEXTCOLUNMS, { newnextColunms })
   },
   // 更新当前 news 的分类，同时重置页数
-  changeNowType ({ commit }, newType) {
-    commit(types.CHANGENOWTYPE, { newType })
-    commit(types.RESETLATESTPAGE)
+  newsChangeNowType ({ commit }, newType) {
+    commit(types.NEWSCHANGENOWTYPE, { newType })
+    commit(types.NEWSRESETLATESTPAGE)
   },
-  resetLatestPage ({ commit }) {
-    commit(types.RESETLATESTPAGE)
+  newsResetLatestPage ({ commit }) {
+    commit(types.NEWSRESETLATESTPAGE)
   },
   // 清除 news 及 nextColunms 中的数据
-  clearNews ({ commit }) {
-    commit(types.CLEARNEWS)
-    commit(types.CLEARNEXTCOLUNMS)
+  newsClearNews ({ commit }) {
+    commit(types.NEWSCLEARNEWS)
+    commit(types.NEWSCLEARNEXTCOLUNMS)
   }
 }
 
 const mutations = {
-  [types.TOGGLESHOWTYPES] (state) {
+  [types.NEWSTOGGLESHOWTYPES] (state) {
     state.showTypes = !state.showTypes
   },
   /*
   根据 nextColunms 向三列数据分别加入10，10，10或11，10，9个数据
   */
-  [types.ADDNEWS] (state, { pageData }) {
+  [types.NEWSADDNEWS] (state, { pageData }) {
     const columns = state.nextColunms
     // 如果不是加载的第一次的数据，则分别加入11，10，9个数据
     if (columns) {
@@ -70,23 +70,23 @@ const mutations = {
       i++
     }
   },
-  [types.CHANGENEXTCOLUNMS] (state, { newnextColunms }) {
+  [types.NEWSCHANGENEXTCOLUNMS] (state, { newnextColunms }) {
     state.nextColunms = newnextColunms
   },
-  [types.CHANGENOWTYPE] (state, { newType }) {
+  [types.NEWSCHANGENOWTYPE] (state, { newType }) {
     state.nowType = newType
   },
-  [types.RESETLATESTPAGE] (state) {
+  [types.NEWSRESETLATESTPAGE] (state) {
     state.latestPage = 1
   },
-  [types.CLEARNEWS] (state) {
+  [types.NEWSCLEARNEWS] (state) {
     state.news = {
       column0: [],
       column1: [],
       column2: []
     }
   },
-  [types.CLEARNEXTCOLUNMS] (state) {
+  [types.NEWSCLEARNEXTCOLUNMS] (state) {
     state.nextColunms = null
   }
 }

@@ -11,9 +11,9 @@
 
       <div class="">
         <transition name="user-modal-slide-top">
-          <user-modal v-show="getIsModal"></user-modal>
+          <user-modal v-show="userGetIsModal"></user-modal>
         </transition>
-          <div class="user-modal-overlay" v-show="getIsModal"></div>
+          <div class="user-modal-overlay" v-show="userGetIsModal"></div>
       </div>
   </div>
 </template>
@@ -45,15 +45,15 @@ export default {
     //   throw new Error('cookies校验失败')
     // }
     // 检测用户状态
-    if (!this.getIsLogin) {
+    if (!this.userGetIsLogin) {
       axios.get(api.userIsLogin)
         .then(res => {
           const data = res.data
           if (data.errorCode !== 0) {
             console.log(data.errorMsg)
           } else {
-            this.toggleLogin()
-            this.changeUsername(data.username)
+            this.userToggleLogin()
+            this.userChangeUsername(data.username)
           }
         })
         .catch(error => {
@@ -63,14 +63,14 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getIsModal',
-      'getIsLogin'
+      'userGetIsModal',
+      'userGetIsLogin'
     ])
   },
   methods: {
     ...mapActions([
-      'toggleLogin',
-      'changeUsername'
+      'userToggleLogin',
+      'userChangeUsername'
     ])
   },
   components: {

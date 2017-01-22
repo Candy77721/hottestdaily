@@ -5,7 +5,7 @@ import * as actions from './actions'
 
 import news from './modules/news'
 import user from './modules/user'
-
+import search from './modules/search'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -13,6 +13,7 @@ export default new Vuex.Store({
   getters,
   modules: {
     news,
-    user
+    user,
+    search
   }
 })

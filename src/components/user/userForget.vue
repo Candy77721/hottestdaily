@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="user-login">
   <div class="user-login-header">
-    <img class="close" src="../../assets/icon/close-white.png" alt="" @click="toggleModal()">
+    <img class="close" src="../../assets/icon/close-white.png" alt="" @click="userToggleModal()">
     <p>忘记密码</p>
   </div>
   <div class="user-login-body">
@@ -16,9 +16,9 @@
       <input type="password" id="password"  v-model="userForget.password"  placeholder="请输入新密码" required="required">
     </p>
     <div class="user-login-actions">
-      <span class="user-login-other" @click="changeModalState('UserLogin')">前去登陆</span>
+      <span class="user-login-other" @click="userChangeModalState('UserLogin')">前去登陆</span>
       <button type="button" name="button" class="button-login" @click="forget()">重置</button>
-      <span class="user-login-other" @click="changeModalState('UserRegister')">加入我们</span>
+      <span class="user-login-other" @click="userChangeModalState('UserRegister')">加入我们</span>
     </div>
   </div>
   <div class="user-login-foot">
@@ -46,9 +46,9 @@ export default {
   },
   methods: {
     ...mapActions([
-      'toggleLogin',
-      'toggleModal',
-      'changeModalState'
+      'userToggleLogin',
+      'userToggleModal',
+      'userChangeModalState'
     ]),
     getCaptcha: function () {
       axios.post(api.userGetCaptcha, {
@@ -76,7 +76,7 @@ export default {
             alert(data.errorMsg)
             return
           }
-          this.changeModalState('UserLogin')
+          this.userChangeModalState('UserLogin')
         })
         .catch(error => {
           console.log(error)

@@ -30,11 +30,11 @@ const state = {
 }
 
 const getters = {
-  getModalState: state => state.modalState,
-  getIsModal: state => state.isModal,
-  getIsLogin: state => state.isLogin,
-  getIsUserMenu: state => state.isUserMenu,
-  getUsername: state => state.username
+  userGetModalState: state => state.modalState,
+  userGetIsModal: state => state.isModal,
+  userGetIsLogin: state => state.isLogin,
+  userGetIsUserMenu: state => state.isUserMenu,
+  userGetUsername: state => state.username
 }
 
 const actions = {
@@ -42,46 +42,49 @@ const actions = {
   更改模态框状态
   参数：新的模态框状态(string)
   */
-  changeModalState ({ commit }, newState) {
-    commit(types.CHANGEMODALSTATE, { newState })
+  userChangeModalState ({ commit }, newState) {
+    commit(types.USERCHANGEMODALSTATE, { newState })
   },
   /*
   切换模态框
   */
-  toggleModal ({ commit }) {
-    commit(types.TOGGLEMODLA)
+  userToggleModal ({ commit }) {
+    commit(types.USERTOGGLEMODLA)
   },
   /*
   更改用户登陆状态
   */
-  toggleLogin ({ commit }) {
-    commit(types.TOGGLELOGIN)
+  userToggleLogin ({ commit }) {
+    commit(types.USERTOGGLELOGIN)
   },
-  toggleIsUserMenu ({ commit }) {
-    commit(types.TOGGLEISUSERMENU)
+  /*
+  是否显示用户下拉框
+  */
+  userToggleIsUserMenu ({ commit }) {
+    commit(types.USERTOGGLEISUSERMENU)
   },
   /*
   更新用户名
   */
-  changeUsername ({ commit }, newUsername) {
-    commit(types.CHANGEUSERNAME)
+  userChangeUsername ({ commit }, newUsername) {
+    commit(types.USERCHANGEUSERNAME)
   }
 }
 
 const mutations = {
-  [types.CHANGEMODALSTATE] (state, { newState }) {
+  [types.USERCHANGEMODALSTATE] (state, { newState }) {
     state.modalState = newState
   },
-  [types.TOGGLEMODLA] (state) {
+  [types.USERTOGGLEMODLA] (state) {
     state.isModal = !state.isModal
   },
-  [types.TOGGLELOGIN] (state) {
+  [types.USERTOGGLELOGIN] (state) {
     state.isLogin = !state.isLogin
   },
-  [types.TOGGLEISUSERMENU] (state) {
+  [types.USERTOGGLEISUSERMENU] (state) {
     state.isUserMenu = !state.isUserMenu
   },
-  [types.CHANGEUSERNAME] (state, { newUsername }) {
+  [types.USERCHANGEUSERNAME] (state, { newUsername }) {
     state.username = newUsername
   }
 }

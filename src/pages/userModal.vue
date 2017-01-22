@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="user-modal">
-  <component v-bind:is="getModalState"></component>
+  <component v-bind:is="userGetModalState"></component>
 </div>
 </template>
 
@@ -20,12 +20,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getModalState'
+      'userGetModalState'
     ])
   },
   methods: {
     ...mapActions([
-      'toggleModal'
+      'userToggleModal'
     ])
   },
   components: {
