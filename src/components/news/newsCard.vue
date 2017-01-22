@@ -60,6 +60,7 @@ export default {
     width 320px
     height 7px
     position absolute
+    left 0
     top calc(100% - 3px)
     background-image url('../../assets/icon/news-bottom-border.png')
   p
@@ -82,9 +83,15 @@ export default {
       margin 23px 0
     .abstract
       height 115px
-      font-size 12px
+      font-size 13px
       color #A3A3A3
       letter-spacing 1.38px
+      text-overflow ellipsis /*有些示例里需要定义该属性，实际可省略*/
+      display -webkit-box
+      -webkit-line-clamp 8/*规定超过两行的部分截断*/
+      -webkit-box-orient vertical
+      overflow hidden
+      word-break break-all/*在任何地方换行*/
     .keywords
       width 100%
       display flex

@@ -25,7 +25,7 @@ Mock
         'type': 'news',
         'title':'@csentence(10,20)',
         'url': '@url()',
-        'hot|1-99.1-500': 1,
+        'hot|26-99.1-500': 1,
         'label': '@cword(2,4)',
         'keywords|3': ['@cword(2,4)'],
         'abstract': '@cparagraph()',
@@ -59,7 +59,7 @@ Mock
     'data|30': [{
         'title':'@csentence(10,20)',
         'url': '@url()',
-        'hot|1-100.1-500': 1,
+        'hot|26-99.1-500': 1,
         'label': '@cword(2,4)',
         'keywords|3': ['@cword(2,4)'],
         'abstract': '@cparagraph()',

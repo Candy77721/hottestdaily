@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+// var autoprefixer = require('autoprefixer')
 
 module.exports = {
   entry: './src/main.js',
@@ -20,9 +21,11 @@ module.exports = {
             // the "scss" and "sass" values for the lang attribute to the right configs here.
             // other preprocessors should work out of the box, no loader config like this nessessary.
             'scss': 'vue-style-loader!css-loader!sass-loader',
+            // 'stylus': 'vue-style-loader!css-loader!stylus-loader!autoprefixer-loader',
             'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          }
+          },
           // other vue-loader options go here
+          postcss: [require('autoprefixer')()]
         }
       },
       {
@@ -41,6 +44,11 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       }
+      // ,
+      // {
+      //   test: /\.(styl|css)$/,
+      //   loader: 'style-loader!css-loader!autoprefixer-loader'
+      // }
     ]
   },
   resolve: {
@@ -48,6 +56,11 @@ module.exports = {
       'vue$': 'vue/dist/vue.common.js'
     }
   },
+  // postcss: [
+  //   autoprefixer({
+  //     browsers: ['>0%']
+  //   })
+  // ],
   devServer: {
     historyApiFallback: true,
     noInfo: true
@@ -61,6 +74,15 @@ module.exports = {
       axios: 'axios',
       echarts: 'echarts'
     })
+    // ,
+    // new webpack.LoaderOptionsPlugin({
+    //   // test: /\.xxx$/, // may apply this only for some modules
+    //   options: {
+    //     postcss: autoprefixer({
+    //       browsers: ['>0%']
+    //     })
+    //   }
+    // })
   ]
 }
 

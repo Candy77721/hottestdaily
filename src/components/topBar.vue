@@ -182,7 +182,9 @@ export default {
     .search
       height 40px
       margin 5px 0
+      flex 1
       display flex
+      justify-content center
       align-items center
       input
         width 616px

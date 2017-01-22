@@ -88,6 +88,7 @@ input:focus
   outline none
 html
 body
+  margin 0
   height 100%
   .main
     width 1110px

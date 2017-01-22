@@ -64,11 +64,19 @@ export default {
         color #4D4D4D
         letter-spacing 2.06px
       .abstract
+        width 480px
+        height 80px
         margin 0
         font-size 12px
         color #A3A3A3
         letter-spacing 1.37px
         line-height 20px
+        text-overflow ellipsis /*有些示例里需要定义该属性，实际可省略*/
+        display -webkit-box
+        -webkit-line-clamp 4/*规定超过两行的部分截断*/
+        -webkit-box-orient vertical
+        overflow hidden
+        word-break break-all/*在任何地方换行*/
   .keywords
     width 70px
     margin-right 10px
@@ -92,8 +100,8 @@ export default {
     border-radius 5px
     .hot
       font-size 25px
-      display flex
-      justify-content center
+      // margin-left 32px
+      // margin-right 20px
       color #FFFFFF
       letter-spacing 3.44px
 
