@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="graph-out">
-    <div class="main-graph" id="main-graph">
+    <div class="search-graph" id="search-graph">
 
     </div>
   </div>
@@ -22,9 +22,9 @@ export default {
   },
   methods: {
     updateGraph: function (data) {
-      const myChart = echarts.init(document.getElementById('main-graph'))
+      const searchGraph = echarts.init(document.getElementById('search-graph'))
       // 'https://raw.githubusercontent.com/954880786/Project_hot2/master/PrepareJson/graph_index.json'
-      myChart.setOption({
+      searchGraph.setOption({
         title: {
           text: 'NPM Dependencies'
         },
@@ -89,7 +89,7 @@ export default {
   margin auto
   display flex
   background-color white
-  .main-graph
+  .search-graph
     margin auto
     width 920px
     height 330px

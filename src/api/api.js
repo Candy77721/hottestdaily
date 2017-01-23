@@ -9,6 +9,9 @@ export const getSearchGraph = 'api/getSearchGraph'
 // 查询页新闻
 export const getSearchNews = 'api/getSearchNews'
 
+// 查询排行榜页面图表
+export const getRankGraph = 'api/getHotWords'
+
 // 用户
 // 用户登陆
 export const userLogin = 'accounts/login'

@@ -15,15 +15,17 @@
         {{keyword}}
       </span>
     </div>
-    <div class="hot-rect">
+    <div class="hot-rect" :style="{ backgroundImage: getHotColor(toInt(news.hot))}">
       <p class="hot">
-        {{toInt(news.hot)}}
+        {{`${toInt(news.hot)}°`}}
       </p>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: function () {
     return {
@@ -31,9 +33,17 @@ export default {
     }
   },
   props: ['news'],
+  computed: {
+    ...mapGetters([
+      'getColor'
+    ])
+  },
   methods: {
     toInt: num => {
-      return Math.round(num) + '°'
+      return Math.round(num)
+    },
+    getHotColor: function (hot) {
+      return this.getColor[hot]
     }
   }
 }
@@ -96,11 +106,11 @@ export default {
     display flex
     justify-content center
     align-items center
-    background-image radial-gradient(50% 100%, #FF7373 0%, #FF8464 31%, #FFAB44 100%)
+    // background-image radial-gradient(50% 100%, #FF7373 0%, #FF8464 31%, #FFAB44 100%)
     border-radius 5px
     .hot
       font-size 25px
-      // margin-left 32px
+      margin-left 20px
       // margin-right 20px
       color #FFFFFF
       letter-spacing 3.44px

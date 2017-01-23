@@ -15,9 +15,9 @@
           {{keyword}}
         </span>
       </div>
-      <div class="hot-rect">
+      <div class="hot-rect" :style="{ backgroundImage: getHotColor(toInt(news.hot))}">
         <p class="hot">
-          {{tofixed1(news.hot)}}
+          {{`${toInt(news.hot)}°`}}
         </p>
       </div>
     </div>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: function () {
     return {
@@ -32,9 +34,17 @@ export default {
     }
   },
   props: ['news'],
+  computed: {
+    ...mapGetters([
+      'getColor'
+    ])
+  },
   methods: {
-    tofixed1: num => {
-      return num.toFixed(1) + '°'
+    toInt: num => {
+      return Math.round(num)
+    },
+    getHotColor: function (hot) {
+      return this.getColor[hot]
     }
   }
 }

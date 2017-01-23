@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="graph-out">
+    <div class="graph-out" :key="graphName">
     <div class="main-graph" id="main-graph">
 
     </div>
@@ -12,6 +12,7 @@ import * as api from '../api/api'
 export default {
   data () {
     return {
+      graphName: 'index-graph'
     }
   },
   mounted () {
@@ -75,6 +76,9 @@ export default {
             }
           ]
         }, true)
+      })
+      .catch(err => {
+        console.log(err)
       })
   }
 }

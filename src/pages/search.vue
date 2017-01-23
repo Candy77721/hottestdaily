@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="search">
-  <search-graph class="search-graph" :graph="searchGetGraph"></search-graph>
+  <search-graph class="search-graph" :graph="searchGetGraph" :key="graphName"></search-graph>
   <div class="search-cards">
     <search-card :news="news" v-for="news in searchGetNews">
 
@@ -20,7 +20,9 @@ export default {
   data () {
     return {
       // 是否正在获取数据
-      isGet: false
+      isGet: false,
+      // 关系图的key
+      graphName: 'search-graph'
     }
   },
   mounted () {
@@ -74,6 +76,9 @@ export default {
         .then(res => {
           this.searchChangeGraph(res.data)
         })
+        .catch(err => {
+          console.log(err)
+        })
     },
     // 更新新闻
     updateNews: function (search, page) {
@@ -85,6 +90,9 @@ export default {
         .then(res => {
           this.searchAddNews(res.data.data)
           this.isGet = false
+        })
+        .catch(err => {
+          console.log(err)
         })
     },
     // 监听滚动事件
