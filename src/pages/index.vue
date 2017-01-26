@@ -49,7 +49,10 @@ export default {
                   symbolSize: node.size,
                   itemStyle: {
                     normal: {
-                      color: node.color
+                      color: node.color,
+                      shadowBlur: 8,
+                      shadowColor: 'rgba(117,117,117,0.50)',
+                      shadowOffsetY: 2
                     }
                   }
                 }

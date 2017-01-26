@@ -17,7 +17,7 @@
     </div>
     <div class="hot-rect" :style="{ backgroundImage: getHotColor(news.hot)}">
       <p class="hot">
-        {{`${news.hot}°`}}
+        {{`${news.hot}℃`}}
       </p>
     </div>
   </div>
@@ -69,14 +69,14 @@ export default {
         margin 0
         font-size 18px
         color #4D4D4D
-        letter-spacing 2.06px
+        letter-spacing 4px
       .abstract
         width 480px
         height 80px
         margin 0
         font-size 12px
         color #A3A3A3
-        letter-spacing 1.37px
+        letter-spacing 2px
         line-height 20px
         text-overflow ellipsis /*有些示例里需要定义该属性，实际可省略*/
         display -webkit-box
@@ -92,7 +92,7 @@ export default {
     justify-content space-between
     align-items flex-start
     font-size 12px
-    letter-spacing 1.37px
+    letter-spacing 2px
     .keyword
       padding 5px
       border-radius 10px
@@ -106,10 +106,9 @@ export default {
     // background-image radial-gradient(50% 100%, #FF7373 0%, #FF8464 31%, #FFAB44 100%)
     border-radius 5px
     .hot
-      font-size 25px
+      font-size 24px
       margin-left 20px
-      // margin-right 20px
       color #FFFFFF
-      letter-spacing 3.44px
-
+      letter-spacing 3px
+      font-weight bold
 </style>

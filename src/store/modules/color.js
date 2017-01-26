@@ -5,7 +5,7 @@ const state = {
     28: 'linear-gradient(90deg, #4CD5FF 0%, #60CEFF 58%, #66CDFF 100%)',
     29: 'linear-gradient(90deg, #57D1FF 0%, #6DCBFF 50%, #71C9FF 100%)',
     30: 'linear-gradient(90deg, #61CEFF 0%, #79C7FF 46%, #7DC6FF 100%)',
-    31: 'linear-gradient(-269deg, #70CAFF 0%, #7DC2FF 50%, #7EC2FF 100%)',
+    31: 'linear-gradient(90deg, #70CAFF 0%, #7DC2FF 50%, #7EC2FF 100%)',
     32: 'linear-gradient(90deg, #7AC6FF 0%, #7DBDFF 50%, #7DBDFF 100%)',
     33: 'linear-gradient(90deg, #7DC1FF 0%, #7DBAFF 50%, #7DB9FF 100%)',
     34: 'linear-gradient(90deg, #7EBEFF 0%, #7DB5FF 49%, #7DB5FF 100%)',
@@ -72,7 +72,7 @@ const state = {
     95: 'linear-gradient(90deg, #CA7199 0%, #F05D68 30%, #9C8AD8 92%)',
     96: 'linear-gradient(90deg, #C8729C 0%, #F45C64 31%, #7D9AFF 100%)',
     97: 'linear-gradient(90deg, #BF6D9E 0%, #F65A61 27%, #7D9AFF 100%)',
-    98: 'linear-gradient(89deg, #BD6FA3 1%, #FA595D 30%, #9090E7 100%)',
+    98: 'linear-gradient(90deg, #BD6FA3 1%, #FA595D 30%, #9090E7 100%)',
     99: 'linear-gradient(90deg, #B377B2 0%, #FB575A 32%, #9090E7 100%)',
     100: 'linear-gradient(90deg, #9190E6 0%, #F8595F 40%, #9191E7 100%)'
   }

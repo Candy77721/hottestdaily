@@ -1,6 +1,6 @@
 <template lang="html">
 <div class="user-modal">
-  <component v-bind:is="userGetModalState"></component>
+  <component :is="userGetModalState"></component>
 </div>
 </template>
 

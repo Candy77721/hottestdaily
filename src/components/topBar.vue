@@ -46,6 +46,93 @@
           </li>
         </ul>
       </ul>
+
+      <div class="location">
+        <div class="location-explore" v-if="location === 'explore'">
+          <svg width="92px" height="138px" viewBox="98 188 92 138" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+              <linearGradient x1="14.5595426%" y1="-2.34797445%" x2="89.9340931%" y2="100%" id="linearGradient-1">
+                <stop stop-color="#758DEC" offset="0%"></stop>
+                <stop stop-color="#71B5F5" offset="100%"></stop>
+              </linearGradient>
+              <polygon id="path-2" points="0 0 40 0 40 130 20 108.078947 0 130"></polygon>
+              <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+                <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feColorMatrix values="0 0 0 0 0.463674532   0 0 0 0 0.463674532   0 0 0 0 0.463674532  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+              </filter>
+            </defs>
+            <g id="今日热词" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(102.000000, 190.000000)">
+              <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+              </g>
+              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF">
+                <tspan x="11" y="23">今</tspan>
+                <tspan x="11" y="48">日</tspan>
+                <tspan x="11" y="73">热</tspan>
+                <tspan x="11" y="98">词</tspan>
+              </text>
+            </g>
+          </svg>
+        </div>
+        <div class="location-news" v-if="location === 'newsType'">
+          <svg width="93px" height="138px" viewBox="98 188 93 138" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+              <linearGradient x1="14.5595426%" y1="-2.34797445%" x2="89.9340931%" y2="100%" id="linearGradient-1">
+                <stop stop-color="#758DEC" offset="0%"></stop>
+                <stop stop-color="#71B5F5" offset="100%"></stop>
+              </linearGradient>
+              <polygon id="path-2" points="0 0 40 0 40 130 20 108.078947 0 130"></polygon>
+              <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+                <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feColorMatrix values="0 0 0 0 0.463674532   0 0 0 0 0.463674532   0 0 0 0 0.463674532  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+              </filter>
+            </defs>
+            <g id="时下热文" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(102.000000, 190.000000)">
+              <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+              </g>
+              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF">
+                <tspan x="11" y="23">时</tspan>
+                <tspan x="11" y="48">下</tspan>
+                <tspan x="11" y="73">热</tspan>
+                <tspan x="11" y="98">文</tspan>
+              </text>
+            </g>
+          </svg>
+        </div>
+        <div class="location-rank" v-if="location === 'rank'">
+          <svg width="73px" height="113px" viewBox="98 188 73 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+              <linearGradient x1="14.5595426%" y1="-2.34797445%" x2="89.9340931%" y2="100%" id="linearGradient-1">
+                <stop stop-color="#758DEC" offset="0%"></stop>
+                <stop stop-color="#71B5F5" offset="100%"></stop>
+              </linearGradient>
+              <polygon id="path-2" points="0 0 40 0 40 105 20 83.0789474 0 105"></polygon>
+              <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+                <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feColorMatrix values="0 0 0 0 0.463674532   0 0 0 0 0.463674532   0 0 0 0 0.463674532  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+              </filter>
+            </defs>
+            <g id="热词榜" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(102.000000, 190.000000)">
+              <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+              </g>
+              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF">
+                <tspan x="11" y="23">热</tspan>
+                <tspan x="11" y="48">词</tspan>
+                <tspan x="11" y="73">榜</tspan>
+              </text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
       <transition name="top-bar-slide-top">
         <ul class="news-type" v-if="newsGetShowTypes">
           <ul class="news-type-background">
@@ -68,7 +155,15 @@ export default {
       // 搜索框提示
       placeholder: '',
       // 搜索框内容
-      searchValue: ''
+      searchValue: '',
+      // 用户定位展示类型
+      location: ''
+    }
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route' (to, from) {
+      this.location = to.name
     }
   },
   computed: {
@@ -203,13 +298,18 @@ export default {
     .user
       .user-dropdown-list
         right 0px
+    .location
+      position absolute
+      top 48px
+      left 24px
+      z-index -2
     .news-type
       width 1100px
       height 50px
       display flex
       position absolute
       top 50px
-      left 143px
+      left 93px
       justify-content space-between
       background-color white
       color #A3A3A3

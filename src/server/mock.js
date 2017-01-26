@@ -69,13 +69,13 @@ Mock
       }, {
           'type': 'group',
           'title':'@cword(2,4)',
-          'relatedNews|10':[{
+          'relatedNews|4':[{
             'title':'@csentence(10,20)',
             'url':'@url()'
           }],
           'hot|26-100':100,
           "history|10":['@integer(26, 100)'],
-          'keywords|6':['@cword(2,4)']
+          'keywords':[['@cword(2,4)','@cword(2,4)','@cword(2,4)'],['@cword(2,4)','@cword(2,4)','@cword(2,4)']]
       }]
   })
   // 用户登录

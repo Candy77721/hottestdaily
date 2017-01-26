@@ -125,7 +125,8 @@ export default {
               normal: {
                 show: true,
                 position: 'insideRight',
-                formatter: '{c}°'
+                fontSize: 14,
+                formatter: '{c}℃'
               }
             },
             itemStyle: {

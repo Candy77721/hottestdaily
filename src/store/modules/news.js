@@ -1,23 +1,24 @@
 import * as types from '../mutations-types'
 
 const state = {
-  showTypes: false, // 是否展示分类导航栏
+  // 是否展示分类导航栏
+  showTypes: false,
+  // 全部分类
   allTypes: ['全部', '政治', '社会', '财经', '教育', '科技', '时尚', '体育'],
+  // 当前分类
   nowType: '全部',
-  latestPage: 1,
-  nextColunms: null,
-  news: {
-    column0: [],
-    column1: [],
-    column2: []
-  }
+  // 下一页
+  nextPage: 1,
+  news: [],
+  // 展示的时候的长度，即每有一个 group ，加2，每有一个 news ，加1
+  showLength: 0
 }
 
 const getters = {
   newsGetShowTypes: state => state.showTypes,
   newsGetAllTypes: state => state.allTypes,
   newsGetNowType: state => state.nowType,
-  newsGetLatestPage: state => state.latestPage,
+  newsGetNextPage: state => state.nextPage,
   newsGetNewsData: state => state.news
 }
 
@@ -26,24 +27,17 @@ const actions = {
   newsToggleShowTypes ({ commit }) {
     commit(types.NEWSTOGGLESHOWTYPES)
   },
+  // 添加新闻并更新页数
   newsAddNews ({ commit }, pageData) {
     commit(types.NEWSADDNEWS, { pageData })
+    commit(types.NEWSADDPAGE)
   },
-  newsChangenextColunms ({ commit }, newnextColunms) {
-    commit(types.NEWSCHANGENEXTCOLUNMS, { newnextColunms })
-  },
-  // 更新当前 news 的分类，同时重置页数
+  // 更新当前 news 的分类，同时重置页数,重置新闻
   newsChangeNowType ({ commit }, newType) {
     commit(types.NEWSCHANGENOWTYPE, { newType })
-    commit(types.NEWSRESETLATESTPAGE)
-  },
-  newsResetLatestPage ({ commit }) {
-    commit(types.NEWSRESETLATESTPAGE)
-  },
-  // 清除 news 及 nextColunms 中的数据
-  newsClearNews ({ commit }) {
+    commit(types.NEWSRESETNEXTPAGE)
     commit(types.NEWSCLEARNEWS)
-    commit(types.NEWSCLEARNEXTCOLUNMS)
+    commit(types.NEWSCLEARSHOWLENGTH)
   }
 }
 
@@ -52,42 +46,55 @@ const mutations = {
     state.showTypes = !state.showTypes
   },
   /*
-  根据 nextColunms 向三列数据分别加入10，10，10或11，10，9个数据
+  保证 type: group 的数据在 3n+1 / 3n+2 上
   */
   [types.NEWSADDNEWS] (state, { pageData }) {
-    const columns = state.nextColunms
-    // 如果不是加载的第一次的数据，则分别加入11，10，9个数据
-    if (columns) {
-      const supply = pageData.splice(0, 3)
-      state.news[`column${columns[0]}`].push(supply[0], supply[1])
-      state.news[`column${columns[1]}`].push(supply[2])
-    }
-    state.latestPage++
-    var i = 0
-    for (const news of pageData) {
-      const column = `column${i % 3}`
-      state.news[column].push(news)
-      i++
-    }
+    const temp = []
+    pageData.map(item => {
+      // 为新闻则直接放入
+      if (item.type === 'news') {
+        state.news.push(item)
+        state.showLength += 1
+      } else {
+        // 为话题组则判断
+        // 如果会被放入最后一列则暂存起来
+        if ((state.showLength % 3) === 2) {
+          temp.push(item)
+        } else {
+          // 不为最后一列则直接放入
+          state.news.push(item)
+          state.showLength += 2
+        }
+      }
+      // 每次到可以放入的时候，检查能否放入
+      if ((state.showLength % 3) !== 2) {
+        // 以及检有没有数据暂存
+        if (temp.length > 0) {
+          state.news.push(temp.pop())
+          state.showLength += 2
+        }
+      }
+    })
   },
-  [types.NEWSCHANGENEXTCOLUNMS] (state, { newnextColunms }) {
-    state.nextColunms = newnextColunms
-  },
+  // 更新 nowType
   [types.NEWSCHANGENOWTYPE] (state, { newType }) {
     state.nowType = newType
   },
-  [types.NEWSRESETLATESTPAGE] (state) {
-    state.latestPage = 1
+  // nextPage + 1
+  [types.NEWSADDPAGE] (state) {
+    state.nextPage = state.nextPage + 1
   },
+  // 清空页数
+  [types.NEWSRESETNEXTPAGE] (state) {
+    state.nextPage = 1
+  },
+  // 清空news
   [types.NEWSCLEARNEWS] (state) {
-    state.news = {
-      column0: [],
-      column1: [],
-      column2: []
-    }
+    state.news = []
   },
-  [types.NEWSCLEARNEXTCOLUNMS] (state) {
-    state.nextColunms = null
+  // 清空 showLength
+  [types.NEWSCLEARSHOWLENGTH] (state) {
+    state.showLength = 0
   }
 }
 

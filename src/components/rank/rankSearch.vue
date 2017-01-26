@@ -86,7 +86,7 @@ export default {
     .rank-search-button
       width 50px
       height 27px
-      margin-left -25px
+      margin-left -27px
       display flex
       justify-content center
       align-items center

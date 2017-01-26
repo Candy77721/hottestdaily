@@ -1,15 +1,12 @@
 <template lang="html">
   <div class="news-list">
-    <div class="news-column" v-for="columns in newsGetNewsData">
-      <news-card :news="news" v-for="news in columns">
-
-      </news-card>
-    </div>
+    <component :is="getNewsOrGroup(news.type)" :news="news" v-for="news in newsGetNewsData"></component>
   </div>
 </template>
 
 <script>
 import NewsCard from '../components/news/newsCard.vue'
+import NewsGroup from '../components/news/newsGroup.vue'
 
 import * as api from '../api/api'
 import { mapActions, mapGetters } from 'vuex'
@@ -24,7 +21,6 @@ export default {
   mounted () {
     // 检查 type
     const newType = this.$route.params.type
-    console.log(newType);
     this.checkType(newType)
   },
   // 即使首次挂载，也会调用此钩子
@@ -54,7 +50,7 @@ export default {
   computed: {
     ...mapGetters([
       'newsGetNowType',
-      'newsGetLatestPage',
+      'newsGetNextPage',
       'newsGetNewsData'
     ])
   },
@@ -62,30 +58,27 @@ export default {
     ...mapActions([
       'newsToggleShowTypes',
       'newsAddNews',
-      'newsChangenextColunms',
       'newsChangeNowType',
-      'newsResetLatestPage',
       'newsClearNews'
     ]),
+    // 检查是 news 还是 group
+    getNewsOrGroup: function (type) {
+      return type === 'news' ? 'NewsCard' : 'NewsGroup'
+    },
     /*
     检查是否和之前的是相同 type
     如果是则不进行操作
     如果不是则更新 type ，重置当前页数，重置新闻，发送新的请求
     */
     checkType: function (newType) {
-      if (newType === this.newsGetNowType && this.newsGetLatestPage !== 1) {
+      if (newType === this.newsGetNowType && this.newsGetNextPage !== 1) {
         return
       }
       this.newsChangeNowType(newType)
-      this.newsResetLatestPage()
-      this.newsClearNews()
-      this.getNews(this.newsGetLatestPage, this.newsGetNowType)
+      this.getNews(this.newsGetNextPage, this.newsGetNowType)
     },
     /*
     从服务端获取瀑布流中所需新闻，并更新到vuex中
-    同时确定下一次获取新闻时应该放入哪一列中
-    参数：所需页数page(number)，所需类别type(string)
-    返回值：object
     */
     getNews: function (page, type) {
       this.isGet = true
@@ -101,55 +94,29 @@ export default {
             return
           }
           this.newsAddNews(data.data)
-          // 刷新DOM后，获取高度
-          this.$nextTick(function () {
-            const columns = this.$el.querySelectorAll('.news-column')
-            const nextColumnsIndex = this.getMinHeightIndex(columns)
-            // 设置下一次排序起始
-            this.newsChangenextColunms(nextColumnsIndex)
-            this.isGet = false
-          })
+          this.isGet = false
         })
         .catch(function (err) {
           console.log(err)
+          this.isGet = false
         })
-    },
-    /*
-    将三列按照从短到长排序，并返回三列从短到长的下标组成的数组
-    参数：node节点数组
-    返回值：三列从短到长的下标组成的数组(array)
-    */
-    getMinHeightIndex: function (node) {
-      const columnsHeight = []
-      const sortColumnsIndex = []
-      const sortedColumnsHeight = []
-      node.forEach(column => {
-        const height = column.lastChild.offsetTop + column.lastChild.offsetHeight
-        columnsHeight.push(height)
-        sortedColumnsHeight.push(height)
-      })
-      // 从小到大排序
-      sortedColumnsHeight.sort((a, b) => a - b)
-      // 获取新的下标组成的数组
-      sortedColumnsHeight.forEach(ele => {
-        columnsHeight.findIndex((e, index) => {
-          if (e === ele) sortColumnsIndex.push(index)
-        })
-      })
-      return sortColumnsIndex
     },
     // 监听滚动事件
     handleScroll () {
       var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       if (document.documentElement.scrollHeight - 150 <= document.documentElement.clientHeight + scrollTop) {
-        if (!this.isGet) {
-          this.getNews(this.newsGetLatestPage, this.newsGetNowType)
+        // 只有10页数据
+        if ((!this.isGet) && (this.newsGetNextPage !== 11)) {
+          this.getNews(this.newsGetNextPage, this.newsGetNowType)
+        } else if (this.newsGetNextPage === 11) {
+          // TODO: 提示已经到底
         }
       }
     }
   },
   components: {
-    NewsCard: NewsCard
+    NewsCard: NewsCard,
+    NewsGroup: NewsGroup
   }
 }
 </script>
@@ -159,7 +126,9 @@ export default {
   width 1110px
   padding 50px
   margin auto
+  position relative
   display flex
+  flex-wrap wrap
   background-color white
   .news-column
     width 320px
