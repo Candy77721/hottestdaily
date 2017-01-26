@@ -4,8 +4,8 @@ const state = {
   showTypes: false, // 是否展示分类导航栏
   allTypes: ['全部', '政治', '社会', '财经', '教育', '科技', '时尚', '体育'],
   nowType: '全部',
-  nextColunms: null,
   latestPage: 1,
+  nextColunms: null,
   news: {
     column0: [],
     column1: [],

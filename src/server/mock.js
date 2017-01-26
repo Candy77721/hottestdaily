@@ -21,15 +21,61 @@ Mock
   .mock('api/getNewsPage', 'post', {
     'errorCode': 0,
     'errorMsg': 'success',
-    'data|30': [{
+    'data|5': [{
         'type': 'news',
         'title':'@csentence(10,20)',
         'url': '@url()',
-        'hot|+1': 26,
+        'hot|26-100':100,
         'label': '@cword(2,4)',
         'keywords|3': ['@cword(2,4)'],
         'abstract': '@cparagraph()',
     	  'fromTopic': '@cword(2,6)',
+      }, {
+          'type': 'news',
+          'title':'@csentence(10,20)',
+          'url': '@url()',
+          'hot|26-100':100,
+          'label': '@cword(2,4)',
+          'keywords|3': ['@cword(2,4)'],
+          'abstract': '@cparagraph()',
+      	  'fromTopic': '@cword(2,6)',
+      }, {
+          'type': 'news',
+          'title':'@csentence(10,20)',
+          'url': '@url()',
+          'hot|26-100':100,
+          'label': '@cword(2,4)',
+          'keywords|3': ['@cword(2,4)'],
+          'abstract': '@cparagraph()',
+      	  'fromTopic': '@cword(2,6)',
+      }, {
+          'type': 'news',
+          'title':'@csentence(10,20)',
+          'url': '@url()',
+          'hot|26-100':100,
+          'label': '@cword(2,4)',
+          'keywords|3': ['@cword(2,4)'],
+          'abstract': '@cparagraph()',
+      	  'fromTopic': '@cword(2,6)',
+      }, {
+          'type': 'news',
+          'title':'@csentence(10,20)',
+          'url': '@url()',
+          'hot|26-100':100,
+          'label': '@cword(2,4)',
+          'keywords|3': ['@cword(2,4)'],
+          'abstract': '@cparagraph()',
+      	  'fromTopic': '@cword(2,6)',
+      }, {
+          'type': 'group',
+          'title':'@cword(2,4)',
+          'relatedNews|10':[{
+            'title':'@csentence(10,20)',
+            'url':'@url()'
+          }],
+          'hot|26-100':100,
+          "history|10":['@integer(26, 100)'],
+          'keywords|6':['@cword(2,4)']
       }]
   })
   // 用户登录

@@ -19,7 +19,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.getLastTenDay())
     this.updateGraph(this.getLastTenDay())
   },
   computed: {
@@ -37,15 +36,31 @@ export default {
     updateGraph: function (time) {
       const modalGraphRank = echarts.init(document.getElementById('modal-garph-rank'))
       modalGraphRank.setOption({
-        tooltip: {},
+        tooltip: {
+          formatter: `{b}：{c}`
+        },
+        grid: {
+          left: '20px',
+          right: '20px',
+          bottom: '20px',
+          top: '20px',
+          containLabel: true
+        },
         xAxis: {
           type: 'category',
           boundaryGap: false,
+          axisLabel: {
+            show: false
+          },
+          axisTick: {
+            show: false
+          },
           data: time
         },
         yAxis: {
           type: 'value',
           min: 0,
+          max: 100,
           boundaryGap: [0, '100%']
         },
         series: [{
@@ -55,7 +70,16 @@ export default {
           sampling: 'average',
           itemStyle: {
             normal: {
-              color: 'rgba(100,151,255,0.89)'
+              color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                offset: 0,
+                color: 'rgba(100,151,255,0.89)'
+              }, {
+                offset: 0.66,
+                color: 'rgba(145,143,226,0.86)'
+              }, {
+                offset: 0.98,
+                color: 'rgba(153,135,213,0.86)'
+              }])
             }
           },
           areaStyle: {
@@ -144,8 +168,8 @@ export default {
       top 20px
       cursor pointer
   .graph
-    width 600px
-    height 290px
+    width 660px
+    height 350px
     margin-top 50px
     background-color black
 </style>

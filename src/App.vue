@@ -13,10 +13,10 @@
 
       <div class="">
         <transition name="modal-slide-top">
-          <div class="">
-            <user-modal v-show="userGetIsModal"></user-modal>
-            <modal-graph v-show="rankGetShowModalGraph"></modal-graph>
-          </div>
+          <user-modal v-show="userGetIsModal"></user-modal>
+        </transition>
+        <transition name="modal-slide-top">
+          <modal-graph-rank v-if="rankGetShowModalGraph"></modal-graph-rank>
         </transition>
           <div class="modal-overlay" v-show="showModalOverlay"></div>
       </div>
@@ -29,8 +29,8 @@ import TopLogo from './components/topLogo.vue'
 import TopBar from './components/topBar.vue'
 // 用户模态框
 import UserModal from './pages/userModal.vue'
-// 图表模态框
-import ModalGraph from './pages/modalGraph.vue'
+// 排行榜图表模态框
+import ModalGraphRank from './components/modalGraph/modalGraphRank.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 import * as api from './api/api.js'
@@ -88,7 +88,7 @@ export default {
     TopLogo: TopLogo,
     TopBar: TopBar,
     UserModal: UserModal,
-    ModalGraph: ModalGraph
+    ModalGraphRank: ModalGraphRank
   }
 }
 </script>
