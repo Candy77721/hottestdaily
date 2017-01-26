@@ -7,6 +7,7 @@ import news from './modules/news'
 import user from './modules/user'
 import search from './modules/search'
 import color from './modules/color'
+import rank from './modules/rank'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     news,
     user,
     search,
+    rank,
     color
   }
 })

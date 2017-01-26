@@ -6,10 +6,10 @@
 
 <script>
 // 用户组件
-import UserLogin from '../components/user/userLogin.vue'
-import UserRegister from '../components/user/userRegister.vue'
-import UserRegisterOk from '../components/user/userRegisterOk.vue'
-import UserForget from '../components/user/userForget.vue'
+import UserLogin from '../components/user/userModal/userLogin.vue'
+import UserRegister from '../components/user/userModal/userRegister.vue'
+import UserRegisterOk from '../components/user/userModal/userRegisterOk.vue'
+import UserForget from '../components/user/userModal/userForget.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -37,7 +37,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .user-modal
   position fixed
   top 50%

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="graph-out">
+  <div class="search-graph-out">
     <div class="search-graph" id="search-graph">
 
     </div>
@@ -84,8 +84,8 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.graph-out
+<style lang="stylus" scoped>
+.search-graph-out
   margin auto
   display flex
   background-color white

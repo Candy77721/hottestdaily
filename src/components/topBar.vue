@@ -10,7 +10,7 @@
             <img src="../assets/icon/menu-explore.png" alt="">
             <span>今日热词</span>
           </router-link>
-          <router-link to="/news" tag="li">
+          <router-link :to="{name: 'newsType', params: { type: newsGetNowType }}" tag="li">
             <img src="../assets/icon/menu-news.png" alt="">
             <span>时下热文</span>
           </router-link>
@@ -21,7 +21,7 @@
         </li>
       </ul>
       <ul class="search">
-        <input type="input" :placeholder="placeholder" v-model="searchValue" @focus="toggleInputHolder()" @blur="toggleInputHolder()">
+        <input type="input" :placeholder="placeholder" v-model="searchValue" @keyup.enter="search()" @focus="toggleInputHolder()" @blur="toggleInputHolder()">
         <img src="../assets/icon/search-topbar.png" alt="" @click="search()">
       </ul>
       <ul class="user dropdown" @mouseover="userToggleIsUserMenu()" @mouseout="userToggleIsUserMenu()">
@@ -75,6 +75,7 @@ export default {
     ...mapGetters([
       'newsGetShowTypes',
       'newsGetAllTypes',
+      'newsGetNowType',
       'userGetIsLogin',
       'userGetIsUserMenu'
     ])
@@ -106,7 +107,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .header-out
   height 50px
   width 1284px
@@ -208,7 +209,7 @@ export default {
       display flex
       position absolute
       top 50px
-      left 95px
+      left 143px
       justify-content space-between
       background-color white
       color #A3A3A3

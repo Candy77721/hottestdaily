@@ -1,29 +1,30 @@
 <template lang="html">
 <div class="user-login">
   <div class="user-login-header">
-    <img class="close" src="../../assets/icon/close-white.png" alt="" @click="userToggleModal()">
-    <p>加入我们</p>
+    <img class="close" src="../../../assets/icon/close-white.png" alt="" @click="userToggleModal()">
+    <p>忘记密码</p>
   </div>
   <div class="user-login-body">
     <p class="form-group">
-      <input type="text" id="username" v-model="userRegister.username" placeholder="请输入用户名" required="required">
+      <input type="email" id="email" v-model="userForget.email" placeholder="请输入邮箱" required="required">
     </p>
     <p class="form-group">
-      <input type="email" id="email" v-model="userRegister.email" placeholder="请输入邮箱" required="required">
+      <input type="text" id="captcha" v-model="userForget.captcha" placeholder="验证码" required="required">
+      <button type="button" name="button" @click="getCaptcha()">发送验证码</button>
     </p>
     <p class="form-group">
-      <input type="password" id="password"  v-model="userRegister.password"  placeholder="请输入密码" required="required">
+      <input type="password" id="password"  v-model="userForget.password"  placeholder="请输入新密码" required="required">
     </p>
     <div class="user-login-actions">
-      <span class="user-login-other" @click="userChangeModalState('UserForget')">忘记密码</span>
-      <button type="button" name="button" class="button-login" @click="register()">注册</button>
-      <span class="user-login-other" @click="userChangeModalState('UserLogin')"> 前去登陆</span>
+      <span class="user-login-other" @click="userChangeModalState('UserLogin')">前去登陆</span>
+      <button type="button" name="button" class="button-login" @click="forget()">重置</button>
+      <span class="user-login-other" @click="userChangeModalState('UserRegister')">加入我们</span>
     </div>
   </div>
   <div class="user-login-foot">
     <div class="other-login">
       <span>使用QQ快捷登陆</span>
-      <img src="../../assets/icon/qq.png" alt="">
+      <img src="../../../assets/icon/qq.png" alt="">
     </div>
   </div>
 </div>
@@ -31,14 +32,14 @@
 
 <script>
 import { mapActions } from 'vuex'
-import * as api from '../../api/api'
+import * as api from '../../../api/api'
 
 export default {
   data () {
     return {
-      userRegister: {
+      userForget: {
         email: '',
-        username: '',
+        captcha: '',
         password: ''
       }
     }
@@ -49,20 +50,33 @@ export default {
       'userToggleModal',
       'userChangeModalState'
     ]),
-    register: function () {
-      // if (!(this.regEmail(this.userLogin.username) && this.regPassword(this.userLogin.password))) {
-      //   alert("请输入正确格式的邮箱与密码")
-      //   return false
-      // }
-      axios.post(api.userRegister, this.userRegister)
+    getCaptcha: function () {
+      axios.post(api.userGetCaptcha, {
+        'email': this.userForget.email
+      })
         .then(res => {
           const data = res.data
           if (data.errorCode !== 0) {
             alert(data.errorMsg)
-          } else {
-            this.userToggleLogin()
-            this.userToggleModal()
           }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+    forget: function () {
+      // if (!(this.regEmail(this.userLogin.username) && this.regPassword(this.userLogin.password))) {
+      //   alert("请输入正确格式的邮箱与密码")
+      //   return false
+      // }
+      axios.post(api.userfgPasswd, this.userForget)
+        .then(res => {
+          const data = res.data
+          if (data.errorCode !== 0) {
+            alert(data.errorMsg)
+            return
+          }
+          this.userChangeModalState('UserLogin')
         })
         .catch(error => {
           console.log(error)
@@ -99,8 +113,8 @@ export default {
     // 关闭按钮
     .close
       position absolute
-      top 15px
       left 15px
+      top 15px
       cursor pointer
     p
       margin 0 auto

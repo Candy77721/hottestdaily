@@ -15,9 +15,9 @@
         {{keyword}}
       </span>
     </div>
-    <div class="hot-rect" :style="{ backgroundImage: getHotColor(toInt(news.hot))}">
+    <div class="hot-rect" :style="{ backgroundImage: getHotColor(news.hot)}">
       <p class="hot">
-        {{`${toInt(news.hot)}°`}}
+        {{`${news.hot}°`}}
       </p>
     </div>
   </div>
@@ -39,9 +39,6 @@ export default {
     ])
   },
   methods: {
-    toInt: num => {
-      return Math.round(num)
-    },
     getHotColor: function (hot) {
       return this.getColor[hot]
     }
@@ -49,7 +46,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .search-card
   width 660px
   height 120px

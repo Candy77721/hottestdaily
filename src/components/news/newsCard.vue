@@ -15,9 +15,9 @@
           {{keyword}}
         </span>
       </div>
-      <div class="hot-rect" :style="{ backgroundImage: getHotColor(toInt(news.hot))}">
+      <div class="hot-rect" :style="{ backgroundImage: getHotColor(news.hot)}">
         <p class="hot">
-          {{`${toInt(news.hot)}°`}}
+          {{`${news.hot}℃`}}
         </p>
       </div>
     </div>
@@ -40,9 +40,6 @@ export default {
     ])
   },
   methods: {
-    toInt: num => {
-      return Math.round(num)
-    },
     getHotColor: function (hot) {
       return this.getColor[hot]
     }
@@ -50,10 +47,10 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .news-card
   width 280px
-  margin 20px
+  margin 20px 0
   padding 20px
   position relative
   display flex
@@ -79,26 +76,28 @@ export default {
     text-decoration none
   .title
     width 275px
-    height 45px
+    height 50px
     font-size 18px
     color #535353
     letter-spacing 2.07px
+    line-height 25px
     text-align center
   .news-card-body
-    width 214px
+    width 215px
     display flex
     flex-direction column
     align-items center
     a
-      margin 23px 0
+      margin 15.4px 0 23px 0
     .abstract
-      height 115px
-      font-size 13px
+      height 116px
+      font-size 12px
       color #A3A3A3
       letter-spacing 1.38px
+      line-height 17px
       text-overflow ellipsis /*有些示例里需要定义该属性，实际可省略*/
       display -webkit-box
-      -webkit-line-clamp 8/*规定超过两行的部分截断*/
+      -webkit-line-clamp 7/*规定超过两行的部分截断*/
       -webkit-box-orient vertical
       overflow hidden
       word-break break-all/*在任何地方换行*/

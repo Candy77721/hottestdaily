@@ -5,15 +5,20 @@
 
     <div class="main">
       <transition name=''>
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </transition>
     </div>
 
       <div class="">
-        <transition name="user-modal-slide-top">
-          <user-modal v-show="userGetIsModal"></user-modal>
+        <transition name="modal-slide-top">
+          <div class="">
+            <user-modal v-show="userGetIsModal"></user-modal>
+            <modal-graph v-show="rankGetShowModalGraph"></modal-graph>
+          </div>
         </transition>
-          <div class="user-modal-overlay" v-show="userGetIsModal"></div>
+          <div class="modal-overlay" v-show="showModalOverlay"></div>
       </div>
   </div>
 </template>
@@ -24,6 +29,8 @@ import TopLogo from './components/topLogo.vue'
 import TopBar from './components/topBar.vue'
 // 用户模态框
 import UserModal from './pages/userModal.vue'
+// 图表模态框
+import ModalGraph from './pages/modalGraph.vue'
 
 import { mapGetters, mapActions } from 'vuex'
 import * as api from './api/api.js'
@@ -64,8 +71,12 @@ export default {
   computed: {
     ...mapGetters([
       'userGetIsModal',
-      'userGetIsLogin'
-    ])
+      'userGetIsLogin',
+      'rankGetShowModalGraph'
+    ]),
+    showModalOverlay: function () {
+      return this.userGetIsModal || this.rankGetShowModalGraph
+    }
   },
   methods: {
     ...mapActions([
@@ -76,7 +87,8 @@ export default {
   components: {
     TopLogo: TopLogo,
     TopBar: TopBar,
-    UserModal: UserModal
+    UserModal: UserModal,
+    ModalGraph: ModalGraph
   }
 }
 </script>
@@ -86,13 +98,14 @@ export default {
 *
 input:focus
   outline none
+*
+  font-family "Microsoft Yahei"
 html
 body
   margin 0
   height 100%
   .main
-    width 1110px
-    padding 50px
+    width 1210px
     margin auto
     box-shadow:0 0 20px 15px rgba(255,255,255,1)
     background-color white
@@ -107,7 +120,7 @@ body
     background url('./assets/back-img.png') no-repeat center center
     background-size cover
     z-index: -1
-.user-modal-overlay
+.modal-overlay
   position: fixed
   top 0
   right 0
@@ -116,12 +129,12 @@ body
   background-color rgba(0,0,0,0.62)
   z-index 10
 // 动画
-.user-modal-slide-top-enter
-.user-modal-slide-top-leave-active
+.modal-slide-top-enter
+.modal-slide-top-leave-active
   transform translateY(-20px)
   opacity 0
-.user-modal-slide-top-enter-active
-.user-modal-slide-top-leave-active
+.modal-slide-top-enter-active
+.modal-slide-top-leave-active
   transition all .3s
 
 </style>

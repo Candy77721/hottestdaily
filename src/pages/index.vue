@@ -1,6 +1,6 @@
 <template lang="html">
-    <div class="graph-out" :key="graphName">
-    <div class="main-graph" id="main-graph">
+    <div class="index-graph-out" :key="graphName">
+    <div class="index-graph" id="index-graph">
 
     </div>
   </div>
@@ -16,11 +16,15 @@ export default {
     }
   },
   mounted () {
-    const myChart = echarts.init(document.getElementById('main-graph'))
+    const myChart = echarts.init(document.getElementById('index-graph'))
     // 'https://raw.githubusercontent.com/954880786/Project_hot2/master/PrepareJson/graph_index.json'
     axios.get(api.getIndexGraph)
       .then(res => {
-        const data = res.data
+        if (res.data.errorCode !== 0) {
+          console.log(res.data.errorMsg)
+          return
+        }
+        const data = res.data.data
         myChart.setOption({
           title: {
             text: 'NPM Dependencies'
@@ -84,14 +88,14 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.graph-out
+<style lang="stylus" scoped>
+.index-graph-out
   width 1110px
   margin auto
   padding-top 120px
   display flex
   background-color white
-  .main-graph
+  .index-graph
     width 1070px
     height 610px
     background-color black

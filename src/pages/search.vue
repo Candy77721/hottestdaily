@@ -74,7 +74,11 @@ export default {
         search: search
       })
         .then(res => {
-          this.searchChangeGraph(res.data)
+          if (res.data.errorCode !== 0) {
+            console.log(res.data.errorMsg)
+            return
+          }
+          this.searchChangeGraph(res.data.data)
         })
         .catch(err => {
           console.log(err)
@@ -88,6 +92,10 @@ export default {
         page: page
       })
         .then(res => {
+          if (res.data.errorCode !== 0) {
+            console.log(res.data.errorMsg)
+            return
+          }
           this.searchAddNews(res.data.data)
           this.isGet = false
         })
@@ -112,7 +120,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .search
   // .search-graph
   .search-cards

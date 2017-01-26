@@ -70,20 +70,15 @@ Mock
   .mock('api/getHotWords', 'get', {
     'errorCode': 0,
     'errorMsg': 'success',
-    'data|30': [
-      {
-        'title':'@csentence(10,20)',
-        'url': '@url()',
-        'hot|26-99.1-500': 1,
+    'data|50': [{
+        'content': '@cword(2,4)',
+        'hot|+1': 26,
         'label': '@cword(2,4)',
-        'keywords|3': ['@cword(2,4)'],
-        'abstract': '@cparagraph()',
-        'fromTopic': '@cword(2,6)',
+        "history|10":['@integer(26, 100)'],
       }]
   })
   // 首页关系图
   .mock('api/getGraph', 'get', {
-    data: {
       'errorCode': 0,
       'errorMsg': 'success',
       'data':{
@@ -466,11 +461,9 @@ Mock
           }
         ]
       }
-    }
   })
   // 查询页关系图
   .mock('api/getSearchGraph', 'post', {
-    data: {
       'errorCode': 0,
       'errorMsg': 'success',
       'data':{
@@ -853,5 +846,4 @@ Mock
           }
         ]
       }
-    }
   })

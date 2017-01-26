@@ -23,25 +23,32 @@ export default {
   },
   mounted () {
     // 检查 type
-    const newType = this.$route.params.type ? this.$route.params.type : '全部'
+    const newType = this.$route.params.type
+    console.log(newType);
     this.checkType(newType)
+  },
+  // 即使首次挂载，也会调用此钩子
+  activated () {
     // 展示导航栏
     this.newsToggleShowTypes()
     // 监听滚动事件
     window.addEventListener('scroll', this.handleScroll)
   },
-  beforeDestroy () {
+  deactivated () {
     // 取消展示导航栏
     this.newsToggleShowTypes()
     // 停止监听滚动事件
     window.removeEventListener('scroll', this.handleScroll)
   },
+  // 由于组件未销毁，所以 watch 会一直执行
   watch: {
     // 如果路由有变化，会再次执行该方法
     '$route' (to, from) {
       // 检查 type
-      const newType = to.params.type ? to.params.type : '全部'
-      this.checkType(newType)
+      if (to.name === 'newsType') {
+        const newType = to.params.type
+        this.checkType(newType)
+      }
     }
   },
   computed: {
@@ -66,7 +73,7 @@ export default {
     如果不是则更新 type ，重置当前页数，重置新闻，发送新的请求
     */
     checkType: function (newType) {
-      if (newType && newType === this.newsGetNowType) {
+      if (newType === this.newsGetNowType && this.newsGetLatestPage !== 1) {
         return
       }
       this.newsChangeNowType(newType)
@@ -91,17 +98,17 @@ export default {
           const data = res.data
           if (data.errorCode !== 0) {
             console.log(data.errorMsg)
-          } else {
-            this.newsAddNews(data.data)
-            // 刷新DOM后，获取高度
-            this.$nextTick(function () {
-              const columns = this.$el.querySelectorAll('.news-column')
-              const nextColumnsIndex = this.getMinHeightIndex(columns)
-              // 设置下一次排序起始
-              this.newsChangenextColunms(nextColumnsIndex)
-              this.isGet = false
-            })
+            return
           }
+          this.newsAddNews(data.data)
+          // 刷新DOM后，获取高度
+          this.$nextTick(function () {
+            const columns = this.$el.querySelectorAll('.news-column')
+            const nextColumnsIndex = this.getMinHeightIndex(columns)
+            // 设置下一次排序起始
+            this.newsChangenextColunms(nextColumnsIndex)
+            this.isGet = false
+          })
         })
         .catch(function (err) {
           console.log(err)
@@ -147,18 +154,19 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .news-list
   width 1110px
+  padding 50px
   margin auto
   display flex
   background-color white
   .news-column
-    width 30%
-    margin 10px 1%
-    padding 5px
+    width 320px
     display flex
     flex-direction column
+    &:nth-child(2)
+      margin 0 75px
     .news-item
       margin 10px
       padding 5px

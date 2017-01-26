@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="user-login">
   <div class="user-login-header">
-    <img class="close" src="../../assets/icon/close-white.png" alt="" @click="userToggleModal()">
+    <img class="close" src="../../../assets/icon/close-white.png" alt="" @click="userToggleModal()">
     <p>登陆账号</p>
   </div>
   <div class="user-login-body">
@@ -20,7 +20,7 @@
   <div class="user-login-foot">
     <div class="other-login">
       <span>使用QQ快捷登陆</span>
-      <img src="../../assets/icon/qq.png" alt="">
+      <img src="../../../assets/icon/qq.png" alt="">
     </div>
   </div>
 </div>
@@ -28,7 +28,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import * as api from '../../api/api'
+import * as api from '../../../api/api'
 
 export default {
   data () {

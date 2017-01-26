@@ -20,7 +20,7 @@ const routes = [{
 }, {
   path: '/news',
   name: 'news',
-  redirect: '/news/全部',
+  redirect: { name: 'newsType', params: { type: '全部' }},
   component: function (resolve) {
     require(['../pages/news.vue'], resolve)
   }
