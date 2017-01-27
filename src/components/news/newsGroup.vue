@@ -60,7 +60,7 @@ export default {
   height 380px
   box-sizing border-box
   margin 20px 0
-  padding 20px 20px 65px 20px
+  padding 20px 20px 40px 20px
   position relative
   display flex
   align-items center
@@ -79,22 +79,23 @@ export default {
     top calc(100% - 3px)
     background-image url('../../assets/icon/group-bottom-border.png')
   .group-list
-    height 295px
+    height 320px
     .list
       width 380px
-      height 42px
+      height 50px
       display block
       text-decoration none
+      color #535353
       letter-spacing 4px
-      color black
+      line-height 25px
       font-size 18px
       &:not(:first-child)
-        margin-top 42px
+        margin-top 40px
       p
         margin 0
   .group-body
     width 210px
-    height 295px
+    height 320px
     margin-left 45px
     .title
       height 62px
@@ -111,7 +112,7 @@ export default {
       border-radius 0 0 10px 10px
     .keywords
       margin-top 42px
-      margin-bottom 16px
+      margin-bottom 40px
       .keyword-rows
         width 100%
         display flex

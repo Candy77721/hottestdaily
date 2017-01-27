@@ -1,8 +1,9 @@
 <template lang="html">
   <div class="search-graph-out">
-    <div class="search-graph" id="search-graph">
-
+    <div class="tips">
+      词语关系图：
     </div>
+    <div class="search-graph" id="search-graph"></div>
   </div>
 </template>
 
@@ -26,7 +27,7 @@ export default {
       // 'https://raw.githubusercontent.com/954880786/Project_hot2/master/PrepareJson/graph_index.json'
       searchGraph.setOption({
         title: {
-          text: 'NPM Dependencies'
+          // text: 'NPM Dependencies'
         },
         animationDurationUpdate: 1500,
         animationEasingUpdate: 'quinticInOut',
@@ -87,8 +88,17 @@ export default {
 <style lang="stylus" scoped>
 .search-graph-out
   margin auto
+  padding-top 50px
+  position relative
   display flex
   background-color white
+  .tips
+    position absolute
+    left 30px
+    top 50px
+    font-size 14px
+    color #A3A3A3
+    letter-spacing 1.6px
   .search-graph
     margin auto
     width 920px

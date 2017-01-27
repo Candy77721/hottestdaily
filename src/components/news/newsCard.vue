@@ -122,7 +122,7 @@ export default {
     .hot-rect
       width 100%
       height 34px
-      margin 40px 0 20px 0
+      margin 38px 0 22px 0
       padding 8px 0
       color white
       background-image radial-gradient(35% 90%, #EC7A73 21%, #ED8176 25%, #FBDFA6 100%)

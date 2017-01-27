@@ -2,6 +2,9 @@
 <div class="search">
   <search-graph class="search-graph" :graph="searchGetGraph" :key="graphName"></search-graph>
   <div class="search-cards">
+    <div class="tips">
+      相关新闻：
+    </div>
     <search-card :news="news" v-for="news in searchGetNews">
 
     </search-card>
@@ -124,8 +127,16 @@ export default {
 .search
   // .search-graph
   .search-cards
-    margin-top 50px
+    padding-top 50px
     display flex
     flex-direction column
     align-items center
+    position relative
+    .tips
+      position absolute
+      left 30px
+      top 50px
+      font-size 14px
+      color #A3A3A3
+      letter-spacing 1.6px
 </style>
