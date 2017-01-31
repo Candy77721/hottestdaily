@@ -10,6 +10,7 @@
 import * as api from '../api/api'
 
 export default {
+  name: 'explore',
   data () {
     return {
       graphName: 'index-graph'

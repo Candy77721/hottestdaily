@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="header-out">
     <div class="header">
-      <ul class="menu dropdown" @mouseover="toggleIsMenu()" @mouseout="toggleIsMenu()">
+      <ul class="menu dropdown" @mouseover="showMenu()" @mouseout="hideMenu()">
         <li>
           <img class="menu-icon dropdown-icon" src="../assets/icon/menu-topbar.png" alt="">
         </li>
@@ -65,9 +65,9 @@
             <g id="今日热词" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(102.000000, 190.000000)">
               <g id="Rectangle">
                 <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
-                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2" @click="showMenu()" style="cursor: pointer;"></use>
               </g>
-              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF">
+              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF" @click="showMenu()" style="cursor: pointer;">
                 <tspan x="11" y="23">今</tspan>
                 <tspan x="11" y="48">日</tspan>
                 <tspan x="11" y="73">热</tspan>
@@ -93,9 +93,9 @@
             <g id="时下热文" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(102.000000, 190.000000)">
               <g id="Rectangle">
                 <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
-                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2" @click="showMenu()" style="cursor: pointer;"></use>
               </g>
-              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF">
+              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF" @click="showMenu()" style="cursor: pointer;">
                 <tspan x="11" y="23">时</tspan>
                 <tspan x="11" y="48">下</tspan>
                 <tspan x="11" y="73">热</tspan>
@@ -121,9 +121,9 @@
             <g id="热词榜" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(102.000000, 190.000000)">
               <g id="Rectangle">
                 <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
-                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2" @click="showMenu()" style="cursor: pointer;"></use>
               </g>
-              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF">
+              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF" @click="showMenu()" style="cursor: pointer;">
                 <tspan x="11" y="23">热</tspan>
                 <tspan x="11" y="48">词</tspan>
                 <tspan x="11" y="73">榜</tspan>
@@ -185,8 +185,11 @@ export default {
       this.userChangeModalState('UserLogin')
       this.userToggleModal()
     },
-    toggleIsMenu () {
-      this.isMenu = !this.isMenu
+    showMenu () {
+      this.isMenu = true
+    },
+    hideMenu () {
+      this.isMenu = false
     },
     toggleInputHolder () {
       if (this.placeholder === '') {
@@ -304,26 +307,25 @@ export default {
       left 24px
       z-index -2
     .news-type
-      width 1100px
+      width 1150px
       height 50px
       display flex
       position absolute
       top 50px
-      left 93px
+      left 68px
       justify-content space-between
       background-color white
       color #A3A3A3
       z-index -2
-      cursor pointer
       &:before
         content ''
-        width 1100px
+        width 1150px
         height 60px
         position absolute
         top 0
         left 0
         background-image url('../assets/menu-news-type-shadow.png')
-        background-size 1100px 60px
+        background-size 1150px 60px
         z-index -2
       .news-type-background
         width 100%
@@ -343,6 +345,7 @@ export default {
           align-items center
           justify-content center
           background-color white
+          cursor pointer
           &:hover
             color #79B3F9
 // 动画

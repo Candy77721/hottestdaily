@@ -16,6 +16,7 @@ import { mapActions, mapGetters } from 'vuex'
 import * as api from '../api/api'
 
 export default {
+  name: 'rank',
   data () {
     return {
       title: ''

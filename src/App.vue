@@ -5,7 +5,7 @@
 
     <div class="main">
       <transition name=''>
-        <keep-alive>
+        <keep-alive include="explore,news,rank">
           <router-view></router-view>
         </keep-alive>
       </transition>

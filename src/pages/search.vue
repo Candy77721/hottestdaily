@@ -20,6 +20,7 @@ import { mapActions, mapGetters } from 'vuex'
 import * as api from '../api/api'
 
 export default {
+  name: 'search',
   data () {
     return {
       // 是否正在获取数据

@@ -12,6 +12,7 @@ import * as api from '../api/api'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
+  name: 'news',
   data: function () {
     return {
       // 是否正在获取数据
