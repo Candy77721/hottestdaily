@@ -1,31 +1,30 @@
 <template lang="html">
-<div class="user-login">
-  <div class="user-login-header">
-    <img class="close" src="../../../assets/icon/close-white.png" alt="" @click="userToggleModal()">
-    <p>忘记密码</p>
+<div class="user-forget-body">
+  <div class="form-group">
+    <input type="email" id="email" v-model="userForget.email" placeholder="请输入邮箱" required="required">
   </div>
-  <div class="user-login-body">
-    <p class="form-group">
-      <input type="email" id="email" v-model="userForget.email" placeholder="请输入邮箱" required="required">
-    </p>
-    <p class="form-group">
-      <input type="text" id="captcha" v-model="userForget.captcha" placeholder="验证码" required="required">
-      <button type="button" name="button" @click="getCaptcha()">发送验证码</button>
-    </p>
-    <p class="form-group">
-      <input type="password" id="password"  v-model="userForget.password"  placeholder="请输入新密码" required="required">
-    </p>
-    <div class="user-login-actions">
-      <span class="user-login-other" @click="userChangeModalState('UserLogin')">前去登陆</span>
-      <button type="button" name="button" class="button-login" @click="forget()">重置</button>
-      <span class="user-login-other" @click="userChangeModalState('UserRegister')">加入我们</span>
+  <div class="user-forget-actions user-actions captcha button" @click="getCaptcha()">
+    <p>发送验证码到邮箱</p>
+  </div>
+  <div class="form-group">
+    <input type="password" id="password" placeholder="请输入新密码" required="required"
+    v-model="userForget.password" ref="password" @focus="toggleFocus()" @blur="toggleFocus()">
+    <div class="show-password">
+      <div class="" v-if="focus">
+        <img v-if="showPassword" src="../../../assets/icon/user-hide-password-2.png" class="password" alt="" @click="toggleShow()">
+        <img v-else src="../../../assets/icon/user-show-password-2.png" class="password" alt="" @click="toggleShow()">
+      </div>
+      <div class="" v-else>
+        <img v-if="showPassword" src="../../../assets/icon/user-hide-password-1.png" class="password" alt="" @click="toggleShow()">
+        <img v-else src="../../../assets/icon/user-show-password-1.png" class="password" alt="" @click="toggleShow()">
+      </div>
     </div>
   </div>
-  <div class="user-login-foot">
-    <div class="other-login">
-      <span>使用QQ快捷登陆</span>
-      <img src="../../../assets/icon/qq.png" alt="">
-    </div>
+  <div class="form-group">
+    <input type="text" id="captcha" v-model="userForget.captcha" placeholder="验证码" required="required">
+  </div>
+  <div class="user-forget-actions user-actions forget button" @click="forget()">
+    <p>确认修改</p>
   </div>
 </div>
 </template>
@@ -41,7 +40,8 @@ export default {
         email: '',
         captcha: '',
         password: ''
-      }
+      },
+      focus: false
     }
   },
   methods: {
@@ -50,6 +50,17 @@ export default {
       'userToggleModal',
       'userChangeModalState'
     ]),
+    toggleShow: function () {
+      const type = this.$refs.password.type
+      if (type === 'password') {
+        this.$refs.password.type = 'text'
+      } else {
+        this.$refs.password.type = 'password'
+      }
+    },
+    toggleFocus: function () {
+      this.focus = !this.focus
+    },
     getCaptcha: function () {
       axios.post(api.userGetCaptcha, {
         'email': this.userForget.email
@@ -94,91 +105,23 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.user-login
-  font-size 14px
-  background-color white
-  box-shadow 0 2px 8px 6px rgba(61,61,61,0.50)
-  .user-login-header
+<style lang="stylus" scoped>
+.user-forget-body
+  padding 20px 40px
+  .form-group
+    width 230px
     margin 0
-    padding 0
-    display flex
-    align-items center
-    height 46px
-    display flex
-    color #4D4D4D
-    border 0
-    background-image radial-gradient(38% 99%, #8BA4FA 0%, #65B5E7 94%, #62B6E5 100%)
-    box-shadow 0 1px 1px 0 rgba(140,140,140,0.50)
-    // 关闭按钮
-    .close
-      position absolute
-      left 15px
-      top 15px
-      cursor pointer
-    p
-      margin 0 auto
-      color white
-      display flex
-  .user-login-body
-    padding 0 39px
-    .form-group
-      width 230px
-      margin 23px 0
-      display flex
-      justify-content center
-      align-items center
-      label
-        margin 0 5px
-      input
-        box-sizing border-box
-        display inline
-        width 230px
-        height 30px
-        padding 5px
-        border 1px solid #CCC
-        box-shadow inset 0 0 2px 0 rgba(124,124,124,0.50)
-        color: #CBCBCB
-        &:focus
-          box-shadow inset 0 0 4px 0 rgba(141,116,116,0.50)
-    .user-login-actions
-      padding-bottom 25px
-      display flex
-      justify-content space-between
-      align-items center
-      .button-login
-        color #FFFFFF
-        border none
-        width 56px
-        height 23px
-        padding 5px
-        border-radius 5px
-        background-image linear-gradient(-144deg, #8BA4FB 16%, #73B6F8 61%, #62B7E6 100%)
-        box-shadow 0 5px 10px 0 rgba(117,117,117,0.50)
-      .user-login-other
-        font-size 8px
-        color #CBCBCB
-        letter-spacing 1.37px
-  .user-login-foot
-    padding 23px 0
+    position relative
     display flex
     justify-content center
-    background-image linear-gradient(-180deg, #FEFEFE 0%, #ECECEC 100%)
-    box-shadow 0 -1px 1px 0 rgba(141,141,141,0.50);
-    .other-login
-      width 230px
-      box-sizing border-box
-      display flex
-      justify-content space-between
-      align-items center
-      padding 5px 10px
-      border-radius: 5px
-      border none
-      color #FFFFFF
-      letter-spacing 2.75px
-      background-image linear-gradient(-167deg, #8BA4FA 0%, #63B7E5 100%)
-      box-shadow 0 3px 14px 0 rgba(124,124,124,0.50)
-      img
-        width 20px
-        height 20px
+    align-items center
+    &:nth-child(3)
+      margin-bottom 6px
+  .captcha
+    margin 6px 0
+    p
+      font-size 14px
+      letter-spacing 3px
+  .forget
+    margin-top 20px
 </style>
