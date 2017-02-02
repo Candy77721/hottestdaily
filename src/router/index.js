@@ -1,47 +1,50 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// import Graph from '../pages/graph.vue'
-// import News from '../pages/news.vue'
-// import Rank from '../pages/rank.vue'
+import Explore from '../pages/index.vue'
+import News from '../pages/news.vue'
+import Rank from '../pages/rank.vue'
+import Search from '../pages/search.vue'
 
 Vue.use(Router)
-
-// import { createListView } from '../views/CreateListView'
-// import ItemView from '../views/ItemView.vue'
-// import UserView from '../views/UserView.vue'
 
 const routes = [{
   path: '/explore',
   name: 'explore',
-  component: function (resolve) {
-    require(['../pages/index.vue'], resolve)
-  }
+  alias: '/',
+  // component: function (resolve) {
+  //   require(['../pages/index.vue'], resolve)
+  // }
+  component: Explore
 }, {
   path: '/news',
   name: 'news',
-  redirect: { name: 'newsType', params: { type: '全部' }},
-  component: function (resolve) {
-    require(['../pages/news.vue'], resolve)
-  }
+  redirect: { name: 'newsType', params: { type: 'all' }},
+  // component: function (resolve) {
+  //   require(['../pages/news.vue'], resolve)
+  // }
+  component: News
 }, {
   path: '/news/:type',
   name: 'newsType',
-  component: function (resolve) {
-    require(['../pages/news.vue'], resolve)
-  }
+  // component: function (resolve) {
+  //   require(['../pages/news.vue'], resolve)
+  // }
+  component: News
 }, {
   path: '/rank',
   name: 'rank',
-  component: function (resolve) {
-    require(['../pages/rank.vue'], resolve)
-  }
+  // component: function (resolve) {
+  //   require(['../pages/rank.vue'], resolve)
+  // }
+  component: Rank
 }, {
   path: '/search/:search',
   name: 'search',
-  component: function (resolve) {
-    require(['../pages/search.vue'], resolve)
-  }
+  // component: function (resolve) {
+  //   require(['../pages/search.vue'], resolve)
+  // }
+  component: Search
 }]
 
 const router = new Router({

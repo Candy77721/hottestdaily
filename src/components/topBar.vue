@@ -136,7 +136,7 @@
       <transition name="top-bar-slide-top">
         <ul class="news-type" v-if="newsGetShowTypes">
           <ul class="news-type-background">
-            <router-link v-for="type in newsGetAllTypes" :to="{name: 'newsType', params: { type: type }}" tag="li" exact>{{type}}</router-link>
+            <router-link v-for="type in newsGetAllTypes" :to="{name: 'newsType', params: { type: type.url }}" tag="li" exact>{{type.keyword}}</router-link>
           </ul>
         </ul>
       </transition>
@@ -159,6 +159,9 @@ export default {
       // 用户定位展示类型
       location: ''
     }
+  },
+  mounted () {
+    this.location = this.$router.currentRoute.name
   },
   watch: {
     // 如果路由有变化，会再次执行该方法
@@ -199,6 +202,7 @@ export default {
       }
     },
     search () {
+      if (this.searchValue.trim() === '') return
       this.$router.push({ name: 'search', params: { search: this.searchValue }})
     }
   }

@@ -67,7 +67,7 @@ const actions = {
   更新用户名
   */
   userChangeUsername ({ commit }, newUsername) {
-    commit(types.USERCHANGEUSERNAME)
+    commit(types.USERCHANGEUSERNAME, newUsername)
   }
 }
 
