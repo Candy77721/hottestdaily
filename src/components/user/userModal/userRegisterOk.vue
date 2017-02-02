@@ -4,7 +4,7 @@
     <p>激活账户连接已发送至您的邮箱</p>
   </div>
   <img src="../../../assets/letter-squashed.png" alt="">
-  <div class="user-register-actions user-actions">
+  <div class="user-register-actions user-actions button">
     <p>点击前往邮箱</p>
   </div>
 </div>
@@ -36,4 +36,6 @@ export default {
   img
     width 120px
     height 120px
+  .user-register-actions
+    margin 20px 0
 </style>

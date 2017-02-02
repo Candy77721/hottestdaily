@@ -2,12 +2,12 @@
 <div class="user-login-body">
   <div class="form-group">
     <input type="email" id="email" v-model="userLogin.username" placeholder="请输入邮箱或用户名" required="required">
-    <span class="to-other" @click="userChangeModalState('UserRegister')">还没有账号？</span>
+    <span class="to-other button" @click="userChangeModalState('UserRegister')">还没有账号？</span>
   </div>
   <div class="form-group">
     <input type="password" id="password" placeholder="请输入密码" required="required"
     v-model="userLogin.password" ref="password" @focus="toggleFocus()" @blur="toggleFocus()">
-    <div class="show-password">
+    <div class="show-password button">
       <div class="" v-if="focus">
         <img v-if="showPassword" src="../../../assets/icon/user-hide-password-2.png" class="password" alt="" @click="toggleShow()">
         <img v-else src="../../../assets/icon/user-show-password-2.png" class="password" alt="" @click="toggleShow()">
@@ -17,7 +17,7 @@
         <img v-else src="../../../assets/icon/user-show-password-1.png" class="password" alt="" @click="toggleShow()">
       </div>
     </div>
-    <span class="to-other" @click="userChangeModalState('UserForget')">忘记密码？</span>
+    <span class="to-other button" @click="userChangeModalState('UserForget')">忘记密码？</span>
   </div>
   <div class="user-login-actions button user-actions" @click="login()">
     <p>登陆</p>
@@ -36,7 +36,8 @@ export default {
         username: '',
         password: ''
       },
-      focus: false
+      focus: false,
+      showPassword: false
     }
   },
   methods: {
@@ -46,11 +47,12 @@ export default {
       'userChangeModalState'
     ]),
     toggleShow: function () {
-      const type = this.$refs.password.type
-      if (type === 'password') {
-        this.$refs.password.type = 'text'
-      } else {
+      if (this.showPassword) {
         this.$refs.password.type = 'password'
+        this.showPassword = false
+      } else {
+        this.$refs.password.type = 'text'
+        this.showPassword = true
       }
     },
     toggleFocus: function () {

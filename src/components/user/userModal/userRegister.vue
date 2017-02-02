@@ -6,7 +6,7 @@
   <div class="form-group">
     <input type="password" id="password" placeholder="请输入密码" required="required"
     v-model="password"  ref="password" @focus="toggleFocus()" @blur="toggleFocus()">
-    <div class="show-password">
+    <div class="show-password button">
       <div class="" v-if="focus">
         <img v-if="showPassword" src="../../../assets/icon/user-hide-password-2.png" class="password" alt="" @click="toggleShow()">
         <img v-else src="../../../assets/icon/user-show-password-2.png" class="password" alt="" @click="toggleShow()">
@@ -32,7 +32,8 @@ export default {
     return {
       email: '',
       password: '',
-      focus: false
+      focus: false,
+      showPassword: false
     }
   },
   methods: {
@@ -41,11 +42,12 @@ export default {
       'userChangeModalState'
     ]),
     toggleShow: function () {
-      const type = this.$refs.password.type
-      if (type === 'password') {
-        this.$refs.password.type = 'text'
-      } else {
+      if (this.showPassword) {
         this.$refs.password.type = 'password'
+        this.showPassword = false
+      } else {
+        this.$refs.password.type = 'text'
+        this.showPassword = true
       }
     },
     toggleFocus: function () {
