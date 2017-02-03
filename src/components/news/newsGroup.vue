@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="news-group">
   <div class="group-list">
-    <a class="list" :href="item.url" v-for="item in news.relatedNews">
+    <a class="list" :href="item.url" v-for="item in news.relatedNews" target="_blank">
       <p>{{item.title}}</p>
     </a>
   </div>

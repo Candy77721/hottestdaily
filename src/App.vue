@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <top-logo></top-logo>
-    <top-bar></top-bar>
-
+    <!-- class="{ 'sticky-margin': isSticky }" -->
+    <top-logo :style="toplogoStyle"></top-logo>
+    <top-bar ref="topBar" :style="topbarStyle"></top-bar>
+<!-- class="{ 'sticky': isSticky }" -->
     <div class="main">
       <transition name=''>
         <keep-alive include="explore,news,rank">
@@ -39,6 +40,14 @@ export default {
   name: 'app',
   data () {
     return {
+      top: 140,
+      topbarStyle: {
+        position: 'relative',
+        left: '0'
+      },
+      toplogoStyle: {
+        marginTop: '0'
+      }
     }
   },
   mounted () {
@@ -69,6 +78,11 @@ export default {
           console.log(error)
         })
     }
+    // 获得topbar距顶端高度
+    // TODO: 浏览器兼容性问题 暂时写死
+    // this.top = this.$refs.topBar.$el.offsetTop
+    // 监听滚动事件
+    window.addEventListener('scroll', this.sticky)
   },
   computed: {
     ...mapGetters([
@@ -84,7 +98,18 @@ export default {
     ...mapActions([
       'userToggleLogin',
       'userChangeUsername'
-    ])
+    ]),
+    sticky () {
+      if (this.top <= window.scrollY) {
+        this.topbarStyle.position = 'fixed'
+        this.topbarStyle.left = 'calc(50% - 642px)'
+        this.toplogoStyle.marginTop = '50px'
+      } else {
+        this.topbarStyle.position = 'relative'
+        this.topbarStyle.left = '0'
+        this.toplogoStyle.marginTop = '0'
+      }
+    }
   },
   components: {
     TopLogo: TopLogo,
@@ -106,11 +131,13 @@ html
 body
   margin 0
   height 100%
-  .main
-    width 1210px
-    margin auto
-    box-shadow:0 0 20px 15px rgba(255,255,255,1)
-    background-color white
+  #app
+    position relative
+    .main
+      width 1210px
+      margin auto
+      box-shadow:0 0 20px 15px rgba(255,255,255,1)
+      background-color white
 #app:before
     content: ''
     position: fixed // 代替background-attachment
@@ -138,5 +165,4 @@ body
 .modal-slide-top-enter-active
 .modal-slide-top-leave-active
   transition all .3s
-
 </style>

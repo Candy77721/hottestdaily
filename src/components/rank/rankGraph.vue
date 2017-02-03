@@ -22,7 +22,7 @@ export default {
     // 高亮并滚动
     rankGetSearchKeywordIndex: function (val) {
       this.updateGraph(val)
-      document.body.scrollTop = (190 + 50 * val)
+      document.body.scrollTop = (270 + 50 * val)
     }
   },
   computed: {

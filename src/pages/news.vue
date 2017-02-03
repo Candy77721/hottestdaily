@@ -83,7 +83,7 @@ export default {
     */
     getNews: function (page, type) {
       this.isGet = true
-      console.log(page, type)
+      // console.log(page, type)
       // http://www.hottestdaily.com/api/getNewsPage
       axios.post(api.uriGetNews, {
         'page': page,

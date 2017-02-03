@@ -9,9 +9,11 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const routes = [{
+  path: '/',
+  redirect: { name: 'explore' }
+}, {
   path: '/explore',
   name: 'explore',
-  alias: '/',
   component: function (resolve) {
     require(['../pages/index.vue'], resolve)
   }

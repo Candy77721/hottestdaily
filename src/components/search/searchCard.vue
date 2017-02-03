@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="search-card">
     <div class="body">
-      <a :href="news.url">
+      <a :href="news.url" target="_blank">
         <p class="title">
           {{news.title}}
         </p>
@@ -107,8 +107,8 @@ export default {
     border-radius 5px
     .hot
       font-size 24px
-      margin-left 20px
+      margin-left 7px
       color #FFFFFF
-      letter-spacing 3px
+      letter-spacing 1px
       font-weight bold
 </style>

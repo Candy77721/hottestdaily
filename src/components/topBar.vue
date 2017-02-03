@@ -196,7 +196,7 @@ export default {
     },
     toggleInputHolder () {
       if (this.placeholder === '') {
-        this.placeholder = '请输入文字'
+        this.placeholder = '搜索你想知道的'
       } else {
         this.placeholder = ''
       }
@@ -214,7 +214,7 @@ export default {
   height 50px
   width 1284px
   margin 0 auto
-  position relative
+  top 0
   z-index 2
   .header
     width 1230px
@@ -253,22 +253,30 @@ export default {
       .dropdown-list
         width 160px
         top 50px
-        font-size 18px
+        overflow hidden
         display flex
         flex-direction column
         align-items center
         position absolute
         z-index -1
         color white
+        font-size 18px
         letter-spacing: 2.06px
+        border-radius 0 0 10px 10px
         background-image radial-gradient(85% 96%, #62ABE5 0%, #75A4F3 69%, #75A4F3 69%, #75A4F3 69%, #7BA2F7 90%, #84A8F7 100%)
         box-shadow 0 2px 4px 0 rgba(0,0,0,0.50)
+        .router-active
+          box-shadow 0 0 11px 0 rgba(116,116,116,0.50)
         li
-          height 50px
+          height 40px
           width 140px
+          padding 0 10px
+          margin 5px 0
           display flex
           justify-content flex-start
           align-items center
+          &:hover
+            color #2651AA
           img
             width 40px
             height 40px
@@ -305,6 +313,8 @@ export default {
     .user
       .user-dropdown-list
         right 0px
+        li
+          justify-content center
     .location
       position absolute
       top 48px
@@ -355,7 +365,7 @@ export default {
 // 动画
 .top-bar-slide-top-enter
 .top-bar-slide-top-leave-active
-  transform translateY(-55px)
+  transform translateY(-50px)
 .top-bar-slide-top-leave-active
   position absolute
 .router

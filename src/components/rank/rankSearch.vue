@@ -100,6 +100,7 @@ export default {
   .rank-search-warn
     position relative
     margin 12px 0 0 2px
+    z-index 0
     .body
       width 155px
       height 30px

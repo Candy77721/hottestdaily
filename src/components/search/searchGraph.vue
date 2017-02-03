@@ -102,6 +102,6 @@ export default {
   .search-graph
     margin auto
     width 920px
-    height 330px
+    height 400px
     background-color black
 </style>

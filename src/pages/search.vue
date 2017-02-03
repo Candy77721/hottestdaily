@@ -37,11 +37,11 @@ export default {
     this.updateGraph(this.searchGetSearch)
     this.updateNews(this.searchGetSearch, this.searchGetPage)
     // 监听滚动事件
-    window.addEventListener('scroll', this.handleScroll)
+    // window.addEventListener('scroll', this.handleScroll)
   },
   beforeDestroy () {
     // 停止监听滚动事件
-    window.removeEventListener('scroll', this.handleScroll)
+    // window.removeEventListener('scroll', this.handleScroll)
     // 清空数据
     this.searchClearNews()
   },
@@ -140,4 +140,5 @@ export default {
       font-size 14px
       color #A3A3A3
       letter-spacing 1.6px
+      white-space nowrap
 </style>

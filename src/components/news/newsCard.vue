@@ -1,13 +1,13 @@
 <template lang="html">
   <div class="news-card">
     <!-- {{news.type}} -->
-    <a :href="news.url">
+    <a :href="news.url" target="_blank">
       <p class="title">{{news.title}}</p>
     </a>
     <!-- <p>{{news.label}}</p> -->
     <!-- <p>{{news.fromTopic}}</p> -->
     <div class="news-card-body">
-      <a :href="news.url">
+      <a :href="news.url" target="_blank">
         <p class="abstract">{{news.abstract}}</p>
       </a>
       <div class="keywords">
