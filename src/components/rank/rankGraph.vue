@@ -150,7 +150,8 @@ export default {
       rankGraph.off('click')
       const that = this
       rankGraph.on('click', function (params) {
-        const keyword = params.name.split(' ')[0]
+        // 点击 坐标轴 与 柱状图 的 对象不一样
+        const keyword = params.name ? params.name.split(' ')[0] : params.value.split(' ')[0]
         const history = that.graph.find(ele => ele.content === keyword).history
         that.rankChangeModalGraph({
           keyword: keyword,

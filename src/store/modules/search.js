@@ -48,9 +48,7 @@ const mutations = {
     state.graph = newGraph
   },
   [types.SEARCHADDNEWS] (state, { newNews }) {
-    for (const news in newNews) {
-      state.news.push(newNews[news])
-    }
+    state.news.push(...newNews)
   },
   // 增加页数
   [types.SEARCHADDPAGE] (state) {

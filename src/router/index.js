@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Explore from '../pages/index.vue'
-import News from '../pages/news.vue'
-import Rank from '../pages/rank.vue'
-import Search from '../pages/search.vue'
+// import Explore from '../pages/index.vue'
+// import News from '../pages/news.vue'
+// import Rank from '../pages/rank.vue'
+// import Search from '../pages/search.vue'
 
 Vue.use(Router)
 
@@ -12,39 +12,39 @@ const routes = [{
   path: '/explore',
   name: 'explore',
   alias: '/',
-  // component: function (resolve) {
-  //   require(['../pages/index.vue'], resolve)
-  // }
-  component: Explore
+  component: function (resolve) {
+    require(['../pages/index.vue'], resolve)
+  }
+  // component: Explore
 }, {
   path: '/news',
   name: 'news',
   redirect: { name: 'newsType', params: { type: 'all' }},
-  // component: function (resolve) {
-  //   require(['../pages/news.vue'], resolve)
-  // }
-  component: News
+  component: function (resolve) {
+    require(['../pages/news.vue'], resolve)
+  }
+  // component: News
 }, {
   path: '/news/:type',
   name: 'newsType',
-  // component: function (resolve) {
-  //   require(['../pages/news.vue'], resolve)
-  // }
-  component: News
+  component: function (resolve) {
+    require(['../pages/news.vue'], resolve)
+  }
+  // component: News
 }, {
   path: '/rank',
   name: 'rank',
-  // component: function (resolve) {
-  //   require(['../pages/rank.vue'], resolve)
-  // }
-  component: Rank
+  component: function (resolve) {
+    require(['../pages/rank.vue'], resolve)
+  }
+  // component: Rank
 }, {
   path: '/search/:search',
   name: 'search',
-  // component: function (resolve) {
-  //   require(['../pages/search.vue'], resolve)
-  // }
-  component: Search
+  component: function (resolve) {
+    require(['../pages/search.vue'], resolve)
+  }
+  // component: Search
 }]
 
 const router = new Router({

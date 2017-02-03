@@ -6,7 +6,7 @@ const state = {
   // 全部分类
   allTypes: [
     { keyword: '全部', url: 'all' },
-    { keyword: '政治', url: 'politics' },
+    { keyword: '时政', url: 'politics' },
     { keyword: '社会', url: 'society' },
     { keyword: '财经', url: 'finance' },
     { keyword: '教育', url: 'education' },
@@ -14,7 +14,7 @@ const state = {
     { keyword: '时尚', url: 'fashion' },
     { keyword: '体育', url: 'sports' }
   ],
-    // '全部', '政治', '社会', '财经', '教育', '科技', '时尚', '体育'],
+    // '全部', '时政', '社会', '财经', '教育', '科技', '时尚', '体育'],
   // allTypesUrl: ['all', 'politics', 'society', 'finance', 'education', 'technology', 'fashion', 'sports'],
   // 当前分类
   nowType: 'all',

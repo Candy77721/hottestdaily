@@ -6,9 +6,9 @@
     </a>
   </div>
   <div class="group-body">
-    <p class="title">
+    <!-- <p class="title">
       {{news.title}}专题
-    </p>
+    </p> -->
     <div class="keywords">
       <div class="keyword-rows" v-for="keywordRow in news.keywords">
         <span class="keyword" v-for="(keyword,index) in keywordRow" :style="{'background-color': keyColor[index]}">{{keyword}}</span>
@@ -97,37 +97,22 @@ export default {
     width 210px
     height 320px
     margin-left 45px
-    .title
-      height 62px
-      margin-top -20px
-      display flex
-      justify-content center
-      align-items center
-      font-size 18px
-      white-space nowrap
-      letter-spacing 4px
-      color white
-      background-image linear-gradient(-133deg, #82ABF9 15%, #74C7F6 57%, #7ADCFC 100%)
-      box-shadow 0 2px 4px 0 rgba(111,159,211,0.50)
-      border-radius 0 0 10px 10px
     .keywords
-      margin-top 42px
-      margin-bottom 40px
       .keyword-rows
         width 100%
+        height 90px
         display flex
         justify-content space-between
         font-size 12px
-        &:nth-child(2)
-          margin-top 16px
         .keyword
+          height 14px
           padding 6px
           border-radius 10px
           letter-spacing 2px
           color white
     .hot-rect
       width 100%
-      height 127px
+      height 140px
       display flex
       justify-content center
       align-items center

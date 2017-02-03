@@ -3,8 +3,16 @@
   <div class="form-group">
     <input type="email" id="email" v-model="userForget.email" placeholder="请输入邮箱" required="required">
   </div>
-  <div class="user-forget-actions user-actions captcha button" @click="getCaptcha()">
-    <p>发送验证码到邮箱</p>
+  <div class="">
+    <div v-if="captchaMsg.showMsg ==='action'" class="user-actions captcha button" @click="getCaptcha()">
+      <p>发送验证码到邮箱</p>
+    </div>
+    <div v-else-if="captchaMsg.showMsg === 'errorMsg'" class="errormsg captcha user-actions">
+      <p>{{captchaMsg.errorMsg}}</p>
+    </div>
+    <div v-else class="user-actions captcha">
+      <p>{{captchaMsg.msg}}</p>
+    </div>
   </div>
   <div class="form-group">
     <input type="password" id="password" placeholder="请输入新密码" required="required"
@@ -23,8 +31,16 @@
   <div class="form-group">
     <input type="text" id="captcha" v-model="userForget.captcha" placeholder="验证码" required="required">
   </div>
-  <div class="user-forget-actions user-actions forget button" @click="forget()">
-    <p>确认修改</p>
+  <div class="">
+    <div v-if="forgetMsg.showMsg ==='action'" class="user-forget-actions button user-actions" @click="forget()">
+      <p>确认修改</p>
+    </div>
+    <div v-else-if="forgetMsg.showMsg === 'errorMsg'" class="errormsg user-actions user-forget-actions">
+      <p>{{forgetMsg.errorMsg}}</p>
+    </div>
+    <div v-else class="user-actions user-forget-actions">
+      <p>{{forgetMsg.msg}}</p>
+    </div>
   </div>
 </div>
 </template>
@@ -42,7 +58,31 @@ export default {
         password: ''
       },
       focus: false,
-      showPassword: false
+      showPassword: false,
+      captchaMsg: {
+        msg: '',
+        errorMsg: '',
+        showMsg: 'action', // or 'msg' or 'errorMsg'
+        time: 60
+      },
+      forgetMsg: {
+        msg: '',
+        errorMsg: '',
+        showMsg: 'action' // or 'msg' or 'errorMsg'
+      }
+    }
+  },
+  watch: {
+    userForget: {
+      handler: function (val, oldVal) {
+        if (this.captchaMsg.time !== 60) {
+          this.forgetMsg.showMsg = 'action'
+        } else {
+          this.captchaMsg.showMsg = 'action'
+          this.forgetMsg.showMsg = 'action'
+        }
+      },
+      deep: true
     }
   },
   methods: {
@@ -64,31 +104,68 @@ export default {
       this.focus = !this.focus
     },
     getCaptcha: function () {
+      if (!this.regEmail(this.userForget.email)) {
+        this.captchaMsg.showMsg = 'errorMsg'
+        this.captchaMsg.errorMsg = '邮箱格式不正确'
+        return
+      }
+      this.captchaMsg.showMsg = 'msg'
+      this.captchaMsg.msg = '获取验证码中'
       axios.post(api.userGetCaptcha, {
         'email': this.userForget.email
       })
         .then(res => {
           const data = res.data
           if (data.errorCode !== 0) {
-            alert(data.errorMsg)
+            this.captchaMsg.showMsg = 'errorMsg'
+            this.captchaMsg.msg = data.errorMsg
           }
+          this.captchaMsg.showMsg = 'msg'
+          this.captchaMsg.msg = `${this.captchaMsg.time}秒后可再次发送`
+          const countdown = window.setInterval(this.countdown, 1000, countdown)
         })
         .catch(error => {
           console.log(error)
         })
     },
+    countdown: function (countdown) {
+      this.captchaMsg.time--
+      console.log(this.captchaMsg.time)
+      this.captchaMsg.msg = `${this.captchaMsg.time}秒后可再次发送`
+      if (this.captchaMsg.time === 0) {
+        clearInterval(countdown)
+        this.captchaMsg.showMsg = 'action'
+        this.captchaMsg.time = 60
+      }
+    },
     forget: function () {
-      // if (!(this.regEmail(this.userLogin.username) && this.regPassword(this.userLogin.password))) {
-      //   alert("请输入正确格式的邮箱与密码")
-      //   return false
-      // }
+      if (!this.regEmail(this.userForget.email)) {
+        this.forgetMsg.showMsg = 'errorMsg'
+        this.forgetMsg.errorMsg = '邮箱格式错误'
+        return
+      }
+      if (!this.regPassword(this.userForget.password)) {
+        this.forgetMsg.showMsg = 'errorMsg'
+        this.forgetMsg.errorMsg = '密码格式错误'
+        return
+      }
+      if (!this.regCaptcha(this.userForget.captcha)) {
+        this.forgetMsg.showMsg = 'errorMsg'
+        this.forgetMsg.errorMsg = '验证码格式错误'
+        return
+      }
+      this.forgetMsg.showMsg = 'msg'
+      this.forgetMsg.msg = '验证中'
       axios.post(api.userfgPasswd, this.userForget)
         .then(res => {
           const data = res.data
           if (data.errorCode !== 0) {
-            alert(data.errorMsg)
+            this.forgetMsg.showMsg = 'errorMsg'
+            this.forgetMsg.msg = data.errorMsg
             return
           }
+          this.forgetMsg.showMsg = 'msg'
+          this.forgetMsg.msg = '修改成功'
           this.userChangeModalState('UserLogin')
         })
         .catch(error => {
@@ -100,8 +177,12 @@ export default {
       return reg.test(email)
     },
     regPassword: function (password) {
-      const reg = /^[A-Za-z0-9_]+$/
+      const reg = /^(\w){6,20}$/
       return reg.test(password)
+    },
+    regCaptcha: function (captcha) {
+      const reg = /^(\w){4}$/
+      return reg.test(captcha)
     }
   }
 }
@@ -124,6 +205,6 @@ export default {
     p
       font-size 14px
       letter-spacing 3px
-  .forget
+  .user-forget-actions
     margin-top 20px
 </style>

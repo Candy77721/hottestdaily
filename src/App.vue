@@ -59,8 +59,10 @@ export default {
           if (data.errorCode !== 0) {
             console.log(data.errorMsg)
           } else {
-            this.userToggleLogin()
-            this.userChangeUsername(data.username)
+            if (data.username !== '') {
+              this.userToggleLogin()
+              this.userChangeUsername(data.username)
+            }
           }
         })
         .catch(error => {

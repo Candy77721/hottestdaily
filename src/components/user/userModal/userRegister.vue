@@ -17,8 +17,16 @@
       </div>
     </div>
   </div>
-  <div class="user-register-actions user-actions button" @click="register()">
-    <p>注册</p>
+  <div class="">
+    <div v-if="showMsg ==='action'" class="user-register-actions button user-actions" @click="register()">
+      <p>注册</p>
+    </div>
+    <div v-else-if="showMsg === 'errorMsg'" class="errormsg user-actions">
+      <p>{{errorMsg}}</p>
+    </div>
+    <div v-else class="user-actions">
+      <p>{{msg}}</p>
+    </div>
   </div>
 </div>
 </template>
@@ -33,7 +41,18 @@ export default {
       email: '',
       password: '',
       focus: false,
-      showPassword: false
+      showPassword: false,
+      msg: '',
+      errorMsg: '',
+      showMsg: 'action' // or 'msg' or 'errorMsg'
+    }
+  },
+  watch: {
+    email: function (val, oldVal) {
+      this.showMsg = 'action'
+    },
+    password: function (val, oldVal) {
+      this.showMsg = 'action'
     }
   },
   methods: {
@@ -54,10 +73,18 @@ export default {
       this.focus = !this.focus
     },
     register: function () {
-      // if (!(this.regEmail(this.userLogin.username) && this.regPassword(this.userLogin.password))) {
-      //   alert("请输入正确格式的邮箱与密码")
-      //   return false
-      // }
+      if (!this.regEmail(this.email)) {
+        this.showMsg = 'errorMsg'
+        this.errorMsg = '邮箱格式错误'
+        return
+      }
+      if (!this.regPassword(this.password)) {
+        this.showMsg = 'errorMsg'
+        this.errorMsg = '密码格式错误'
+        return
+      }
+      this.showMsg = 'msg'
+      this.msg = '注册中'
       axios.post(api.userRegister, {
         email: this.email,
         username: this.email,
@@ -66,8 +93,11 @@ export default {
         .then(res => {
           const data = res.data
           if (data.errorCode !== 0) {
-            alert(data.errorMsg)
+            this.showMsg = 'errorMsg'
+            this.errorMsg = data.errorMsg
           } else {
+            this.showMsg = 'msg'
+            this.msg = '注册成功'
             this.userToggleLogin()
             this.userChangeModalState('UserRegisterOk')
           }
@@ -81,7 +111,7 @@ export default {
       return reg.test(email)
     },
     regPassword: function (password) {
-      const reg = /^[A-Za-z0-9_]+$/
+      const reg = /^(\w){6,20}$/
       return reg.test(password)
     }
   }

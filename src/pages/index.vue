@@ -22,7 +22,7 @@ export default {
     axios.get(api.getIndexGraph)
       .then(res => {
         if (res.data.errorCode !== 0) {
-          console.log(res.data.errorMsg)
+          console.log(res.data)
           return
         }
         const data = res.data.data
