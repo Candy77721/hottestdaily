@@ -108,6 +108,7 @@ export default {
         })
     },
     // 监听滚动事件
+    // 暂时取消
     handleScroll () {
       var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       if (document.documentElement.scrollHeight - 150 <= document.documentElement.clientHeight + scrollTop) {

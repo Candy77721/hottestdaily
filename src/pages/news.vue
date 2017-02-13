@@ -107,11 +107,20 @@ export default {
     handleScroll () {
       var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
       if (document.documentElement.scrollHeight - 150 <= document.documentElement.clientHeight + scrollTop) {
-        // 只有10页数据
-        if ((!this.isGet) && (this.newsGetNextPage !== 11)) {
-          this.getNews(this.newsGetNextPage, this.newsGetNowType)
-        } else if (this.newsGetNextPage === 11) {
-          // TODO: 提示已经到底
+        // 'all'有10页数据
+        if (this.newsGetNowType === 'all') {
+          if ((!this.isGet) && (this.newsGetNextPage !== 11)) {
+            this.getNews(this.newsGetNextPage, this.newsGetNowType)
+          } else if (this.newsGetNextPage === 11) {
+            // TODO: 提示已经到底
+          }
+        } else {
+          // 其他的有5页数据
+          if ((!this.isGet) && (this.newsGetNextPage !== 6)) {
+            this.getNews(this.newsGetNextPage, this.newsGetNowType)
+          } else if (this.newsGetNextPage === 6) {
+            // TODO: 提示已经到底
+          }
         }
       }
     }

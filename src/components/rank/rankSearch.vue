@@ -29,12 +29,16 @@ export default {
       keywordInGraph: true
     }
   },
+  beforeDestory () {
+    document.body.removeEventListener('mouseup', this.changeKeywordGraphTrue)
+  },
   watch: {
     keywordInGraph: function (val) {
       if (!val) {
-        // 绑定全局取消提示框事件
+        // 绑定全局提示框事件
         document.body.addEventListener('mouseup', this.changeKeywordGraphTrue)
       } else {
+        // 绑定全局取消提示框事件
         document.body.removeEventListener('mouseup', this.changeKeywordGraphTrue)
       }
     }

@@ -5,7 +5,8 @@
         <li>
           <img class="menu-icon dropdown-icon" src="../assets/icon/menu-topbar.png" alt="">
         </li>
-        <li class="menu-dropdown-list dropdown-list" v-show="isMenu">
+
+        <nav class="menu-dropdown-list dropdown-list" v-show="isMenu">
           <router-link to="/explore" tag="li" exact>
             <img src="../assets/icon/menu-explore.png" alt="">
             <span>今日热词</span>
@@ -18,7 +19,7 @@
             <img src="../assets/icon/menu-rank.png" alt="">
             <span>热词榜</span>
           </router-link>
-        </li>
+        </nav>
       </ul>
       <ul class="search">
         <input type="input" :placeholder="placeholder" v-model="searchValue" @keyup.enter="search()" @focus="toggleInputHolder()" @blur="toggleInputHolder()">
@@ -31,20 +32,22 @@
         <ul v-show="!userGetIsLogin & userGetIsUserMenu" @click="toLogin()" class="user-dropdown-list dropdown-list">
           <li>登陆</li>
         </ul>
-        <ul v-show="userGetIsLogin & userGetIsUserMenu" class="user-dropdown-list dropdown-list">
-          <li>
-            <img src="../assets/icon/user.png" alt="">
-            <span>个人中心</span>
-          </li>
-          <li>
-            <img src="../assets/icon/star.png" alt="">
-            <span>我的收藏</span>
-          </li>
-          <li>
-            <img src="../assets/icon/watch.png" alt="">
-            <span>我的关注</span>
-          </li>
-        </ul>
+        <nav v-show="userGetIsLogin & userGetIsUserMenu" class="user-dropdown-list dropdown-list">
+          <ul>
+            <li>
+              <img src="../assets/icon/user.png" alt="">
+              <span>个人中心</span>
+            </li>
+            <li>
+              <img src="../assets/icon/star.png" alt="">
+              <span>我的收藏</span>
+            </li>
+            <li>
+              <img src="../assets/icon/watch.png" alt="">
+              <span>我的关注</span>
+            </li>
+          </ul>
+        </nav>
       </ul>
 
       <div class="location">
@@ -134,11 +137,11 @@
       </div>
 
       <transition name="top-bar-slide-top">
-        <ul class="news-type" v-if="newsGetShowTypes">
+        <nav class="news-type" v-if="newsGetShowTypes">
           <ul class="news-type-background">
             <router-link v-for="type in newsGetAllTypes" :to="{name: 'newsType', params: { type: type.url }}" tag="li" exact>{{type.keyword}}</router-link>
           </ul>
-        </ul>
+        </nav>
       </transition>
     </div>
   </div>

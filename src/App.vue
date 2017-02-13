@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <!-- class="{ 'sticky-margin': isSticky }" -->
-    <top-logo :style="toplogoStyle"></top-logo>
-    <top-bar ref="topBar" :style="topbarStyle"></top-bar>
-<!-- class="{ 'sticky': isSticky }" -->
+    <header>
+      <top-logo :style="toplogoStyle"></top-logo>
+      <top-bar ref="topBar" :style="topbarStyle"></top-bar>
+    </header>
     <div class="main">
       <transition name=''>
         <keep-alive include="explore,news,rank">
@@ -102,8 +102,10 @@ export default {
     sticky () {
       if (this.top <= window.scrollY) {
         this.topbarStyle.position = 'fixed'
-        this.topbarStyle.left = 'calc(50% - 642px)'
         this.toplogoStyle.marginTop = '50px'
+        if (window.innerWidth >= 1284) {
+          this.topbarStyle.left = 'calc(50% - 642px)'
+        }
       } else {
         this.topbarStyle.position = 'relative'
         this.topbarStyle.left = '0'
