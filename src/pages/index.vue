@@ -28,7 +28,8 @@ export default {
         const data = res.data.data
         myChart.setOption({
           title: {
-            text: 'NPM Dependencies'
+            text: '今日热词已经为您备好',
+            left: 'center'
           },
           animationDurationUpdate: 1500,
           animationEasingUpdate: 'quinticInOut',
@@ -42,7 +43,7 @@ export default {
               // 超过该数值则启用渐进渲染
               // progressiveThreshold: 700,
               data: data.nodes.map(function (node) {
-                return {
+                const graphItem = {
                   x: node.x,
                   y: node.y,
                   id: node.id,
@@ -55,8 +56,21 @@ export default {
                       shadowColor: 'rgba(117,117,117,0.50)',
                       shadowOffsetY: 2
                     }
+                  },
+                  label: {
+                    emphasis: {
+                      position: 'right',
+                      show: true
+                    }
                   }
                 }
+                if (node.id.length !== 24) {
+                  graphItem.label.normal = {
+                    position: 'inside',
+                    show: true
+                  }
+                }
+                return graphItem
               }),
               edges: data.edges.map(function (edge) {
                 return {
@@ -64,16 +78,6 @@ export default {
                   target: edge.targetID
                 }
               }),
-              label: {
-                normal: {
-                  position: 'inside',
-                  show: true
-                },
-                emphasis: {
-                  position: 'right',
-                  show: true
-                }
-              },
               lineStyle: {
                 normal: {
                   width: 0.5,
@@ -96,11 +100,11 @@ export default {
 .index-graph-out
   width 1110px
   margin auto
-  padding-top 120px
+  padding-top 40px
   display flex
   background-color white
   .index-graph
     width 1070px
-    height 610px
+    height 680px
     background-color black
 </style>
