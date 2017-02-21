@@ -60,18 +60,20 @@ export default {
     // } else {
     //   throw new Error('cookies校验失败')
     // }
-    // 检测用户状态
+    /*
+    检测用户状态，如果登陆则更新信息
+    */
     if (!this.userGetIsLogin) {
-      axios.get(api.userIsLogin)
+      axios.get(api.userGetInfo)
         .then(res => {
           const data = res.data
-          if (data.errorCode !== 0) {
-            console.log(data.errorMsg)
+          if (data.errorCode && data.errorCode !== 0) {
+            console.log(data)
           } else {
-            if (data.username !== '') {
-              this.userToggleLogin()
-              this.userChangeUsername(data.username)
-            }
+            this.userToggleLogin()
+            this.userChangeUsername(data.username)
+            this.userChangeEmail(data.email)
+            this.userToggleAcceptPost(data.acceptPost)
           }
         })
         .catch(error => {
@@ -97,7 +99,9 @@ export default {
   methods: {
     ...mapActions([
       'userToggleLogin',
-      'userChangeUsername'
+      'userChangeUsername',
+      'userChangeEmail',
+      'userToggleAcceptPost'
     ]),
     sticky () {
       if (this.top <= window.scrollY) {
@@ -148,7 +152,7 @@ body
     top 0
     left 0
     background-color white
-    background url('./assets/back-img.png') no-repeat center center
+    background url('./assets/back-img.jpg') no-repeat center center
     background-size cover
     z-index: -1
 .modal-overlay

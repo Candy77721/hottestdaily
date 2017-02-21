@@ -83,6 +83,7 @@ export default {
   a
     text-decoration none
   .title
+    position relative
     width 275px
     height 50px
     font-size 18px
@@ -90,6 +91,20 @@ export default {
     letter-spacing 4px
     line-height 25px
     text-align center
+    // 截断
+    text-overflow ellipsis /*有些示例里需要定义该属性，实际可省略*/
+    display -webkit-box
+    -webkit-line-clamp 2/*规定超过两行的部分截断*/
+    -webkit-box-orient vertical
+    overflow hidden
+    word-break break-all/*在任何地方换行*/
+    // &:after
+    //   content:"..."
+    //   font-weight:bold
+    //   position:absolute
+    //   bottom:0
+    //   right:0
+    //   padding:0 20px 1px 45px
   .news-card-body
     width 215px
     display flex
@@ -103,6 +118,7 @@ export default {
       color #A3A3A3
       letter-spacing 2px
       line-height 17px
+      // 截断
       text-overflow ellipsis /*有些示例里需要定义该属性，实际可省略*/
       display -webkit-box
       -webkit-line-clamp 7/*规定超过两行的部分截断*/

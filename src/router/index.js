@@ -47,6 +47,12 @@ const routes = [{
     require(['../pages/search.vue'], resolve)
   }
   // component: Search
+}, {
+  path: '/userhome',
+  name: 'userHome',
+  component: function (resolve) {
+    require(['../pages/userHome.vue'], resolve)
+  }
 }]
 
 const router = new Router({

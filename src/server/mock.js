@@ -23,7 +23,7 @@ Mock
     'errorMsg': 'success',
     'data|5': [{
         'type': 'news',
-        'title':'@csentence(10,20)',
+        'title':'@csentence(10,30)',
         'url': '@url()',
         'hot|26-100':100,
         'label': '@cword(2,4)',
@@ -95,6 +95,24 @@ Mock
   })
   // 找回密码
   .mock('accounts/fgPasswd', 'post', {
+    'errorCode': 0,
+    'errorMsg': 'success'
+  })
+  // 检查用户登录状态
+  .mock('accounts/getLoginStatus', 'get', {
+    'errorCode': 0,
+    'errorMsg': 'success'
+  })
+  // 获取用户信息
+  .mock('accounts/getUserInfo', 'get', {
+    'errorCode': 0,
+    'errorMsg': 'success',
+    'username': '@cword(2,8)',
+    'email': '@email()',
+    'acceptPost': 1
+  })
+  // 修改用户是否接受推送
+  .mock('accounts/editUserAcceptPost', 'post', {
     'errorCode': 0,
     'errorMsg': 'success'
   })

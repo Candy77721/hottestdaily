@@ -7,7 +7,7 @@
         </li>
 
         <nav class="menu-dropdown-list dropdown-list" v-show="isMenu">
-          <router-link to="/explore" tag="li" exact>
+          <router-link :to="{ name: 'explore' }" tag="li" exact>
             <img src="../assets/icon/menu-explore.png" alt="">
             <span>今日热词</span>
           </router-link>
@@ -15,7 +15,7 @@
             <img src="../assets/icon/menu-news.png" alt="">
             <span>时下热文</span>
           </router-link>
-          <router-link to="/rank" tag="li" exact>
+          <router-link :to="{ name: 'rank' }" tag="li" exact>
             <img src="../assets/icon/menu-rank.png" alt="">
             <span>热词榜</span>
           </router-link>
@@ -29,15 +29,15 @@
         <li>
           <img class="user-menu-icon dropdown-icon" src="../assets/icon/user-tpobar.png" alt="">
         </li>
-        <ul v-show="!userGetIsLogin & userGetIsUserMenu" @click="toLogin()" class="user-dropdown-list dropdown-list">
-          <li>登陆</li>
+        <ul v-show="!userGetIsLogin & userGetIsUserMenu" class="user-dropdown-list dropdown-list">
+          <li @click="toLogin()">登陆</li>
         </ul>
         <nav v-show="userGetIsLogin & userGetIsUserMenu" class="user-dropdown-list dropdown-list">
           <ul>
-            <li>
+            <router-link :to="{ name: 'userHome' }" tag="li" exact>
               <img src="../assets/icon/user.png" alt="">
               <span>个人中心</span>
-            </li>
+            </router-link>
             <li>
               <img src="../assets/icon/star.png" alt="">
               <span>我的收藏</span>
@@ -294,7 +294,6 @@ export default {
       padding 0
       list-style-type none
     .search
-      height 40px
       margin 5px 0
       flex 1
       display flex
@@ -302,6 +301,8 @@ export default {
       align-items center
       input
         width 616px
+        height 40px
+        box-sizing border-box
         padding 10px
         border none
         font-size 18px
@@ -311,7 +312,7 @@ export default {
       img
         height 40px
         width 40px
-        margin-left -30px
+        margin-left -40px
         cursor pointer
     .user
       .user-dropdown-list

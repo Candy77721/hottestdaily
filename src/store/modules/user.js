@@ -1,7 +1,7 @@
 import * as types from '../mutations-types'
 
 const state = {
-  // 模态框状态:UserLogin,UserRegister,UserRegisterOk,UserForget,
+  // 模态框状态: UserLogin, UserRegister, UserRegisterOk, UserForget
   modalState: 'UserLogin',
   // 是否打开模态框
   isModal: false,
@@ -9,23 +9,24 @@ const state = {
   isLogin: false,
   // 是否显示菜单
   isUserMenu: false,
-  // 用户名
-  username: '', // string
+  // 用户信息
   userInfo: {
-    // "email":"string",
-    // "url":[
-    //     'string',
-    //     'string',
-    //     ……
-    // ],
-    // "word":[
-    //   'string',
-    //   'string'
-    // ],
-    // "label":[
-    //   'string',
-    //   'string'
-    // ]
+    email: '',
+    username: '',
+    acceptPost: true,
+    likeList: []
+    /*
+    "email":"string",
+    "username":"string",
+    'acceptPost': int // 0 --> 不接受推送 , 1 --> 接受推送
+    'likeList': [
+      {
+        word:'str',
+        like: 0|1 // 0 --> 未喜欢 , 1 --> 已喜欢
+      },
+      ...
+    ]
+    */
   }
 }
 
@@ -34,7 +35,7 @@ const getters = {
   userGetIsModal: state => state.isModal,
   userGetIsLogin: state => state.isLogin,
   userGetIsUserMenu: state => state.isUserMenu,
-  userGetUsername: state => state.username
+  userGetUserInfo: state => state.userInfo
 }
 
 const actions = {
@@ -64,10 +65,22 @@ const actions = {
     commit(types.USERTOGGLEISUSERMENU)
   },
   /*
-  更新用户名
+  更新用户信息 -- username
   */
   userChangeUsername ({ commit }, newUsername) {
-    commit(types.USERCHANGEUSERNAME, newUsername)
+    commit(types.USERCHANGEUSERNAME, { newUsername })
+  },
+  /*
+  更新用户信息 -- email
+  */
+  userChangeEmail ({ commit }, newEmail) {
+    commit(types.USERCHANGEEMAIL, { newEmail })
+  },
+  /*
+  更新用户信息 -- acceptPost
+  */
+  userToggleAcceptPost ({ commit }) {
+    commit(types.USERTOGGLEACCEPTPOST)
   }
 }
 
@@ -85,7 +98,13 @@ const mutations = {
     state.isUserMenu = !state.isUserMenu
   },
   [types.USERCHANGEUSERNAME] (state, { newUsername }) {
-    state.username = newUsername
+    state.userInfo.username = newUsername
+  },
+  [types.USERCHANGEEMAIL] (state, { newEmail }) {
+    state.userInfo.email = newEmail
+  },
+  [types.USERTOGGLEACCEPTPOST] (state) {
+    state.userInfo.acceptPost = !state.userInfo.acceptPost
   }
 }
 
