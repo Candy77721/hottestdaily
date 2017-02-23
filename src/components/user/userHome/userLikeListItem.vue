@@ -1,0 +1,99 @@
+<template lang="html">
+  <div class="" @mouseover="toggleButton(true)" @mouseout="toggleButton(false)">
+    <p>{{item.word}}</p>
+    <div class="icon" v-if="item.like" @click="toggleLike(false)">
+      <img v-show="isInButton" src="../../../assets/icon/user-like-delete.png" alt="" @mouseover="toggleButton(true)" @mouseout="toggleButton(false)">
+    </div>
+    <div class="icon" v-else @click="toggleLike(true)">
+      <img v-show="isInButton" src="../../../assets/icon/user-like-add.png" alt="" @mouseover="toggleButton(true)" @mouseout="toggleButton(false)">
+    </div>
+  </div>
+</template>
+
+<script>
+import * as api from '../../../api/api'
+import { mapActions } from 'vuex'
+
+export default {
+  data () {
+    return {
+      isInButton: false
+    }
+  },
+  props: ['item'],
+  methods: {
+    ...mapActions([
+      'userUpdateLikeList'
+    ]),
+    /*
+    是否显示icon
+    */
+    toggleButton: function (bool) {
+      this.isInButton = bool
+    },
+    /*
+    更新用户喜欢列表 - 单个
+    增加 或 删除
+    */
+    toggleLike: function (bool) {
+      // 增加关注内容
+      if (bool) {
+        axios.post(api.userLikeAdd, {
+          'word': this.item.word
+        })
+          .then(res => {
+            const data = res.data
+            if (data.errorCode) {
+              alert(data.errorMsg)
+            } else {
+              this.userUpdateLikeList({
+                'word': this.item.word,
+                'like': bool
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        axios.post(api.userLikeDelete, {
+          'word': this.item.word
+        })
+          .then(res => {
+            const data = res.data
+            if (data.errorCode) {
+              alert(data.errorMsg)
+            } else {
+              this.userUpdateLikeList({
+                'word': this.item.word,
+                'like': bool
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+    }
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
+p
+  width 100%
+  height 100%
+  margin 0
+  display flex
+  justify-content center
+  align-items center
+  font-size 13px
+  color #ffffff
+  letter-spacing 1.6px
+  cursor default
+.icon
+  position absolute
+  top -10px
+  right -10px
+  cursor pointer
+</style>

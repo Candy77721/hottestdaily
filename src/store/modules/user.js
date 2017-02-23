@@ -14,11 +14,13 @@ const state = {
     email: '',
     username: '',
     acceptPost: true,
-    likeList: []
+    likeList: [],
+    defaultTypes: ['财经', '彩票', '房产', '股票', '家居', '教育', '科技', '社会', '时尚', '时政', '体育', '星座', '游戏', '娱乐']
     /*
     "email":"string",
     "username":"string",
     'acceptPost': int // 0 --> 不接受推送 , 1 --> 接受推送
+    defaultTypes: ['财经', '彩票', '房产', '股票', '家居', '教育', '科技', '社会', '时尚', '时政', '体育', '星座', '游戏', '娱乐']
     'likeList': [
       {
         word:'str',
@@ -81,6 +83,20 @@ const actions = {
   */
   userToggleAcceptPost ({ commit }) {
     commit(types.USERTOGGLEACCEPTPOST)
+  },
+  /*
+  更新用户信息 -- likeList -- 直接放入
+  */
+  userUpdateLikeListAll ({ commit }, newLikeList) {
+    commit(types.USERUPDATELIKELISTALL, { newLikeList })
+  },
+  /*
+  更新用户信息 -- likeList
+  将已经存在的删除，然后再放入
+  如果传进的 newLikeList.word 不在 newLikeList.defaultTypes 中，则不放入
+  */
+  userUpdateLikeList ({ commit }, newLikeList) {
+    commit(types.USERUPDATELIKELIST, { newLikeList })
   }
 }
 
@@ -105,6 +121,17 @@ const mutations = {
   },
   [types.USERTOGGLEACCEPTPOST] (state) {
     state.userInfo.acceptPost = !state.userInfo.acceptPost
+  },
+  [types.USERUPDATELIKELISTALL] (state, { newLikeList }) {
+    state.userInfo.likeList = newLikeList
+  },
+  [types.USERUPDATELIKELIST] (state, { newLikeList }) {
+    const likeList = state.userInfo.likeList
+    const index = likeList.findIndex(ele => ele.word === newLikeList.word)
+    likeList.splice(index, 1)
+    if (state.userInfo.defaultTypes.includes(newLikeList.word)) {
+      likeList.push(newLikeList)
+    }
   }
 }
 

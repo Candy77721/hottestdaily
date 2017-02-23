@@ -60,7 +60,6 @@ export default {
         yAxis: {
           type: 'value',
           min: 0,
-          max: 100,
           boundaryGap: [0, '100%']
         },
         series: [{

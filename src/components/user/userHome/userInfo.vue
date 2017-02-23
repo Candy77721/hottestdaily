@@ -2,8 +2,13 @@
 <div class="user-info">
   <div class="user-email user-info-item">
     <label for="user-email">订阅邮箱：</label>
-    <input type="email" id="user-email" v-model="email">
-    <div class="email-setting-button" @click="toggleEmailSetting()">
+    <input class="input" type="email" id="user-email"
+      v-model="email"
+      @blur="changeEmail()"
+    >
+    <div class="email-setting-button"
+      @click="toggleEmailSetting()"
+    >
     </div>
     <div class="email-setting" v-if="isEmailSetting">
       <div class="body">
@@ -11,7 +16,7 @@
         <div class="button"
           :class="[emailSettingButton]"
           @click="toggleAcceptEmail()"
-          @mouseover="changeButtonAndMsg()" @mouseout="changeButtonAndMsg()"
+          @mouseover="toggleButton(true)" @mouseout="toggleButton(false)"
         >
           <p>
             {{emailSettingMsg}}
@@ -24,7 +29,10 @@
   </div>
   <div class="user-name user-info-item">
     <label for="user-name">用户名：</label>
-    <input type="text" id="user-name" v-model="username">
+    <input class="input" type="text" id="user-name"
+      v-model="username"
+      @blur="changeUsername()"
+    >
   </div>
 </div>
 </template>
@@ -39,6 +47,9 @@ export default {
       email: '',
       username: '',
       isEmailSetting: false,
+      // 按钮状态
+      isInButton: false,
+      // 按钮属性
       emailSettingButton: 'button-accept', // button-accept or button-accept
       emailSettingMsg: '正在推送' // 正在推送, 取消推送, 推送停止, 开启推送
     }
@@ -54,12 +65,49 @@ export default {
         this.username = newInfo.username
       },
       deep: true
+    },
+    /*
+    根据按钮状态修改按钮文字和样式
+    */
+    EmailSettingButtonStatus: function (newStatus) {
+      if (newStatus === 'inAccept') {
+        this.emailSettingMsg = '取消推送'
+        this.emailSettingButton = 'button-unaccept'
+      } else if (newStatus === 'outAccept') {
+        this.emailSettingMsg = '正在推送'
+        this.emailSettingButton = 'button-accept'
+      } else if (newStatus === 'inUnaccept') {
+        this.emailSettingMsg = '开启推送'
+        this.emailSettingButton = 'button-accept'
+      } else if (newStatus === 'outUnaccept') {
+        this.emailSettingMsg = '推送停止'
+        this.emailSettingButton = 'button-unaccept'
+      }
     }
   },
   computed: {
     ...mapGetters([
       'userGetUserInfo'
-    ])
+    ]),
+    /*
+    判断按钮状态
+    inAccept, outAccept, inUnaccept, outUnaccept
+    */
+    EmailSettingButtonStatus: function () {
+      if (this.userGetUserInfo.acceptPost && this.isInButton) {
+        // 接收，光标在按钮中
+        return 'inAccept'
+      } else if (this.userGetUserInfo.acceptPost && !this.isInButton) {
+        // 接收，光标不在按钮中
+        return 'outAccept'
+      } else if (!this.userGetUserInfo.acceptPost && this.isInButton) {
+        return 'inUnaccept'
+        // 不接收，光标在按钮中
+      } else if (!this.userGetUserInfo.acceptPost && !this.isInButton) {
+        // 不接收，光标不在按钮中
+        return 'outUnaccept'
+      }
+    }
   },
   methods: {
     ...mapActions([
@@ -71,26 +119,9 @@ export default {
     toggleEmailSetting: function () {
       this.isEmailSetting = !this.isEmailSetting
     },
-    // 更新 按钮 样式和内容
-    changeButtonAndMsg: function () {
-      const accept = this.userGetUserInfo.acceptPost
-      if (accept) {
-        if (this.emailSettingMsg === '正在推送') {
-          this.emailSettingMsg = '取消推送'
-          this.emailSettingButton = 'button-unaccept'
-        } else {
-          this.emailSettingMsg = '正在推送'
-          this.emailSettingButton = 'button-accept'
-        }
-      } else {
-        if (this.emailSettingMsg === '推送停止') {
-          this.emailSettingMsg = '开启推送'
-          this.emailSettingButton = 'button-accept'
-        } else {
-          this.emailSettingMsg = '推送停止'
-          this.emailSettingButton = 'button-unaccept'
-        }
-      }
+    // 修改 光标是否在按钮中
+    toggleButton: function (bool) {
+      this.isInButton = bool
     },
     // 修改 是否接收邮件
     toggleAcceptEmail: function () {
@@ -102,32 +133,62 @@ export default {
           if (data.errorCode !== 0) {
             alert(data.errorMsg)
           } else {
-            if (this.userGetUserInfo.acceptPost) {
-              if (this.emailSettingMsg === '取消推送') {
-                this.emailSettingMsg = '开启推送'
-                this.emailSettingButton = 'button-accept'
-              } else {
-                this.emailSettingMsg = '推送停止'
-                this.emailSettingButton = 'button-unaccept'
-              }
-            } else {
-              if (this.emailSettingMsg === '开启推送') {
-                this.emailSettingMsg = '取消推送'
-                this.emailSettingButton = 'button-unaccept'
-              } else {
-                this.emailSettingMsg = '正在推送'
-                this.emailSettingButton = 'button-accept'
-              }
-            }
             this.userToggleAcceptPost()
           }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    // 邮件正则
+    regEmail: function (email) {
+      const reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/
+      return reg.test(email)
+    },
+    // 修改推送邮箱
+    changeEmail: function () {
+      if (this.regEmail(this.email)) {
+        axios.post(api.userEditUserMail, {
+          'email': this.email
+        })
+          .then(res => {
+            const data = res.data
+            if (data.errorCode !== 0) {
+              alert(data.errorMsg)
+            } else {
+              this.userChangeEmail(this.email)
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        this.email = this.userGetUserInfo.email
+        alert('输入的邮箱格式有误')
+      }
+    },
+    // 修改用户昵称
+    changeUsername: function () {
+      axios.post(api.userEditUsername, {
+        'username': this.username
+      })
+        .then(res => {
+          const data = res.data
+          if (data.errorCode !== 0) {
+            alert(data.errorMsg)
+          } else {
+            this.userChangeUsername(this.username)
+          }
+        })
+        .catch(err => {
+          console.log(err)
         })
     }
   }
 }
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 .user-info
   width 100%
   display flex
@@ -143,13 +204,15 @@ export default {
       font-size 14px
       color #797979
       letter-spacing 1.6px
-    input
+    .input
       width 616px
       height 40px
       padding 10px
       box-sizing border-box
       border 1px solid #d6d6d6
       border-radius 10px
+      &:focus
+        border 1px solid #959595
   .user-email
     .email-setting-button
       width 40px

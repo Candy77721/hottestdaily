@@ -116,6 +116,15 @@ Mock
     'errorCode': 0,
     'errorMsg': 'success'
   })
+  // 返回关注的，标签
+  .mock('accounts/getWatchList', 'get', {
+    'errorCode': 0,
+    'errorMsg': 'success',
+    'data|20': [{
+      'word': '@cword(2,4)',
+      'like|1-2': true
+    }]
+  })
   // 查询新闻
   .mock('api/getSearchNews', 'post', {
     'errorCode': 0,

@@ -46,7 +46,7 @@ export default {
       axios.get(api.userGetInfo)
         .then(res => {
           const data = res.data
-          if (data.errorCode && data.errorCode !== 0) {
+          if (data.errorCode !== 0) {
             this.router.push({ name: 'explore' })
             console.log(data)
           } else {
