@@ -13,6 +13,7 @@ export default {
   name: 'explore',
   data () {
     return {
+      url: [],
       graphName: 'index-graph'
     }
   },
@@ -26,6 +27,7 @@ export default {
           return
         }
         const data = res.data.data
+        console.log(data);
         myChart.setOption({
           title: {
             text: '今日热词已经为您备好',
@@ -43,12 +45,14 @@ export default {
               // 超过该数值则启用渐进渲染
               // progressiveThreshold: 700,
               data: data.nodes.map(function (node) {
+                const nodeValue = node.url ? node.url : node.label
                 const graphItem = {
                   x: node.x,
                   y: node.y,
                   id: node.id,
                   name: node.label,
                   symbolSize: node.size,
+                  value: nodeValue,
                   itemStyle: {
                     normal: {
                       color: node.color,
@@ -88,6 +92,20 @@ export default {
             }
           ]
         }, true)
+        myChart.off('click')
+        const that = this
+        myChart.on('click', function (params) {
+          console.log(params.data)
+          if (params.data.id.length === 24) {
+            // 新闻点击跳转到对应连接
+            const url = params.data.value
+            window.open(url)
+          } else {
+            // 词点击跳转到查询
+            const word = params.data.name
+            that.$router.push({ name: 'search', params: { search: word }})
+          }
+        })
       })
       .catch(err => {
         console.log(err)

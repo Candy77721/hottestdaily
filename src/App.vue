@@ -50,6 +50,17 @@ export default {
       }
     }
   },
+  watch: {
+    // 如果前往敏感页面且没有登陆，则重定向
+    '$route': function (newValue) {
+      if (newValue.name === 'userHome') {
+        if (!this.userGetIsLogin) {
+          this.$router.replace({ name: 'explore' })
+          this.userToggleModal()
+        }
+      }
+    }
+  },
   mounted () {
     // CRSF 处理
     // const name = 'csrftoken'
@@ -62,13 +73,19 @@ export default {
     // }
     /*
     检测用户状态，如果登陆则更新信息
+    如果没有登陆且在需要登录的页面，则跳转到首页，打开登陆框，并提示登陆
     */
     if (!this.userGetIsLogin) {
       axios.get(api.userGetInfo)
         .then(res => {
           const data = res.data
-          if (data.errorCode && data.errorCode !== 0) {
-            console.log(data)
+          if (data.errorCode !== 0) {
+            console.log(data.errorMsg)
+            // TODO: 需要改造为更通用的方法
+            if (this.$route.name === 'userHome') {
+              this.$router.replace({ name: 'explore' })
+              this.userToggleModal()
+            }
           } else {
             this.userToggleLogin()
             this.userChangeUsername(data.username)
@@ -98,6 +115,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      'userToggleModal',
       'userToggleLogin',
       'userChangeUsername',
       'userChangeEmail',

@@ -46,7 +46,7 @@ import likeListItem from './userLikeListItem.vue'
 export default {
   data () {
     return {
-      userAddinput: '',
+      userAddInput: '',
       isShowLikeSetting: false,
       isShowAddActions: false
     }
@@ -78,7 +78,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'userUpdateLikeListAll'
+      'userUpdateLikeListAll',
+      'userUpdateLikeList'
     ]),
     toggleShowAddActions: function () {
       this.isShowAddActions = !this.isShowAddActions
@@ -99,9 +100,10 @@ export default {
               alert(data.errorMsg)
             } else {
               this.userUpdateLikeList({
-                'word': this.item.word,
+                'word': this.userAddInput,
                 'like': true
               })
+              this.userAddInput = ''
             }
           })
           .catch(err => {

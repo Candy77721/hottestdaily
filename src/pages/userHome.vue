@@ -14,17 +14,11 @@ import userSubscription from '../components/user/userHome/userSubscription.vue'
 import userSubscriptionList from '../components/user/userHome/userSubscriptionList.vue'
 
 import { mapGetters, mapActions } from 'vuex'
-import * as api from '../api/api'
 
 export default {
   name: 'userHome',
   data () {
     return {
-    }
-  },
-  mounted () {
-    if (!this.userGetIsLogin) {
-      this.getUserInfo()
     }
   },
   computed: {
@@ -38,28 +32,7 @@ export default {
       'userChangeUsername',
       'userChangeEmail',
       'userToggleAcceptPost'
-    ]),
-    /*
-    获取用户状态，如果没有登陆则重定向到主页
-    */
-    getUserInfo: function () {
-      axios.get(api.userGetInfo)
-        .then(res => {
-          const data = res.data
-          if (data.errorCode !== 0) {
-            this.$router.push({ name: 'explore' })
-            console.log(data)
-          } else {
-            this.userToggleLogin()
-            this.userChangeUsername(data.username)
-            this.userChangeEmail(data.email)
-            this.userToggleAcceptPost(data.acceptPost)
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
+    ])
   },
   components: {
     userInfo: userInfo,

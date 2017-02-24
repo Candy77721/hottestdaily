@@ -92,8 +92,11 @@ const actions = {
   },
   /*
   更新用户信息 -- likeList
-  将已经存在的删除，然后再放入
-  如果传进的 newLikeList.word 不在 newLikeList.defaultTypes 中，则不放入
+  如果是 增加喜欢
+  则删除原本的后放入
+  如果是 删除喜欢
+  如果传进的 newLikeList.word 不在 newLikeList.defaultTypes 中，则直接删除
+  否则，删除后再放入
   */
   userUpdateLikeList ({ commit }, newLikeList) {
     commit(types.USERUPDATELIKELIST, { newLikeList })
@@ -129,7 +132,9 @@ const mutations = {
     const likeList = state.userInfo.likeList
     const index = likeList.findIndex(ele => ele.word === newLikeList.word)
     likeList.splice(index, 1)
-    if (state.userInfo.defaultTypes.includes(newLikeList.word)) {
+    if (newLikeList.like) {
+      likeList.push(newLikeList)
+    } else if (state.userInfo.defaultTypes.includes(newLikeList.word)) {
       likeList.push(newLikeList)
     }
   }
