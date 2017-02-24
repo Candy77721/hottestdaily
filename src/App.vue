@@ -59,6 +59,26 @@ export default {
           this.userToggleModal()
         }
       }
+    },
+    // 监听用户登陆状态，如果登陆则请求用户信息
+    'userGetIsLogin': function (newStatus) {
+      if (newStatus) {
+        axios.get(api.userGetInfo)
+          .then(res => {
+            const data = res.data
+            if (data.errorCode !== 0) {
+              console.log(data.errorMsg)
+            } else {
+              this.userToggleLogin()
+              this.userChangeUsername(data.username)
+              this.userChangeEmail(data.email)
+              this.userToggleAcceptPost(data.acceptPost)
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     }
   },
   mounted () {

@@ -126,7 +126,6 @@ Mock
     }]
   })
   // 增加关注内容
-
   .mock('accounts/addWatchTag', 'post', {
     'errorCode': 0,
     'errorMsg': 'success',

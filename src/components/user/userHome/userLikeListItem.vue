@@ -56,6 +56,7 @@ export default {
             console.log(err)
           })
       } else {
+        // 删除关注内容
         axios.post(api.userLikeDelete, {
           'word': this.item.word
         })

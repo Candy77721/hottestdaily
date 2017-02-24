@@ -79,7 +79,8 @@ export default {
   methods: {
     ...mapActions([
       'userUpdateLikeListAll',
-      'userUpdateLikeList'
+      'userUpdateLikeList',
+      'userUpdateLikeListCustom'
     ]),
     toggleShowAddActions: function () {
       this.isShowAddActions = !this.isShowAddActions
@@ -99,7 +100,7 @@ export default {
             if (data.errorCode) {
               alert(data.errorMsg)
             } else {
-              this.userUpdateLikeList({
+              this.userUpdateLikeListCustom({
                 'word': this.userAddInput,
                 'like': true
               })

@@ -27,7 +27,6 @@ export default {
           return
         }
         const data = res.data.data
-        console.log(data);
         myChart.setOption({
           title: {
             text: '今日热词已经为您备好',

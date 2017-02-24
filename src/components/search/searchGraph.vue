@@ -41,18 +41,36 @@ export default {
             // 超过该数值则启用渐进渲染
             // progressiveThreshold: 700,
             data: data.nodes.map(function (node) {
-              return {
+              const nodeValue = node.url ? node.url : node.label
+              const graphItem = {
                 x: node.x,
                 y: node.y,
                 id: node.id,
                 name: node.label,
                 symbolSize: node.size,
+                value: nodeValue,
                 itemStyle: {
                   normal: {
-                    color: node.color
+                    color: node.color,
+                    shadowBlur: 8,
+                    shadowColor: 'rgba(117,117,117,0.50)',
+                    shadowOffsetY: 2
+                  }
+                },
+                label: {
+                  emphasis: {
+                    position: 'right',
+                    show: true
                   }
                 }
               }
+              if (node.id.length !== 24) {
+                graphItem.label.normal = {
+                  position: 'inside',
+                  show: true
+                }
+              }
+              return graphItem
             }),
             edges: data.edges.map(function (edge) {
               return {
@@ -60,16 +78,6 @@ export default {
                 target: edge.targetID
               }
             }),
-            label: {
-              normal: {
-                position: 'inside',
-                show: true
-              },
-              emphasis: {
-                position: 'right',
-                show: true
-              }
-            },
             lineStyle: {
               normal: {
                 width: 0.5,
@@ -80,6 +88,20 @@ export default {
           }
         ]
       }, true)
+      searchGraph.off('click')
+      const that = this
+      searchGraph.on('click', function (params) {
+        console.log(params.data)
+        if (params.data.id.length === 24) {
+          // 新闻点击跳转到对应连接
+          const url = params.data.value
+          window.open(url)
+        } else {
+          // 词点击跳转到查询
+          const word = params.data.name
+          that.$router.push({ name: 'search', params: { search: word }})
+        }
+      })
     }
   }
 }

@@ -85,7 +85,7 @@ const actions = {
     commit(types.USERTOGGLEACCEPTPOST)
   },
   /*
-  更新用户信息 -- likeList -- 直接放入
+  更新用户信息 -- likeList -- 直接替换
   */
   userUpdateLikeListAll ({ commit }, newLikeList) {
     commit(types.USERUPDATELIKELISTALL, { newLikeList })
@@ -100,6 +100,13 @@ const actions = {
   */
   userUpdateLikeList ({ commit }, newLikeList) {
     commit(types.USERUPDATELIKELIST, { newLikeList })
+  },
+  /*
+  更新用户信息 -- likeList
+  用户自定义的词，直接添加
+  */
+  userUpdateLikeListCustom ({ commit }, newLikeList) {
+    commit(types.USERUPDATELIKELISTCUSTOM, { newLikeList })
   }
 }
 
@@ -137,6 +144,9 @@ const mutations = {
     } else if (state.userInfo.defaultTypes.includes(newLikeList.word)) {
       likeList.push(newLikeList)
     }
+  },
+  [types.USERUPDATELIKELISTCUSTOM] (state, { newLikeList }) {
+    state.userInfo.likeList.push(newLikeList)
   }
 }
 
