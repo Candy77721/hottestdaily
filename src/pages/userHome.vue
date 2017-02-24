@@ -47,7 +47,7 @@ export default {
         .then(res => {
           const data = res.data
           if (data.errorCode !== 0) {
-            this.router.push({ name: 'explore' })
+            this.$router.push({ name: 'explore' })
             console.log(data)
           } else {
             this.userToggleLogin()

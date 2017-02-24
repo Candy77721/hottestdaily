@@ -1,7 +1,7 @@
 <template lang="html">
 <div class="user-login-body">
   <div class="form-group">
-    <input type="email" id="email" v-model="userLogin.username" placeholder="请输入邮箱或用户名" required="required">
+    <input type="email" id="email" v-model="userLogin.email" placeholder="请输入邮箱或用户名" required="required">
     <span class="to-other button" @click="userChangeModalState('UserRegister')">还没有账号？</span>
   </div>
   <div class="form-group">
@@ -41,7 +41,7 @@ export default {
   data () {
     return {
       userLogin: {
-        username: '',
+        email: '',
         password: ''
       },
       focus: false,
@@ -78,7 +78,7 @@ export default {
       this.focus = !this.focus
     },
     login: function () {
-      if (!this.regEmail(this.userLogin.username)) {
+      if (!this.regEmail(this.userLogin.email)) {
         this.showMsg = 'errorMsg'
         this.errorMsg = '邮箱格式错误'
         return

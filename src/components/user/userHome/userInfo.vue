@@ -201,6 +201,7 @@ export default {
     &:nth-child(2)
       margin-top 20px
     label
+      width 94px
       font-size 14px
       color #797979
       letter-spacing 1.6px

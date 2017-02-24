@@ -26,8 +26,8 @@
     <div class="user-add" v-if="isShowAddActions">
       <p>手动添加！</p>
       <div class="user-add-actions">
-        <input type="text" class="user-add-input" placeholder="2-4个字">
-        <div class="user-add-action">
+        <input type="text" class="user-add-input" placeholder="2-4个字" v-model="userAddInput">
+        <div class="user-add-action" @click="addLike()">
         </div>
       </div>
     </div>
@@ -46,6 +46,7 @@ import likeListItem from './userLikeListItem.vue'
 export default {
   data () {
     return {
+      userAddinput: '',
       isShowLikeSetting: false,
       isShowAddActions: false
     }
@@ -69,10 +70,10 @@ export default {
       'userGetUserInfo'
     ]),
     getLikeList: function () {
-      return this.userGetUserInfo.likeList.filter(item => item.like === true)
+      return this.userGetUserInfo.likeList.filter(item => item.like)
     },
     getunLikeList: function () {
-      return this.userGetUserInfo.likeList.filter(item => item.like === false)
+      return this.userGetUserInfo.likeList.filter(item => !item.like)
     }
   },
   methods: {
@@ -84,6 +85,33 @@ export default {
     },
     toggleShowLikeSetting: function () {
       this.isShowLikeSetting = !this.isShowLikeSetting
+    },
+    addLike: function () {
+      if (!this.regUserAddInput(this.userAddInput)) {
+        alert('请输入2-4个字')
+      } else {
+        axios.post(api.userLikeAdd, {
+          'word': this.userAddInput
+        })
+          .then(res => {
+            const data = res.data
+            if (data.errorCode) {
+              alert(data.errorMsg)
+            } else {
+              this.userUpdateLikeList({
+                'word': this.item.word,
+                'like': true
+              })
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+    },
+    regUserAddInput: function (input) {
+      const reg = /^(([\u4e00-\u9fa5])|(\w)){2,4}$/
+      return reg.test(input)
     }
   },
   components: {
