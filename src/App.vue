@@ -40,6 +40,9 @@ export default {
   name: 'app',
   data () {
     return {
+      // 敏感路径需要做检查
+      checkRouterList: ['userHome'],
+      // top-bar 位置设置
       top: 140,
       topbarStyle: {
         position: 'relative',
@@ -53,7 +56,7 @@ export default {
   watch: {
     // 如果前往敏感页面且没有登陆，则重定向
     '$route': function (newValue) {
-      if (newValue.name === 'userHome') {
+      if (this.checkRouterList.includes(newValue.name)) {
         if (!this.userGetIsLogin) {
           this.$router.replace({ name: 'explore' })
           this.userToggleModal()
@@ -69,7 +72,6 @@ export default {
             if (data.errorCode !== 0) {
               console.log(data.errorMsg)
             } else {
-              this.userToggleLogin()
               this.userChangeUsername(data.username)
               this.userChangeEmail(data.email)
               this.userToggleAcceptPost(data.acceptPost)

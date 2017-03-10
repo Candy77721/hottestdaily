@@ -26,7 +26,7 @@
     <div class="user-add" v-if="isShowAddActions">
       <p>手动添加！</p>
       <div class="user-add-actions">
-        <input type="text" class="user-add-input" placeholder="2-4个字" v-model="userAddInput">
+        <input type="text" class="user-add-input" placeholder="2 - 4个字" v-model="userAddInput">
         <div class="user-add-action" @click="addLike()">
         </div>
       </div>
@@ -126,7 +126,6 @@ export default {
 <style lang="stylus" scoped>
 .user-like
   width 100%
-  margin-top 48px
   position relative
   .title
     font-size 14px

@@ -15,7 +15,8 @@
         {{keyword}}
       </span>
     </div>
-    <div class="hot-rect" :style="{ backgroundImage: getHotColor(news.hot)}">
+    <!-- <div class="hot-rect" :style="{ backgroundImage: getHotColor(news.hot)}"> -->
+    <div class="hot-rect" style="background-image: radial-gradient(46% 103%, #F2A1A1 50%, #FF4848 100%);">
       <p class="hot">
         {{`${news.hot}℃`}}
       </p>

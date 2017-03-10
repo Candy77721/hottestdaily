@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="user-home">
-    <user-info></user-info>
+    <!-- <user-info></user-info> -->
+    <user-accept-setting></user-accept-setting>
     <user-like-list></user-like-list>
     <user-subscription></user-subscription>
     <user-subscription-list></user-subscription-list>
@@ -8,7 +9,8 @@
 </template>
 
 <script>
-import userInfo from '../components/user/userHome/userInfo.vue'
+// import userInfo from '../components/user/userHome/userInfo.vue'
+import userAcceptSetting from '../components/user/userHome/userAcceptSetting.vue'
 import userLikeList from '../components/user/userHome/userLikeList.vue'
 import userSubscription from '../components/user/userHome/userSubscription.vue'
 import userSubscriptionList from '../components/user/userHome/userSubscriptionList.vue'
@@ -35,7 +37,8 @@ export default {
     ])
   },
   components: {
-    userInfo: userInfo,
+    // userInfo: userInfo,
+    userAcceptSetting: userAcceptSetting,
     userLikeList: userLikeList,
     userSubscription: userSubscription,
     userSubscriptionList: userSubscriptionList
@@ -46,5 +49,6 @@ export default {
 <style lang="stylus" scoped>
 .user-home
   height 500px
-  padding 90px 280px 0px 220px
+  padding 44px 280px 0px 205px
+  position relative
 </style>

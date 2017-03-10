@@ -5,7 +5,7 @@
       <img v-show="isInButton" src="../../../assets/icon/user-like-delete.png" alt="" @mouseover="toggleButton(true)" @mouseout="toggleButton(false)">
     </div>
     <div class="icon" v-else @click="toggleLike(true)">
-      <img v-show="isInButton" src="../../../assets/icon/user-like-add.png" alt="" @mouseover="toggleButton(true)" @mouseout="toggleButton(false)">
+      <img v-show="isInButton" src="../../../assets/icon/user-like-add.png" alt="">
     </div>
   </div>
 </template>
@@ -14,10 +14,27 @@
 import * as api from '../../../api/api'
 import { mapActions } from 'vuex'
 
+/*
+此组件逻辑为
+如果为用户喜欢的标签，则鼠标移入才显式icon
+如果是用户还未喜欢的标签，则始终显式icon
+*/
 export default {
   data () {
     return {
       isInButton: false
+    }
+  },
+  beforeMount () {
+    if (!this.item.like) {
+      this.isInButton = true
+    }
+  },
+  watch: {
+    'isInButton': function () {
+      if (!this.item.like) {
+        this.isInButton = true
+      }
     }
   },
   props: ['item'],
