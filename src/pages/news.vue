@@ -16,7 +16,9 @@ export default {
   data: function () {
     return {
       // 是否正在获取数据
-      isGet: false
+      isGet: false,
+      // 函数节流
+      throttle: true
     }
   },
   mounted () {
@@ -105,23 +107,29 @@ export default {
     },
     // 监听滚动事件
     handleScroll () {
-      var scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
-      if (document.documentElement.scrollHeight - 150 <= document.documentElement.clientHeight + scrollTop) {
-        // 'all'有10页数据
-        if (this.newsGetNowType === 'all') {
-          if ((!this.isGet) && (this.newsGetNextPage !== 11)) {
-            this.getNews(this.newsGetNextPage, this.newsGetNowType)
-          } else if (this.newsGetNextPage === 11) {
-            // TODO: 提示已经到底
+      if (this.throttle) {
+        this.throttle = false
+        setTimeout(() => {
+          const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop
+          if (document.documentElement.scrollHeight - 400 <= document.documentElement.clientHeight + scrollTop) {
+            // 'all'有10页数据
+            if (this.newsGetNowType === 'all') {
+              if ((!this.isGet) && (this.newsGetNextPage !== 11)) {
+                this.getNews(this.newsGetNextPage, this.newsGetNowType)
+              } else if (this.newsGetNextPage === 11) {
+                // TODO: 提示已经到底
+              }
+            } else {
+              // 其他的有5页数据
+              if ((!this.isGet) && (this.newsGetNextPage !== 6)) {
+                this.getNews(this.newsGetNextPage, this.newsGetNowType)
+              } else if (this.newsGetNextPage === 6) {
+                // TODO: 提示已经到底
+              }
+            }
           }
-        } else {
-          // 其他的有5页数据
-          if ((!this.isGet) && (this.newsGetNextPage !== 6)) {
-            this.getNews(this.newsGetNextPage, this.newsGetNowType)
-          } else if (this.newsGetNextPage === 6) {
-            // TODO: 提示已经到底
-          }
-        }
+          this.throttle = true
+        }, 300)
       }
     }
   },

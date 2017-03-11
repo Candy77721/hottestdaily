@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="like-setting" v-if="isShowLikeSetting">
-    <div class="body">
+    <div class="like-setting-body">
       <div class="user-unlike-list">
         <like-list-item class="user-unlike-button"
           v-for="item in getunLikeList"
@@ -24,11 +24,23 @@
       </div>
     </div>
     <div class="user-add" v-if="isShowAddActions">
-      <p>手动添加！</p>
-      <div class="user-add-actions">
-        <input type="text" class="user-add-input" placeholder="2 - 4个字" v-model="userAddInput">
-        <div class="user-add-action" @click="addLike()">
+      <div class="user-add-body">
+        <p>手动添加！</p>
+        <div class="user-add-actions">
+          <input type="text" class="user-add-input" placeholder="2 - 4个字" v-model="userAddInput">
+          <div class="user-add-action" @click="addLike()">
+          </div>
         </div>
+      </div>
+      <div class="add-add-eror" v-if="addLikeErrorMsg !== ''">
+        <div>
+          <div class="add-add-eror-body">
+            <img src="../../../assets/icon/user-add-err.png" alt="">
+            <p>{{addLikeErrorMsg}}</p>
+          </div>
+        </div>
+          <div class="cor"></div>
+          <div class="cor_s"></div>
       </div>
     </div>
     <div class="cor"></div>
@@ -46,9 +58,10 @@ import likeListItem from './userLikeListItem.vue'
 export default {
   data () {
     return {
-      userAddInput: '',
-      isShowLikeSetting: false,
-      isShowAddActions: false
+      userAddInput: '', // 用户输入的数据
+      addLikeErrorMsg: '', // 添加时的错误提示信息
+      isShowLikeSetting: false, // 是否显式添加
+      isShowAddActions: false // 是否显示手动添加
     }
   },
   mounted () {
@@ -64,6 +77,11 @@ export default {
       .catch(err => {
         console.log(err)
       })
+  },
+  watch: {
+    'userAddInput': function () {
+      this.addLikeErrorMsg = ''
+    }
   },
   computed: {
     ...mapGetters([
@@ -90,7 +108,7 @@ export default {
     },
     addLike: function () {
       if (!this.regUserAddInput(this.userAddInput)) {
-        alert('请输入2-4个字')
+        this.addLikeErrorMsg = '请输入2-4个字'
       } else {
         axios.post(api.userLikeAdd, {
           'word': this.userAddInput
@@ -98,7 +116,7 @@ export default {
           .then(res => {
             const data = res.data
             if (data.errorCode) {
-              alert(data.errorMsg)
+              this.addLikeErrorMsg = data.errorMsg
             } else {
               this.userUpdateLikeListCustom({
                 'word': this.userAddInput,
@@ -182,7 +200,7 @@ export default {
     left calc(100% + 14px)
     top calc(100% - 105px)
     z-index 0
-    .body
+    .like-setting-body
       width 254px
       box-sizing border-box
       position relative
@@ -217,58 +235,96 @@ export default {
     .user-add
       width 242px
       height 95px
-      margin 0 8px
+      margin -40px 8px 0 8px
       padding 30px 12px 0 0
-      position absolute
-      top calc(100% - 40px)
-      display flex
-      flex-direction column
-      align-items center
+      position relative
       background #80a3dc
       border-radius 10px
-      p
-        margin 8px 0
-        font-size 14px
-        color #ffffff
-        letter-spacing 1.6px
-      .user-add-actions
-        width 242px
-        height 60px
+      .user-add-body
         display flex
-        justify-content flex-end
-        margin-bottom 21px
-        .user-add-input
-          width 113px
-          color #ededed
-          background-color transparent
-          border none
-          border-bottom 1px solid #ffffff
-          &::placeholder
+        flex-direction column
+        align-items center
+        p
+          margin 8px 0
+          font-size 14px
+          color #ffffff
+          letter-spacing 1.6px
+        .user-add-actions
+          width 242px
+          display flex
+          justify-content flex-end
+          margin-bottom 21px
+          .user-add-input
+            width 113px
             color #ededed
-        .user-add-action
-          width 66px
-          height 40px
-          margin-left 18px
-          position relative
-          border-radius 5px
-          background #cdcdcd
-          cursor pointer
-          &:before
-          &:after
-            content ''
-            height 4px
-            width 26px
-            display block
-            background #80a3dc
-            border-radius 10px
-            position absolute
-            top 18px
-            left 20px
-          &:after
-            height 26px
-            width 4px
-            top 7px
-            left 31px
+            background-color transparent
+            border none
+            border-bottom 1px solid #ffffff
+            &::placeholder
+              color #ededed
+          .user-add-action
+            width 66px
+            height 40px
+            margin-left 18px
+            position relative
+            border-radius 5px
+            background #ededed
+            cursor pointer
+            &:before
+            &:after
+              content ''
+              height 4px
+              width 26px
+              display block
+              background #80a3dc
+              border-radius 10px
+              position absolute
+              top 18px
+              left 20px
+            &:after
+              height 26px
+              width 4px
+              top 7px
+              left 31px
+    .add-add-eror
+      position absolute
+      left 138px
+      top calc(100% - 10px)
+      .add-add-eror-body
+        height 50px
+        width 150px
+        display flex
+        align-items center
+        box-sizing border-box
+        position relative
+        margin 8px
+        padding 5px
+        background-color #ededed
+        z-index 2
+        box-shadow 0 4px 18px 0 rgba(107,107,107,0.50)
+        border-radius 5px
+        img
+          width 36px
+          height 36px
+        p
+          margin 0
+          font-size 14px
+          color #7fa1d9
+          letter-spacing 1.6px
+          text-align center
+      .cor
+      .cor_s
+        width 16px
+        height 16px
+        left 70px
+        top 0
+        position absolute
+        background-color #ededed
+        z-index 2
+        transform rotate(-45deg)
+      .cor_s
+        z-index 1
+        box-shadow 0 1px 5px 0 rgba(82,82,82,0.50)
     .cor
     .cor_s
       width 16px

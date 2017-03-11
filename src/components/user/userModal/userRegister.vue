@@ -98,7 +98,7 @@ export default {
           } else {
             this.showMsg = 'msg'
             this.msg = '注册成功'
-            this.userToggleLogin()
+            // this.userToggleLogin()
             this.userChangeModalState('UserRegisterOk')
           }
         })

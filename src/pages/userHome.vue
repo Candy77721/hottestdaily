@@ -49,6 +49,6 @@ export default {
 <style lang="stylus" scoped>
 .user-home
   height 500px
-  padding 44px 280px 0px 205px
+  padding 44px 280px 0px 202px
   position relative
 </style>

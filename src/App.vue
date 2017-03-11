@@ -40,6 +40,8 @@ export default {
   name: 'app',
   data () {
     return {
+      // 是否是刚进入页面
+      isInit: true,
       // 敏感路径需要做检查
       checkRouterList: ['userHome'],
       // top-bar 位置设置
@@ -54,13 +56,11 @@ export default {
     }
   },
   watch: {
+    // 注意，首次加载页面不掉用此方法
     // 如果前往敏感页面且没有登陆，则重定向
     '$route': function (newValue) {
-      if (this.checkRouterList.includes(newValue.name)) {
-        if (!this.userGetIsLogin) {
-          this.$router.replace({ name: 'explore' })
-          this.userToggleModal()
-        }
+      if (!this.isInit) {
+        this.checkRouter(this.$route.name)
       }
     },
     // 监听用户登陆状态，如果登陆则请求用户信息
@@ -100,14 +100,12 @@ export default {
     if (!this.userGetIsLogin) {
       axios.get(api.userGetInfo)
         .then(res => {
+          this.isInit = false
           const data = res.data
           if (data.errorCode !== 0) {
             console.log(data.errorMsg)
             // TODO: 需要改造为更通用的方法
-            if (this.$route.name === 'userHome') {
-              this.$router.replace({ name: 'explore' })
-              this.userToggleModal()
-            }
+            this.checkRouter(this.$route.name)
           } else {
             this.userToggleLogin()
             this.userChangeUsername(data.username)
@@ -131,7 +129,7 @@ export default {
       'userGetIsLogin',
       'rankGetShowModalGraph'
     ]),
-    showModalOverlay: function () {
+    showModalOverlay () {
       return this.userGetIsModal || this.rankGetShowModalGraph
     }
   },
@@ -143,6 +141,17 @@ export default {
       'userChangeEmail',
       'userToggleAcceptPost'
     ]),
+    // 检查敏感路由
+    checkRouter (routerName) {
+      if (this.checkRouterList.includes(routerName) && !this.userGetIsLogin) {
+        this.$router.replace({ name: 'explore' })
+        this.userToggleModal()
+        return false
+      } else {
+        return true
+      }
+    },
+    // 模拟粘性定位
     sticky () {
       if (this.top <= window.scrollY) {
         this.topbarStyle.position = 'fixed'

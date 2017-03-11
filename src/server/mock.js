@@ -105,7 +105,7 @@ Mock
   })
   // 获取用户信息
   .mock('accounts/getUserInfo', 'get', {
-    'errorCode': 0,
+    'errorCode': 1,
     'errorMsg': 'success',
     'username': '@cword(2,8)',
     'email': '@email()',
