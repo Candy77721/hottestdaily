@@ -1,13 +1,13 @@
 <template lang="html">
   <div class="news-card">
     <!-- {{news.type}} -->
-    <a :href="news.url" target="_blank">
+    <a :href="news.url" @click="postTracking(news.title)" target="_blank">
       <p class="title">{{news.title}}</p>
     </a>
     <!-- <p>{{news.label}}</p> -->
     <!-- <p>{{news.fromTopic}}</p> -->
     <div class="news-card-body">
-      <a :href="news.url" target="_blank">
+      <a :href="news.url" @click="postTracking(news.title)" target="_blank">
         <p class="abstract">{{news.abstract}}</p>
       </a>
       <div class="keywords">
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import * as api from '../../api/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -48,8 +49,17 @@ export default {
     ])
   },
   methods: {
-    getHotColor: function (hot) {
+    getHotColor (hot) {
       return this.getColor[hot]
+    },
+    postTracking (data) {
+      axios.post(api.userInterestTracking, {
+        'data': data
+      })
+        .then(res => {})
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }

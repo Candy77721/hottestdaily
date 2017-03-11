@@ -125,7 +125,7 @@ export default {
     height 40px
     position absolute
     top 0
-    right 0
+    right 5px
     border-radius 10px
     cursor pointer
     &:after

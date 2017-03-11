@@ -32,6 +32,7 @@ export default {
   mounted () {
     // 更新数据
     const newSearch = this.$route.params.search
+    this.postTracking(newSearch)
     this.searchChangeSearch(newSearch)
     // 请求数据
     this.updateGraph(this.searchGetSearch)
@@ -50,6 +51,7 @@ export default {
     '$route' (to, from) {
       // 更新数据
       const newSearch = to.params.search
+      this.postTracking(newSearch)
       this.searchChangeSearch(newSearch)
       this.searchClearNews()
       // 请求数据
@@ -105,6 +107,15 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    postTracking (data) {
+      axios.post(api.userInterestTracking, {
+        'data': data
+      })
+        .then(res => {})
+        .catch(error => {
+          console.log(error)
         })
     },
     // 监听滚动事件

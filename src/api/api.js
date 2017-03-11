@@ -38,3 +38,5 @@ export const userGetLike = 'accounts/getWatchList'
 export const userLikeAdd = 'accounts/addWatchTag'
 // 我的喜欢 删除 喜欢标签
 export const userLikeDelete = 'accounts/delWatchTag'
+// 用户爱好追踪
+export const userInterestTracking = 'accounts/UserBrowseNews'
