@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import * as api from '../../api/api'
+
 export default {
   data () {
     return {}
@@ -93,6 +95,7 @@ export default {
         console.log(params.data)
         if (params.data.id.length === 24) {
           // 新闻点击跳转到对应连接
+          that.postTracking(params.data.name)
           const url = params.data.value
           window.open(url)
         } else {
@@ -101,6 +104,15 @@ export default {
           that.$router.push({ name: 'search', params: { search: word }})
         }
       })
+    },
+    postTracking (data) {
+      axios.post(api.userInterestTracking, {
+        'data': data
+      })
+        .then(res => {})
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }

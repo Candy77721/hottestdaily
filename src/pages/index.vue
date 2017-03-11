@@ -94,9 +94,9 @@ export default {
         myChart.off('click')
         const that = this
         myChart.on('click', function (params) {
-          console.log(params.data)
           if (params.data.id.length === 24) {
             // 新闻点击跳转到对应连接
+            that.postTracking(params.data.name)
             const url = params.data.value
             window.open(url)
           } else {
@@ -109,6 +109,17 @@ export default {
       .catch(err => {
         console.log(err)
       })
+  },
+  methods: {
+    postTracking (data) {
+      axios.post(api.userInterestTracking, {
+        'data': data
+      })
+        .then(res => {})
+        .catch(error => {
+          console.log(error)
+        })
+    }
   }
 }
 </script>

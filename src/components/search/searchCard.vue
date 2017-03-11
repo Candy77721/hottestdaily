@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="search-card">
     <div class="body">
-      <a :href="news.url" target="_blank">
+      <a @click="postTracking(news.title)" :href="news.url" target="_blank">
         <p class="title">
           {{news.title}}
         </p>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import * as api from '../../api/api'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -42,6 +43,15 @@ export default {
   methods: {
     getHotColor: function (hot) {
       return this.getColor[hot]
+    },
+    postTracking (data) {
+      axios.post(api.userInterestTracking, {
+        'data': data
+      })
+        .then(res => {})
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 }
