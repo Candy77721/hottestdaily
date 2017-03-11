@@ -157,7 +157,7 @@ export default {
   background-image linear-gradient(-90deg, #8BA4FB 3%, #62B7E6 100%)
   box-shadow 0 2px 5px 0 rgba(161,161,161,0.50)
   border-radius 5px
-  p
+  .user-actions-text
     color #FFFFFF
     font-size 18px
     font-weight bold

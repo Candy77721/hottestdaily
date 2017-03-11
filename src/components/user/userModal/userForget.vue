@@ -5,13 +5,13 @@
   </div>
   <div class="">
     <div v-if="captchaMsg.showMsg ==='action'" class="user-actions captcha button" @click="getCaptcha()">
-      <p>发送验证码到邮箱</p>
+      <p class="user-actions-text">发送验证码到邮箱</p>
     </div>
     <div v-else-if="captchaMsg.showMsg === 'errorMsg'" class="errormsg captcha user-actions">
-      <p>{{captchaMsg.errorMsg}}</p>
+      <p class="user-actions-text">{{captchaMsg.errorMsg}}</p>
     </div>
     <div v-else class="user-actions captcha">
-      <p>{{captchaMsg.msg}}</p>
+      <p class="user-actions-text">{{captchaMsg.msg}}</p>
     </div>
   </div>
   <div class="form-group">
@@ -33,13 +33,13 @@
   </div>
   <div class="">
     <div v-if="forgetMsg.showMsg ==='action'" class="user-forget-actions button user-actions" @click="forget()">
-      <p>确认修改</p>
+      <p class="user-actions-text">确认修改</p>
     </div>
     <div v-else-if="forgetMsg.showMsg === 'errorMsg'" class="errormsg user-actions user-forget-actions">
-      <p>{{forgetMsg.errorMsg}}</p>
+      <p class="user-actions-text">{{forgetMsg.errorMsg}}</p>
     </div>
     <div v-else class="user-actions user-forget-actions">
-      <p>{{forgetMsg.msg}}</p>
+      <p class="user-actions-text">{{forgetMsg.msg}}</p>
     </div>
   </div>
 </div>
@@ -106,7 +106,7 @@ export default {
     getCaptcha: function () {
       if (!this.regEmail(this.userForget.email)) {
         this.captchaMsg.showMsg = 'errorMsg'
-        this.captchaMsg.errorMsg = '邮箱格式不正确'
+        this.captchaMsg.errorMsg = '邮箱格式错误'
         return
       }
       this.captchaMsg.showMsg = 'msg'

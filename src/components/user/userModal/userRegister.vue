@@ -19,13 +19,13 @@
   </div>
   <div class="">
     <div v-if="showMsg ==='action'" class="user-register-actions button user-actions" @click="register()">
-      <p>注册</p>
+      <p class="user-actions-text">注册</p>
     </div>
     <div v-else-if="showMsg === 'errorMsg'" class="errormsg user-actions">
-      <p>{{errorMsg}}</p>
+      <p class="user-actions-text">{{errorMsg}}</p>
     </div>
     <div v-else class="user-actions">
-      <p>{{msg}}</p>
+      <p class="user-actions-text">{{msg}}</p>
     </div>
   </div>
 </div>
@@ -58,7 +58,8 @@ export default {
   methods: {
     ...mapActions([
       'userToggleLogin',
-      'userChangeModalState'
+      'userChangeModalState',
+      'userChangeEmail'
     ]),
     toggleShow: function () {
       if (this.showPassword) {
@@ -99,6 +100,7 @@ export default {
             this.showMsg = 'msg'
             this.msg = '注册成功'
             // this.userToggleLogin()
+            this.userChangeEmail(this.email)
             this.userChangeModalState('UserRegisterOk')
           }
         })

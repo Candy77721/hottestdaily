@@ -21,13 +21,13 @@
   </div>
   <div class="">
     <div v-if="showMsg ==='action'" class="user-login-actions button user-actions" @click="login()">
-      <p>登陆</p>
+      <p class="user-actions-text">登陆</p>
     </div>
     <div v-else-if="showMsg === 'errorMsg'" class="errormsg user-actions">
-      <p>{{errorMsg}}</p>
+      <p class="user-actions-text">{{errorMsg}}</p>
     </div>
     <div v-else class="user-actions">
-      <p>{{msg}}</p>
+      <p class="user-actions-text">{{msg}}</p>
     </div>
   </div>
 </div>
