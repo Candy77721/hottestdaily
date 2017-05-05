@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from './router/index'
 import store from './store/index'
 
-// import mock from './server/mock'
+import mock from './server/mock'
 
 // 开启debug模式
 Vue.config.debug = true
