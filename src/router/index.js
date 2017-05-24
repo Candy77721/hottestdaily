@@ -41,6 +41,13 @@ const routes = [{
   }
   // component: Rank
 }, {
+  path: '/track',
+  name: 'track',
+  component: function (resolve) {
+    require(['../pages/track.vue'], resolve)
+  }
+  // component: Rank
+}, {
   path: '/search/:search',
   name: 'search',
   component: function (resolve) {

@@ -160,6 +160,24 @@ Mock
         "history|10":['@integer(26, 100)'],
       }]
   })
+  // 新闻追踪数据
+  .mock('api/newstrail', 'get', {
+    'errorCode': 0,
+    'errorMsg': 'success',
+    'data|20': [{
+      'title': '@cword(4,10)',
+      'timeaxis|1-3': [{
+        'time': '@cword(4,10)',
+        'keywords|3': ['@cword(2,4)'],
+        'text': '@csentence(100)'
+      }],
+      'graph': {
+        'name': ['@cword(2,4)'],
+        'data|10': ['@integer(26, 100)'],
+        'time': [1493028294, 1493056294]
+      }
+    }]
+  })
   // 首页关系图
   .mock('api/getGraph', 'get', {
       'errorCode': 0,

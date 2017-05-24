@@ -13,6 +13,9 @@ export const getSearchNews = 'api/getSearchNews'
 // 查询排行榜页面图表
 export const getRankGraph = 'api/getHotWords'
 
+// 新闻追踪
+export const getNewsTrack = 'api/newstrail'
+
 /* 用户 */
 // 用户登陆
 export const userLogin = 'accounts/login'

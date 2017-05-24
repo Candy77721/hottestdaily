@@ -15,6 +15,10 @@
             <img src="../assets/icon/menu-news.png" alt="">
             <span>时下热文</span>
           </router-link>
+          <router-link :to="{ name: 'track' }" tag="li" exact>
+            <img src="../assets/icon/track-64.png" alt="">
+            <span>新闻追踪</span>
+          </router-link>
           <router-link :to="{ name: 'rank' }" tag="li" exact>
             <img src="../assets/icon/menu-rank.png" alt="">
             <span>热词榜</span>
@@ -103,6 +107,34 @@
                 <tspan x="11" y="48">下</tspan>
                 <tspan x="11" y="73">热</tspan>
                 <tspan x="11" y="98">文</tspan>
+              </text>
+            </g>
+          </svg>
+        </div>
+        <div class="location-track" v-if="location === 'track'">
+          <svg width="92px" height="138px" viewBox="98 188 92 138" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+              <linearGradient x1="14.5595426%" y1="-2.34797445%" x2="89.9340931%" y2="100%" id="linearGradient-1">
+                <stop stop-color="#758DEC" offset="0%"></stop>
+                <stop stop-color="#71B5F5" offset="100%"></stop>
+              </linearGradient>
+              <polygon id="path-2" points="0 0 40 0 40 130 20 108.078947 0 130"></polygon>
+              <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+                <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+                <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+                <feColorMatrix values="0 0 0 0 0.463674532   0 0 0 0 0.463674532   0 0 0 0 0.463674532  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+              </filter>
+            </defs>
+            <g id="今日热词" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(102.000000, 190.000000)">
+              <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2" @click="showMenu()" style="cursor: pointer;"></use>
+              </g>
+              <text font-family="PingFangSC-Medium, PingFang SC" font-size="18" font-weight="400" line-spacing="25" letter-spacing="2.06500006" fill="#FFFFFF" @click="showMenu()" style="cursor: pointer;">
+                <tspan x="11" y="23">新</tspan>
+                <tspan x="11" y="48">闻</tspan>
+                <tspan x="11" y="73">追</tspan>
+                <tspan x="11" y="98">踪</tspan>
               </text>
             </g>
           </svg>

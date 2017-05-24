@@ -8,6 +8,7 @@ import user from './modules/user'
 import search from './modules/search'
 import color from './modules/color'
 import rank from './modules/rank'
+import track from './modules/track'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     user,
     search,
     rank,
+    track,
     color
   }
 })
