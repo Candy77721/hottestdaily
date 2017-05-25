@@ -51,8 +51,7 @@ export default {
         arr.push({
           'name': name,
           'type': 'line',
-          'data': graph.data,
-          // 'data': graph.data[index],
+          'data': graph.data[index],
           lineStyle: {
             normal: {
               width: 4
@@ -67,16 +66,16 @@ export default {
     getTime (graph) {
       const dateArr = []
       const date = new Date()
-      const interval = (graph.time[1] - graph.time[0]) / graph.name.length
+      const interval = (graph.time[1] - graph.time[0]) / (graph.name.length - 1)
       if (interval >= 86400) {
         // 间隔超过一天的显式到天
-        for (let i = 0; i <= graph.name.length; i++) {
+        for (let i = 0; i < graph.name.length; i++) {
           date.setTime((graph.time[0] + (interval * i)) * 1000)
           dateArr.push(`${date.getMonth() + 1}月${date.getDate()}日`)
         }
       } else {
         // 小于一天的显示到小时
-        for (let i = 0; i <= graph.name.length; i++) {
+        for (let i = 0; i < graph.name.length; i++) {
           date.setTime((graph.time[0] + (interval * i)) * 1000)
           dateArr.push(`${date.getMonth() + 1}月${date.getDate()}日${date.getHours()}时`)
         }

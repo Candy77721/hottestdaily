@@ -172,8 +172,8 @@ Mock
         'text': '@csentence(100)'
       }],
       'graph': {
-        'name': ['@cword(2,4)'],
-        'data|10': ['@integer(26, 100)'],
+        'name|5': ['@cword(2,4)'],
+        'data|5': [['@integer(26, 100)', '@integer(26, 100)', '@integer(26, 100)', '@integer(26, 100)', '@integer(26, 100)']],
         'time': [1493028294, 1493056294]
       }
     }]
