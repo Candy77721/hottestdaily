@@ -17,7 +17,6 @@ const routes = [{
   component: function (resolve) {
     require(['../pages/index.vue'], resolve)
   }
-  // component: Explore
 }, {
   path: '/news',
   name: 'news',
@@ -25,35 +24,36 @@ const routes = [{
   component: function (resolve) {
     require(['../pages/news.vue'], resolve)
   }
-  // component: News
 }, {
   path: '/news/:type',
   name: 'newsType',
   component: function (resolve) {
     require(['../pages/news.vue'], resolve)
   }
-  // component: News
 }, {
   path: '/rank',
   name: 'rank',
   component: function (resolve) {
     require(['../pages/rank.vue'], resolve)
   }
-  // component: Rank
 }, {
   path: '/track',
   name: 'track',
   component: function (resolve) {
     require(['../pages/track.vue'], resolve)
   }
-  // component: Rank
+}, {
+  path: '/map',
+  name: 'map',
+  component: function (resolve) {
+    require(['../pages/map.vue'], resolve)
+  }
 }, {
   path: '/search/:search',
   name: 'search',
   component: function (resolve) {
     require(['../pages/search.vue'], resolve)
   }
-  // component: Search
 }, {
   path: '/userhome',
   name: 'userHome',

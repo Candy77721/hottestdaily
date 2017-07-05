@@ -16,6 +16,9 @@ export const getRankGraph = 'api/getHotWords'
 // 新闻追踪
 export const getNewsTrack = 'api/newstrail'
 
+// 地图
+export const getMap = 'api/geodata'
+
 /* 用户 */
 // 用户登陆
 export const userLogin = 'accounts/login'

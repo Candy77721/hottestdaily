@@ -17,6 +17,7 @@ export default {
   },
   mounted () {
     axios.get(api.getNewsTrack)
+    // axios.get('https://raw.githubusercontent.com/954880786/Project_hot2/master/Django/static/trail.json')
       .then(res => {
         if (res.data.errorCode !== 0) {
           console.log(res.data.errorMsg)

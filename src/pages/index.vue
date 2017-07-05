@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="index-graph-out" :key="graphName">
+  <div class="index-graph-out" :key="graphName">
     <div class="index-graph" id="index-graph">
 
     </div>
@@ -13,19 +13,20 @@ export default {
   name: 'explore',
   data () {
     return {
-      url: [],
       graphName: 'index-graph'
     }
   },
   mounted () {
     const myChart = echarts.init(document.getElementById('index-graph'))
     // 'https://raw.githubusercontent.com/954880786/Project_hot2/master/PrepareJson/graph_index.json'
+    myChart.showLoading()
     axios.get(api.getIndexGraph)
       .then(res => {
         if (res.data.errorCode !== 0) {
           console.log(res.data)
           return
         }
+        myChart.hideLoading()
         const data = res.data.data
         myChart.setOption({
           title: {
@@ -134,5 +135,4 @@ export default {
   .index-graph
     width 1070px
     height 680px
-    background-color black
 </style>
