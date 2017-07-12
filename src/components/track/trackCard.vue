@@ -24,8 +24,7 @@ export default {
   name: 'trackCard',
   data () {
     return {
-      color: ['#739DF0', '#5CB8D5', '#48D7DE'],
-      lineColor: ['#2F80ED', '#2D9CDB', '#56CCF2', '#9B51E0', '#BB6BD9']
+      color: ['#739DF0', '#5CB8D5', '#48D7DE']
     }
   },
   props: ['news', 'index'],
@@ -46,9 +45,8 @@ export default {
     },
     // 构造数据
     getSeries (graph) {
-      const arr = []
-      graph.name.forEach((name, index) => {
-        arr.push({
+      const arr = graph.name.map((name, index) => {
+        const obj = {
           'name': name,
           'type': 'line',
           'data': graph.data[index],
@@ -57,25 +55,28 @@ export default {
               width: 4
             }
           }
-        })
+        }
+        if (name === '情感值') {
+          obj.lineStyle.normal.color = 'red'
+        }
+        return obj
       })
-
       return arr
     },
     // 构造时间——根据时间戳构造
     getTime (graph) {
       const dateArr = []
       const date = new Date()
-      const interval = (graph.time[1] - graph.time[0]) / (graph.name.length - 1)
+      const interval = (graph.time[1] - graph.time[0]) / (graph.data[0].length - 1)
       if (interval >= 86400) {
         // 间隔超过一天的显式到天
-        for (let i = 0; i < graph.name.length; i++) {
+        for (let i = 0; i < graph.data[0].length; i++) {
           date.setTime((graph.time[0] + (interval * i)) * 1000)
           dateArr.push(`${date.getMonth() + 1}月${date.getDate()}日`)
         }
       } else {
         // 小于一天的显示到小时
-        for (let i = 0; i < graph.name.length; i++) {
+        for (let i = 0; i < graph.data[0].length; i++) {
           date.setTime((graph.time[0] + (interval * i)) * 1000)
           dateArr.push(`${date.getMonth() + 1}月${date.getDate()}日${date.getHours()}时`)
         }
@@ -135,7 +136,7 @@ export default {
       justify-content space-around
       .time-card
         width 210px
-        height 240px
+        height 270px
         position relative
         background-color #F9F9F9
         border-radius 8px
@@ -174,7 +175,7 @@ export default {
           text-indent 32px
   .graph
     width 500px
-    height 380px
+    height 400px
     margin-left 15px
     margin-top 38px
 </style>

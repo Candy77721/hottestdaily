@@ -52,6 +52,4 @@ export default {
 .track
   width 1170px
   padding 50px 0 50px 40px
-
-
 </style>
