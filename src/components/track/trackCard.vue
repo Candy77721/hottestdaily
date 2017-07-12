@@ -58,6 +58,11 @@ export default {
         }
         if (name === '情感值') {
           obj.lineStyle.normal.color = 'red'
+          obj.itemStyle = {
+            normal: {
+              color: 'red'
+            }
+          }
         }
         return obj
       })
