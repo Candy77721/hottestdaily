@@ -7,7 +7,8 @@
 <script>
 import * as api from '../api/api'
 import { mapActions, mapGetters } from 'vuex'
-import TrackCard from '../components/track/trackCard.vue'
+// import TrackCard from '../components/track/trackCard.vue'
+import TrackCard from '../components/track/trackCard'
 
 export default {
   name: 'track',
