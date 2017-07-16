@@ -1,68 +1,3 @@
-<template lang="html">
-  <div class="news-card">
-    <a :href="news.url" @click="postTracking(news.title)" target="_blank">
-      <p class="title">{{news.title}}</p>
-    </a>
-    <div class="news-card-body">
-      <a :href="news.url" @click="postTracking(news.title)" target="_blank">
-        <p class="abstract">{{news.abstract}}</p>
-      </a>
-      <div class="keywords">
-        <span class="keyword" v-for="(keyword,index) in news.keywords" :style="{'background-color': keyColor[index]}">
-          {{keyword}}
-        </span>
-      </div>
-      <div class="hot-rect" :style="{ backgroundImage: getHotColor(news.hot)}">
-        <p class="hot">
-          {{`${news.hot}℃`}}
-        </p>
-      </div>
-    </div>
-  </div>
-</template>
-
-<script>
-import * as api from '../../api/api'
-import { mapGetters } from 'vuex'
-
-export default {
-  data: function () {
-    return {
-      keyColor: ['#82ABF9', '#6EB1EF', '#7ADCFC']
-    }
-  },
-  props: ['news'],
-  mounted () {
-    this.$nextTick(function () {
-      const elOffsetLeft = this.$el.offsetLeft
-      if (elOffsetLeft === 690 || elOffsetLeft === 370 || elOffsetLeft === 765) {
-        this.$el.style.marginLeft = '75px'
-      }
-    })
-  },
-  computed: {
-    ...mapGetters([
-      'getColor'
-    ])
-  },
-  methods: {
-    getHotColor (hot) {
-      return this.getColor[hot]
-    },
-    postTracking (data) {
-      axios.post(api.userInterestTracking, {
-        'data': data
-      })
-        .then(res => {})
-        .catch(error => {
-          console.log(error)
-        })
-    }
-  }
-}
-</script>
-
-<style lang="stylus" scoped>
 .news-card
   width 280px
   margin 20px 0
@@ -105,13 +40,6 @@ export default {
     -webkit-box-orient vertical
     overflow hidden
     word-break break-all/*在任何地方换行*/
-    // &:after
-    //   content:"..."
-    //   font-weight:bold
-    //   position:absolute
-    //   bottom:0
-    //   right:0
-    //   padding:0 20px 1px 45px
   .news-card-body
     width 215px
     display flex
@@ -156,4 +84,3 @@ export default {
         font-size 30px
         font-weight 700
         margin 0
-</style>

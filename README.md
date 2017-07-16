@@ -239,4 +239,4 @@
 ### 2017.7.16
 
 - 更新
-  - 将 `trackCard` 变为 jsx
+  - 将 `trackCard`、`newsCard` 变为 jsx

@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import NewsCard from '../components/news/newsCard.vue'
+import NewsCard from '../components/news/newsCard.js'
+// import NewsCard from '../components/news/newsCard.vue'
 import NewsGroup from '../components/news/newsGroup.vue'
 
 import * as api from '../api/api'
