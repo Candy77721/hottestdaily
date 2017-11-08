@@ -203,7 +203,7 @@
       <transition name="top-bar-slide-top">
         <nav class="news-type" v-if="newsGetShowTypes">
           <ul class="news-type-background">
-            <router-link v-for="type in newsGetAllTypes" :to="{name: 'newsType', params: { type: type.url }}" tag="li" exact>{{type.keyword}}</router-link>
+            <router-link v-for="type in newsGetAllTypes" :to="{name: 'newsType', params: { type: type.url }}" tag="li" :key="type.keyword" exact>{{type.keyword}}</router-link>
           </ul>
         </nav>
       </transition>

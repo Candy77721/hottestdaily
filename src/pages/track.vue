@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="track">
-    <TrackCard v-for="(news, index) in trackGetNews" :news="news" :index="index"></TrackCard>
+    <TrackCard v-for="(news, index) in trackGetNews" :news="news" :index="index" :key="index"></TrackCard>
   </div>
 </template>
 
