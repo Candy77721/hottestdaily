@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="news-list">
-    <component :is="getNewsOrGroup(news.type)" :news="news" v-for="news in newsGetNewsData"></component>
+    <component :is="getNewsOrGroup(news.type)" :news="news" v-for="news in newsGetNewsData" :key="news.title"></component>
   </div>
 </template>
 

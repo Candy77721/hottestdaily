@@ -5,7 +5,7 @@
     <div class="tips">
       相关新闻：
     </div>
-    <search-card :news="news" v-for="news in searchGetNews">
+    <search-card :news="news" v-for="news in searchGetNews" :key="news.title">
 
     </search-card>
   </div>
